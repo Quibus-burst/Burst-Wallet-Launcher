@@ -108,50 +108,14 @@ Public Class ProcessWorker
 
         'stopnrs
         RaiseEvent Update(1, 3, "") ' NRS stopping
-        NRS.ShutDown()
-        tmr = Now.AddSeconds(10)
-        Do
-            If Not NRS.IsRunning Then Exit Do
-            Thread.Sleep(500)
-            If tmr < Now Then Exit Do
-        Loop
-        'kill if still running
-        tmr = Now.AddSeconds(5)
-        If NRS.IsRunning Then
-            NRS.KillMe()
-            Do
-                If Not NRS.IsRunning Then Exit Do
-                Thread.Sleep(500)
-                If tmr < Now Then Exit Do
-            Loop
-        End If
-
+        NRS.ShutDown(10000, 5000)
         If Not NRS.IsRunning Then
             RaiseEvent Update(1, 0, "") ' NRS stopping
         End If
 
         'stopmaria
-
-
         RaiseEvent Update(0, 3, "")
-        Thread.Sleep(100)
-        Maria.ShutDown()
-        tmr = Now.AddSeconds(10)
-        Do
-            If Not Maria.IsRunning Then Exit Do
-            Thread.Sleep(500)
-            If tmr < Now Then Exit Do
-        Loop
-        'kill if still running
-        tmr = Now.AddSeconds(5)
-        If Maria.IsRunning Then
-            Maria.KillMe()
-            Do
-                If Not Maria.IsRunning Then Exit Do
-                Thread.Sleep(500)
-                If tmr < Now Then Exit Do
-            Loop
-        End If
+        Maria.ShutDown(10000, 5000)
         If Not Maria.IsRunning Then
             RaiseEvent Update(0, 0, "") ' NRS stopping
         End If
@@ -211,19 +175,16 @@ Public Class ProcessManager
     Private Declare Sub GenerateConsoleCtrlEvent Lib "kernel32" (ByVal dwCtrlEvent As Short, ByVal dwProcessGroupId As Short)
     Private Declare Function SetConsoleCtrlHandler Lib "kernel32" (Handler As ConsoleCtrlDelegate, Add As Boolean) As Boolean
     Private Declare Function FreeConsole Lib "kernel32" () As Boolean
-    Public Sub ShutDown()
-
-        'Sleep included. if moving to fast all crashes.
-        '
-        '
-
+    Public Sub ShutDown(ByVal SigIntSleep As Integer, ByVal SigKillSleep As Integer)
         Try
             AttachConsole(p.Id)
-            Thread.Sleep(10)
             SetConsoleCtrlHandler(New ConsoleCtrlDelegate(AddressOf OnExit), True)
-            Thread.Sleep(10)
             GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0)
-            Thread.Sleep(10)
+            p.WaitForExit(SigIntSleep) 'wait for exit before we release. if not we might get ourself terminated.
+            If Not p.HasExited Then
+                p.Kill()
+                p.WaitForExit(SigKillSleep)
+            End If
             FreeConsole()
         Catch ex As Exception
 
