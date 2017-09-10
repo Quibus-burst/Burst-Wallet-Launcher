@@ -21,3 +21,5 @@
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\Debug\BurstWalletLauncher.exe
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\Debug\BurstWalletLauncher.xml
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\Debug\BurstWalletLauncher.pdb
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\Debug\BurstWalletLauncher.frmUpdate.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\Debug\BurstWalletLauncher.frmSettings.resources

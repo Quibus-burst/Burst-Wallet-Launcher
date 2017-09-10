@@ -1,15 +1,15 @@
-﻿
-
-Public Class frmMain
+﻿Public Class frmMain
     Private Delegate Sub DUpdate(ByVal [Pid] As Integer, ByVal [Status] As Integer, ByVal [data] As String)
+    Private Delegate Sub DNewUpdatesAvilable(ByVal [data] As String)
     Private Delegate Sub DStarting()
     Private Delegate Sub DStoped()
+    Private WithEvents UpdateNotifer As clsUpdateNotifier
     Public Console(1) As String
-    Private WithEvents Pworker As ProcessWorker
-    Private Running As Boolean
-
-
-
+    Public WithEvents Pworker As ProcessWorker
+    Public Running As Boolean
+    Public Updateinfo As String
+    Public BaseDir As String
+    Public Repositories() As String
     Private Sub btnStartStop_Click(sender As Object, e As EventArgs) Handles btnStartStop.Click
 
         If Running Then
@@ -33,6 +33,29 @@ Public Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        BaseDir = Application.StartupPath
+        If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
+
+        ReDim Repositories(0)
+        Repositories(0) = "http://185.206.145.102/"
+
+        If My.Settings.FirstRun Then
+            If MsgBox("Would you like to turn on the feature to notify you of new updates?" & vbCrLf & " You will have the option to change this in settings later.", MsgBoxStyle.Information Or MsgBoxStyle.YesNo, "Settings") = MsgBoxResult.Yes Then
+                My.Settings.CheckForUpdates = True
+                My.Settings.FirstRun = False
+            Else
+                My.Settings.CheckForUpdates = False
+                My.Settings.FirstRun = False
+            End If
+            My.Settings.Save()
+        End If
+
+        UpdateNotifer = New clsUpdateNotifier
+        ReDim UpdateNotifer.Repos(UBound(Repositories))
+        Array.Copy(Repositories, UpdateNotifer.Repos, Repositories.Length)
+        If My.Settings.CheckForUpdates Then
+            UpdateNotifer.Start()
+        End If
     End Sub
 
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -95,7 +118,7 @@ Public Class frmMain
                 If Pid = 0 Then
                     LblMariaStatus.Text = "Stoped"
                     LblMariaStatus.ForeColor = Color.Red
-                    Running = False
+
                 End If
                 If Pid = 1 Then
                     lblNrsStatus.Text = "Stoped"
@@ -152,17 +175,41 @@ Public Class frmMain
                 Running = False
         End Select
 
-
-
-
     End Sub
 
     Private Sub btnConsole_Click(sender As Object, e As EventArgs) Handles btnConsole.Click
         frmConsole.Show()
-
     End Sub
 
     Private Sub lblGotoWallet_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblGotoWallet.LinkClicked
-        System.Diagnostics.Process.Start("http://localhost:8125")
+        Process.Start("http://localhost:8125")
+    End Sub
+
+    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
+
+        frmSettings.Show()
+    End Sub
+
+
+    Private Sub NewUpdatesAvilable(ByVal data As String) Handles UpdateNotifer.GetCompleate
+        If Me.InvokeRequired Then
+            Dim d As New DNewUpdatesAvilable(AddressOf NewUpdatesAvilable)
+            Me.Invoke(d, New Object() {data})
+            Return
+        End If
+        Try
+            'we have updates
+            lblShowUpdateNotification.Visible = True
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub lblShowUpdateNotification_Click(sender As Object, e As EventArgs) Handles lblShowUpdateNotification.Click
+        frmUpdate.Show()
+    End Sub
+
+    Private Sub CheckForUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdateToolStripMenuItem.Click
+        frmUpdate.Show()
     End Sub
 End Class

@@ -1,0 +1,39 @@
+﻿+ Added
+* Changed
+- Removed
+
+To Be done:
+Check that files like java and mysqld exist.
+Check if maria or java is running. (if from wallet location then offer to kill it.)
+check that port 8124-8126 is not used.
+If maria/mysql is running but not from wallet. offer to install sql template and use Credentials
+Implement more error handling.
+Maybe add feature to Export SQLdb for sharing.
+Maybe add feature for an automatic update function from some repository. Not whole bundle but parts.
+Maybe a GUI reconfigure for NRS settings.
+
+
+Notes:
+Launcher will check versions for updates. it will check launcher and mainversion.
+If there is a update for the main version it will
+check if there is a updater.
+check if updater is uptodate.
+if not it will ask to update the updater.
+when udated it will ask to launch it.
+
+When all is fine the update process is like this.
+If you choose to run the updater you will start the updater
+If you click on update we need to shutdown the wallet. How will this be done?
+
+
+V1.1
++ Update Function with mirrorpossibilities
++ Mirrorfunction for repositories
+* Fixed potential problem with Sigint that could cause launcer to close.
++ Menu
++ Statusbar
++ Settings window
+
+V1.0
++Gui
++Processmanager
