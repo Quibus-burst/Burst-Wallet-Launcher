@@ -18,6 +18,18 @@
             btnStartStop.Enabled = False
             Pworker.Quit()
         Else
+
+            Dim systemcheck As New clsSystemCheck
+            systemcheck.CheckSystem()
+            If Not systemcheck.AllServicesOk Then
+                Dim Msg As String = ""
+                For t As Integer = 0 To UBound(systemcheck.Service)
+                    If systemcheck.Service(t).Status = False Then Msg &= systemcheck.Service(t).Note & vbCrLf
+                Next
+                MsgBox(Msg, MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Cannot start.")
+                Exit Sub
+            End If
+
             Dim Mylocation = Application.StartupPath
             If Not Mylocation.EndsWith("\") Then Mylocation &= "\"
             Pworker = New ProcessWorker
@@ -36,8 +48,7 @@
         BaseDir = Application.StartupPath
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
 
-        ReDim Repositories(0)
-        Repositories(0) = "http://185.206.145.102/"
+
 
         If My.Settings.FirstRun Then
             If MsgBox("Would you like to turn on the feature to notify you of new updates?" & vbCrLf & " You will have the option to change this in settings later.", MsgBoxStyle.Information Or MsgBoxStyle.YesNo, "Settings") = MsgBoxResult.Yes Then
@@ -51,11 +62,13 @@
         End If
 
         UpdateNotifer = New clsUpdateNotifier
-        ReDim UpdateNotifer.Repos(UBound(Repositories))
-        Array.Copy(Repositories, UpdateNotifer.Repos, Repositories.Length)
         If My.Settings.CheckForUpdates Then
             UpdateNotifer.Start()
         End If
+
+
+
+
     End Sub
 
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing

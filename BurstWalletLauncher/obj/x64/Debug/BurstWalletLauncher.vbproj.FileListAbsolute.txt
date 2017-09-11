@@ -1,0 +1,13 @@
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\bin\x64\Debug\BurstWalletLauncher.exe.config
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\bin\x64\Debug\BurstWalletLauncher.exe
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\bin\x64\Debug\BurstWalletLauncher.pdb
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\bin\x64\Debug\BurstWalletLauncher.xml
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.frmConsole.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.frmMain.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.frmSettings.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.frmUpdate.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.Resources.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.vbproj.GenerateResource.Cache
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.exe
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.xml
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.pdb

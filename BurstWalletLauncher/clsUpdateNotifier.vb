@@ -4,7 +4,7 @@ Public Class clsUpdateNotifier
     Public Event GetCompleate(ByVal Data As String)
     Private Working As Boolean
     Private _quit As Boolean
-    Public Repos() As String
+    ' Public Repos() As String
     Sub New()
         Working = False
     End Sub

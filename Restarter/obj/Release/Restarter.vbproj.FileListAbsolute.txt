@@ -1,0 +1,11 @@
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\bin\Release\Restarter.exe.config
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\bin\Release\Restarter.exe
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\bin\Release\Restarter.pdb
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\bin\Release\Restarter.xml
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Release\Restarter.vbprojResolveAssemblyReference.cache
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Release\Restarter.frmRestart.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Release\Restarter.Resources.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Release\Restarter.vbproj.GenerateResource.Cache
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Release\Restarter.exe
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Release\Restarter.xml
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Release\Restarter.pdb
