@@ -49,7 +49,7 @@
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
 
 
-
+        '   frmFirstTime.Show() only for debug
         If My.Settings.FirstRun Then
             If MsgBox("Would you like to turn on the feature to notify you of new updates?" & vbCrLf & " You will have the option to change this in settings later.", MsgBoxStyle.Information Or MsgBoxStyle.YesNo, "Settings") = MsgBoxResult.Yes Then
                 My.Settings.CheckForUpdates = True
@@ -106,9 +106,9 @@
         End If
         'threadsafe here
 
-        LblMariaStatus.Text = "Stoped"
+        LblMariaStatus.Text = "Stopped"
         LblMariaStatus.ForeColor = Color.Red
-        lblNrsStatus.Text = "Stoped"
+        lblNrsStatus.Text = "Stopped"
         lblNrsStatus.ForeColor = Color.Red
 
         btnStartStop.Text = "Start Wallet"
@@ -129,12 +129,12 @@
         Select Case Status
             Case 0 'Stoped
                 If Pid = 0 Then
-                    LblMariaStatus.Text = "Stoped"
+                    LblMariaStatus.Text = "Stopped"
                     LblMariaStatus.ForeColor = Color.Red
 
                 End If
                 If Pid = 1 Then
-                    lblNrsStatus.Text = "Stoped"
+                    lblNrsStatus.Text = "Stopped"
                     lblNrsStatus.ForeColor = Color.Red
                 End If
             Case 1 'Starting
@@ -198,11 +198,6 @@
         Process.Start("http://localhost:8125")
     End Sub
 
-    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
-
-        frmSettings.Show()
-    End Sub
-
 
     Private Sub NewUpdatesAvilable(ByVal data As String) Handles UpdateNotifer.GetCompleate
         If Me.InvokeRequired Then
@@ -224,5 +219,10 @@
 
     Private Sub CheckForUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdateToolStripMenuItem.Click
         frmUpdate.Show()
+    End Sub
+
+    Private Sub WalletLauncherSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WalletLauncherSettingsToolStripMenuItem.Click
+        frmSettings.Show()
+
     End Sub
 End Class

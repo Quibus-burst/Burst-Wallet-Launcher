@@ -5,6 +5,7 @@ Public Class clsSystemCheck
         Public Service As String
         Public Status As Boolean
         Public Note As String
+        Public Path As String
     End Structure
 
     Public Service() As StrucService
@@ -21,15 +22,52 @@ Public Class clsSystemCheck
         Service(2).Status = False
         Service(3).Service = "NRS Ports"
         Service(3).Status = False
+        _basedir = Application.StartupPath
+        If Not _basedir.EndsWith("\") Then _basedir &= "\"
+    End Sub
+
+    Public Sub CheckInstall()
+
+        'find java in system
+        'if not check if portable is downloaded
+
+
+        Try
+            Dim p As New Process
+            Dim result As String = ""
+
+            p.StartInfo.RedirectStandardError = True
+            p.StartInfo.RedirectStandardOutput = True
+            p.StartInfo.UseShellExecute = False
+            p.StartInfo.CreateNoWindow = True
+            p.StartInfo.FileName = "java"
+            p.StartInfo.Arguments = "-d64 -showversion"
+            p.Start()
+            p.WaitForExit()
+            result = LCase(p.StandardError.ReadLine())
+            If result <> "" Then
+                If LCase(result).Contains("java version") Then
+                    result = result.Replace("java version", "")
+                    result = result.Replace(" ", "")
+                    result = result.Replace(Chr(34), "")
+                    MsgBox(result)
+                    MsgBox(CheckVersion("1.8", result, False))
+                End If
+            End If
+            p.Dispose()
+            p.Dispose()
+        Catch ex As Exception
+
+        End Try
+
+
 
     End Sub
 
+
     Public Sub CheckSystem()
 
-        _basedir = Application.StartupPath
-        If Not _basedir.EndsWith("\") Then _basedir &= "\"
-
-        CheckJava()
+        FindJava()
         CheckMariaDB()
         CheckMariaPort()
         CheckNRSPorts()
@@ -40,7 +78,7 @@ Public Class clsSystemCheck
         Next
 
     End Sub
-    Private Function CheckJava() As Boolean
+    Private Function FindJava() As Boolean
 
         'check java portable
         If IO.File.Exists(_basedir & "Java\bin\java.exe") Then
@@ -84,7 +122,7 @@ Public Class clsSystemCheck
         For t As Integer = 8124 To 8126
             If CheckPorts(t) Then
                 Service(3).Status = False
-                Service(3).Note = "Port " & CStr(t) & " seams to be used by another service. or you already have a wallet running."
+                Service(3).Note = "Port " & CStr(t) & " seams to be used by another service. You may already have a wallet running."
                 Exit For
             End If
         Next
@@ -106,7 +144,41 @@ Public Class clsSystemCheck
         End Try
         Return popen
     End Function
+    Public Function CheckVersion(ByVal MinVersion As String, ByVal NewVersion As String, ByVal OnlyNew As Boolean) As Boolean
+        'replace strange chars and make an array
+        MinVersion = MinVersion.Replace("_", ".")
+        Dim mver() As String = Split(MinVersion, ".")
 
+        NewVersion = NewVersion.Replace("_", ".")
+        Dim nver() As String = Split(NewVersion, ".")
+
+        If nver.Length <> mver.Length Then
+            If nver.Length > mver.Length Then
+                ReDim Preserve mver(UBound(nver))
+            Else
+                ReDim Preserve nver(UBound(mver))
+            End If
+        End If
+
+        Dim vheight As Integer = 1 '0=lower '1 same version '2 bigger
+        For t As Integer = 0 To UBound(mver)
+            If Val(nver(t)) > Val(mver(t)) Then
+                vheight = 2
+                Exit For
+            ElseIf nver(t) < mver(t) Then
+                vheight = 0
+                Exit For
+            End If
+        Next
+        Dim result As Boolean = False
+        If OnlyNew Then
+            If vheight = 2 Then result = True
+        Else
+            If vheight <> 0 Then result = True
+        End If
+
+        Return result
+    End Function
 
 
 End Class

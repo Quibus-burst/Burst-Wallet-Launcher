@@ -34,10 +34,16 @@ Partial Class frmMain
         Me.btnConsole = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckForUpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SettingsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WalletLauncherSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.NRSSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.JavaSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MariaDBSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lblShowUpdateNotification = New System.Windows.Forms.ToolStripStatusLabel()
@@ -78,9 +84,9 @@ Partial Class frmMain
         Me.lblNrsStatus.ForeColor = System.Drawing.Color.Red
         Me.lblNrsStatus.Location = New System.Drawing.Point(79, 47)
         Me.lblNrsStatus.Name = "lblNrsStatus"
-        Me.lblNrsStatus.Size = New System.Drawing.Size(47, 13)
+        Me.lblNrsStatus.Size = New System.Drawing.Size(54, 13)
         Me.lblNrsStatus.TabIndex = 3
-        Me.lblNrsStatus.Text = "Stoped"
+        Me.lblNrsStatus.Text = "Stopped"
         '
         'Label3
         '
@@ -99,9 +105,9 @@ Partial Class frmMain
         Me.LblMariaStatus.ForeColor = System.Drawing.Color.Red
         Me.LblMariaStatus.Location = New System.Drawing.Point(79, 30)
         Me.LblMariaStatus.Name = "LblMariaStatus"
-        Me.LblMariaStatus.Size = New System.Drawing.Size(47, 13)
+        Me.LblMariaStatus.Size = New System.Drawing.Size(54, 13)
         Me.LblMariaStatus.TabIndex = 1
-        Me.LblMariaStatus.Text = "Stoped"
+        Me.LblMariaStatus.Text = "Stopped"
         '
         'Label1
         '
@@ -144,7 +150,7 @@ Partial Class frmMain
         'MenuStrip1
         '
         Me.MenuStrip1.BackColor = System.Drawing.Color.White
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SettingsToolStripMenuItem1, Me.AboutToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(489, 24)
@@ -153,16 +159,10 @@ Partial Class frmMain
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SettingsToolStripMenuItem, Me.CheckForUpdateToolStripMenuItem, Me.ToolStripMenuItem1, Me.ExitToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheckForUpdateToolStripMenuItem, Me.ToolStripMenuItem1, Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
-        '
-        'SettingsToolStripMenuItem
-        '
-        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
-        Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'CheckForUpdateToolStripMenuItem
         '
@@ -180,6 +180,50 @@ Partial Class frmMain
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
         Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(165, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'SettingsToolStripMenuItem1
+        '
+        Me.SettingsToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NRSSettingsToolStripMenuItem, Me.JavaSettingsToolStripMenuItem, Me.MariaDBSettingsToolStripMenuItem, Me.WalletLauncherSettingsToolStripMenuItem})
+        Me.SettingsToolStripMenuItem1.Name = "SettingsToolStripMenuItem1"
+        Me.SettingsToolStripMenuItem1.Size = New System.Drawing.Size(39, 20)
+        Me.SettingsToolStripMenuItem1.Text = "Edit"
+        '
+        'WalletLauncherSettingsToolStripMenuItem
+        '
+        Me.WalletLauncherSettingsToolStripMenuItem.Name = "WalletLauncherSettingsToolStripMenuItem"
+        Me.WalletLauncherSettingsToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
+        Me.WalletLauncherSettingsToolStripMenuItem.Text = "Wallet Launcher Settings"
+        '
+        'NRSSettingsToolStripMenuItem
+        '
+        Me.NRSSettingsToolStripMenuItem.Name = "NRSSettingsToolStripMenuItem"
+        Me.NRSSettingsToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
+        Me.NRSSettingsToolStripMenuItem.Text = "NRS Settings"
+        '
+        'JavaSettingsToolStripMenuItem
+        '
+        Me.JavaSettingsToolStripMenuItem.Name = "JavaSettingsToolStripMenuItem"
+        Me.JavaSettingsToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
+        Me.JavaSettingsToolStripMenuItem.Text = "Java Settings"
+        '
+        'MariaDBSettingsToolStripMenuItem
+        '
+        Me.MariaDBSettingsToolStripMenuItem.Name = "MariaDBSettingsToolStripMenuItem"
+        Me.MariaDBSettingsToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
+        Me.MariaDBSettingsToolStripMenuItem.Text = "Maria DB settings"
+        '
+        'AboutToolStripMenuItem
+        '
+        Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem1})
+        Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
+        Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem.Text = "About"
+        '
+        'AboutToolStripMenuItem1
+        '
+        Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.AboutToolStripMenuItem1.Text = "About"
         '
         'StatusStrip1
         '
@@ -224,7 +268,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Burstcoin CG wallet launcher v1.2"
+        Me.Text = "Burstcoin wallet launcher v1.2"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
@@ -249,9 +293,15 @@ Partial Class frmMain
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StatusStrip1 As StatusStrip
     Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents CheckForUpdateToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents lblShowUpdateNotification As ToolStripStatusLabel
+    Friend WithEvents SettingsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents WalletLauncherSettingsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents NRSSettingsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents JavaSettingsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MariaDBSettingsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AboutToolStripMenuItem1 As ToolStripMenuItem
 End Class
