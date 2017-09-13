@@ -22,8 +22,8 @@ Partial Class frmFirstTime
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim Panel1 As System.Windows.Forms.Panel
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.pnlWiz1 = New System.Windows.Forms.Panel()
+        Me.btnNext = New System.Windows.Forms.Button()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.P3 = New System.Windows.Forms.Panel()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -39,14 +39,17 @@ Partial Class frmFirstTime
         Me.r1 = New System.Windows.Forms.RadioButton()
         Me.frmHeader = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.pblogo = New System.Windows.Forms.PictureBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.PnlWiz2 = New System.Windows.Forms.Panel()
+        Me.lblStatusInfo = New System.Windows.Forms.Label()
+        Me.Pb1 = New System.Windows.Forms.ProgressBar()
+        Me.lblStatus = New System.Windows.Forms.Label()
+        Me.btnBack = New System.Windows.Forms.Button()
+        Me.btnDownload = New System.Windows.Forms.Button()
+        Me.pnlMaria = New System.Windows.Forms.Panel()
         Me.pnlMariaSettings = New System.Windows.Forms.Panel()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
@@ -58,47 +61,46 @@ Partial Class frmFirstTime
         Me.Label15 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
+        Me.lblDbHeader = New System.Windows.Forms.Label()
         Me.lblMariaStatus = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.pnlJava = New System.Windows.Forms.Panel()
         Me.lblJavaStatus = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Panel1 = New System.Windows.Forms.Panel()
-        Panel1.SuspendLayout()
+        Me.lblJavaHeader = New System.Windows.Forms.Label()
+        Me.btnDone = New System.Windows.Forms.Button()
+        Me.pnlWiz1.SuspendLayout()
         Me.P3.SuspendLayout()
         Me.P2.SuspendLayout()
         Me.P1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel2.SuspendLayout()
-        Me.Panel4.SuspendLayout()
+        CType(Me.pblogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PnlWiz2.SuspendLayout()
+        Me.pnlMaria.SuspendLayout()
         Me.pnlMariaSettings.SuspendLayout()
-        Me.Panel3.SuspendLayout()
+        Me.pnlJava.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Panel1
+        'pnlWiz1
         '
-        Panel1.Controls.Add(Me.Button1)
-        Panel1.Controls.Add(Me.CheckBox1)
-        Panel1.Controls.Add(Me.P3)
-        Panel1.Controls.Add(Me.P2)
-        Panel1.Controls.Add(Me.P1)
-        Panel1.Controls.Add(Me.frmHeader)
-        Panel1.Location = New System.Drawing.Point(238, -1)
-        Panel1.Name = "Panel1"
-        Panel1.Size = New System.Drawing.Size(420, 367)
-        Panel1.TabIndex = 11
+        Me.pnlWiz1.Controls.Add(Me.btnNext)
+        Me.pnlWiz1.Controls.Add(Me.CheckBox1)
+        Me.pnlWiz1.Controls.Add(Me.P3)
+        Me.pnlWiz1.Controls.Add(Me.P2)
+        Me.pnlWiz1.Controls.Add(Me.P1)
+        Me.pnlWiz1.Controls.Add(Me.frmHeader)
+        Me.pnlWiz1.Location = New System.Drawing.Point(238, -1)
+        Me.pnlWiz1.Name = "pnlWiz1"
+        Me.pnlWiz1.Size = New System.Drawing.Size(420, 367)
+        Me.pnlWiz1.TabIndex = 11
         '
-        'Button1
+        'btnNext
         '
-        Me.Button1.Location = New System.Drawing.Point(308, 325)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(104, 31)
-        Me.Button1.TabIndex = 12
-        Me.Button1.Text = "Continue >>"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnNext.Location = New System.Drawing.Point(308, 325)
+        Me.btnNext.Name = "btnNext"
+        Me.btnNext.Size = New System.Drawing.Size(104, 31)
+        Me.btnNext.TabIndex = 12
+        Me.btnNext.Text = "Continue >>"
+        Me.btnNext.UseVisualStyleBackColor = True
         '
         'CheckBox1
         '
@@ -258,16 +260,16 @@ Partial Class frmFirstTime
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
-        'PictureBox2
+        'pblogo
         '
-        Me.PictureBox2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.PictureBox2.Image = Global.BurstWalletLauncher.My.Resources.Resources.BurstLogo
-        Me.PictureBox2.Location = New System.Drawing.Point(42, 59)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(135, 135)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 7
-        Me.PictureBox2.TabStop = False
+        Me.pblogo.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.pblogo.Image = Global.BurstWalletLauncher.My.Resources.Resources.BurstLogo
+        Me.pblogo.Location = New System.Drawing.Point(42, 59)
+        Me.pblogo.Name = "pblogo"
+        Me.pblogo.Size = New System.Drawing.Size(135, 135)
+        Me.pblogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.pblogo.TabIndex = 7
+        Me.pblogo.TabStop = False
         '
         'Label7
         '
@@ -301,49 +303,80 @@ Partial Class frmFirstTime
         Me.Label9.TabIndex = 10
         Me.Label9.Text = "Welcome to Burstcoin"
         '
-        'Panel2
+        'PnlWiz2
         '
-        Me.Panel2.Controls.Add(Me.Button4)
-        Me.Panel2.Controls.Add(Me.Button3)
-        Me.Panel2.Controls.Add(Me.Panel4)
-        Me.Panel2.Controls.Add(Me.Label12)
-        Me.Panel2.Controls.Add(Me.Panel3)
-        Me.Panel2.Controls.Add(Me.Button2)
-        Me.Panel2.Location = New System.Drawing.Point(664, -1)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(420, 367)
-        Me.Panel2.TabIndex = 12
+        Me.PnlWiz2.Controls.Add(Me.lblStatusInfo)
+        Me.PnlWiz2.Controls.Add(Me.Pb1)
+        Me.PnlWiz2.Controls.Add(Me.lblStatus)
+        Me.PnlWiz2.Controls.Add(Me.btnBack)
+        Me.PnlWiz2.Controls.Add(Me.btnDownload)
+        Me.PnlWiz2.Controls.Add(Me.pnlMaria)
+        Me.PnlWiz2.Controls.Add(Me.Label12)
+        Me.PnlWiz2.Controls.Add(Me.pnlJava)
+        Me.PnlWiz2.Controls.Add(Me.btnDone)
+        Me.PnlWiz2.Location = New System.Drawing.Point(664, -1)
+        Me.PnlWiz2.Name = "PnlWiz2"
+        Me.PnlWiz2.Size = New System.Drawing.Size(420, 367)
+        Me.PnlWiz2.TabIndex = 12
         '
-        'Button4
+        'lblStatusInfo
         '
-        Me.Button4.Location = New System.Drawing.Point(244, 325)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(81, 31)
-        Me.Button4.TabIndex = 17
-        Me.Button4.Text = "<< Back"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.lblStatusInfo.AutoSize = True
+        Me.lblStatusInfo.Location = New System.Drawing.Point(56, 288)
+        Me.lblStatusInfo.Name = "lblStatusInfo"
+        Me.lblStatusInfo.Size = New System.Drawing.Size(116, 13)
+        Me.lblStatusInfo.TabIndex = 20
+        Me.lblStatusInfo.Text = "Extracting Java Portble"
+        Me.lblStatusInfo.Visible = False
         '
-        'Button3
+        'Pb1
         '
-        Me.Button3.Location = New System.Drawing.Point(244, 288)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(168, 31)
-        Me.Button3.TabIndex = 16
-        Me.Button3.Text = "Download Missing components"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.Pb1.Location = New System.Drawing.Point(20, 304)
+        Me.Pb1.Name = "Pb1"
+        Me.Pb1.Size = New System.Drawing.Size(205, 15)
+        Me.Pb1.TabIndex = 19
+        Me.Pb1.Visible = False
         '
-        'Panel4
+        'lblStatus
         '
-        Me.Panel4.BackColor = System.Drawing.Color.LightCoral
-        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel4.Controls.Add(Me.pnlMariaSettings)
-        Me.Panel4.Controls.Add(Me.Label14)
-        Me.Panel4.Controls.Add(Me.lblMariaStatus)
-        Me.Panel4.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Panel4.Location = New System.Drawing.Point(9, 117)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(403, 157)
-        Me.Panel4.TabIndex = 15
+        Me.lblStatus.AutoSize = True
+        Me.lblStatus.Location = New System.Drawing.Point(17, 288)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(40, 13)
+        Me.lblStatus.TabIndex = 18
+        Me.lblStatus.Text = "Status:"
+        Me.lblStatus.Visible = False
+        '
+        'btnBack
+        '
+        Me.btnBack.Location = New System.Drawing.Point(244, 325)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(81, 31)
+        Me.btnBack.TabIndex = 17
+        Me.btnBack.Text = "<< Back"
+        Me.btnBack.UseVisualStyleBackColor = True
+        '
+        'btnDownload
+        '
+        Me.btnDownload.Location = New System.Drawing.Point(244, 288)
+        Me.btnDownload.Name = "btnDownload"
+        Me.btnDownload.Size = New System.Drawing.Size(168, 31)
+        Me.btnDownload.TabIndex = 16
+        Me.btnDownload.Text = "Download missing components"
+        Me.btnDownload.UseVisualStyleBackColor = True
+        '
+        'pnlMaria
+        '
+        Me.pnlMaria.BackColor = System.Drawing.Color.LightCoral
+        Me.pnlMaria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlMaria.Controls.Add(Me.pnlMariaSettings)
+        Me.pnlMaria.Controls.Add(Me.lblDbHeader)
+        Me.pnlMaria.Controls.Add(Me.lblMariaStatus)
+        Me.pnlMaria.Cursor = System.Windows.Forms.Cursors.Default
+        Me.pnlMaria.Location = New System.Drawing.Point(9, 117)
+        Me.pnlMaria.Name = "pnlMaria"
+        Me.pnlMaria.Size = New System.Drawing.Size(403, 157)
+        Me.pnlMaria.TabIndex = 15
         '
         'pnlMariaSettings
         '
@@ -368,7 +401,7 @@ Partial Class frmFirstTime
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(117, 24)
         Me.Button5.TabIndex = 4
-        Me.Button5.Text = "Test connection"
+        Me.Button5.Text = "Validate"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'TextBox4
@@ -449,15 +482,15 @@ Partial Class frmFirstTime
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "Server address:"
         '
-        'Label14
+        'lblDbHeader
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(7, 12)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(55, 13)
-        Me.Label14.TabIndex = 2
-        Me.Label14.Text = "MariaDB"
+        Me.lblDbHeader.AutoSize = True
+        Me.lblDbHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDbHeader.Location = New System.Drawing.Point(7, 12)
+        Me.lblDbHeader.Name = "lblDbHeader"
+        Me.lblDbHeader.Size = New System.Drawing.Size(55, 13)
+        Me.lblDbHeader.TabIndex = 2
+        Me.lblDbHeader.Text = "MariaDB"
         '
         'lblMariaStatus
         '
@@ -478,17 +511,17 @@ Partial Class frmFirstTime
         Me.Label12.TabIndex = 14
         Me.Label12.Text = "Verifying settings."
         '
-        'Panel3
+        'pnlJava
         '
-        Me.Panel3.BackColor = System.Drawing.Color.PaleGreen
-        Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel3.Controls.Add(Me.lblJavaStatus)
-        Me.Panel3.Controls.Add(Me.Label11)
-        Me.Panel3.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Panel3.Location = New System.Drawing.Point(9, 46)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(403, 65)
-        Me.Panel3.TabIndex = 13
+        Me.pnlJava.BackColor = System.Drawing.Color.PaleGreen
+        Me.pnlJava.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlJava.Controls.Add(Me.lblJavaStatus)
+        Me.pnlJava.Controls.Add(Me.lblJavaHeader)
+        Me.pnlJava.Cursor = System.Windows.Forms.Cursors.Default
+        Me.pnlJava.Location = New System.Drawing.Point(9, 46)
+        Me.pnlJava.Name = "pnlJava"
+        Me.pnlJava.Size = New System.Drawing.Size(403, 65)
+        Me.pnlJava.TabIndex = 13
         '
         'lblJavaStatus
         '
@@ -499,45 +532,45 @@ Partial Class frmFirstTime
         Me.lblJavaStatus.TabIndex = 3
         Me.lblJavaStatus.Text = "Java was found installed on your system."
         '
-        'Label11
+        'lblJavaHeader
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(7, 12)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(34, 13)
-        Me.Label11.TabIndex = 2
-        Me.Label11.Text = "Java"
+        Me.lblJavaHeader.AutoSize = True
+        Me.lblJavaHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblJavaHeader.Location = New System.Drawing.Point(7, 12)
+        Me.lblJavaHeader.Name = "lblJavaHeader"
+        Me.lblJavaHeader.Size = New System.Drawing.Size(34, 13)
+        Me.lblJavaHeader.TabIndex = 2
+        Me.lblJavaHeader.Text = "Java"
         '
-        'Button2
+        'btnDone
         '
-        Me.Button2.Location = New System.Drawing.Point(331, 325)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(81, 31)
-        Me.Button2.TabIndex = 12
-        Me.Button2.Text = "Done"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnDone.Location = New System.Drawing.Point(331, 325)
+        Me.btnDone.Name = "btnDone"
+        Me.btnDone.Size = New System.Drawing.Size(81, 31)
+        Me.btnDone.TabIndex = 12
+        Me.btnDone.Text = "Done"
+        Me.btnDone.UseVisualStyleBackColor = True
         '
         'frmFirstTime
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(658, 367)
-        Me.Controls.Add(Me.Panel2)
-        Me.Controls.Add(Panel1)
+        Me.ClientSize = New System.Drawing.Size(1184, 412)
+        Me.Controls.Add(Me.PnlWiz2)
+        Me.Controls.Add(Me.pnlWiz1)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.PictureBox2)
+        Me.Controls.Add(Me.pblogo)
         Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
         Me.Name = "frmFirstTime"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "First Time"
-        Panel1.ResumeLayout(False)
-        Panel1.PerformLayout()
+        Me.pnlWiz1.ResumeLayout(False)
+        Me.pnlWiz1.PerformLayout()
         Me.P3.ResumeLayout(False)
         Me.P3.PerformLayout()
         Me.P2.ResumeLayout(False)
@@ -545,26 +578,26 @@ Partial Class frmFirstTime
         Me.P1.ResumeLayout(False)
         Me.P1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
+        CType(Me.pblogo, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PnlWiz2.ResumeLayout(False)
+        Me.PnlWiz2.PerformLayout()
+        Me.pnlMaria.ResumeLayout(False)
+        Me.pnlMaria.PerformLayout()
         Me.pnlMariaSettings.ResumeLayout(False)
         Me.pnlMariaSettings.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
+        Me.pnlJava.ResumeLayout(False)
+        Me.pnlJava.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents pblogo As PictureBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents btnNext As Button
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents P3 As Panel
     Friend WithEvents Label6 As Label
@@ -579,10 +612,10 @@ Partial Class frmFirstTime
     Friend WithEvents Label1 As Label
     Friend WithEvents r1 As RadioButton
     Friend WithEvents frmHeader As Label
-    Friend WithEvents Panel2 As Panel
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Panel4 As Panel
+    Friend WithEvents PnlWiz2 As Panel
+    Friend WithEvents btnBack As Button
+    Friend WithEvents btnDownload As Button
+    Friend WithEvents pnlMaria As Panel
     Friend WithEvents pnlMariaSettings As Panel
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents Label17 As Label
@@ -592,13 +625,17 @@ Partial Class frmFirstTime
     Friend WithEvents Label15 As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label13 As Label
-    Friend WithEvents Label14 As Label
+    Friend WithEvents lblDbHeader As Label
     Friend WithEvents Label12 As Label
-    Friend WithEvents Panel3 As Panel
+    Friend WithEvents pnlJava As Panel
     Friend WithEvents lblJavaStatus As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents Button2 As Button
+    Friend WithEvents lblJavaHeader As Label
+    Friend WithEvents btnDone As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents lblMariaStatus As Label
+    Friend WithEvents pnlWiz1 As Panel
+    Friend WithEvents lblStatusInfo As Label
+    Friend WithEvents Pb1 As ProgressBar
+    Friend WithEvents lblStatus As Label
 End Class

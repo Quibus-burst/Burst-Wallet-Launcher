@@ -49,7 +49,7 @@
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
 
 
-        '   frmFirstTime.Show() only for debug
+        frmFirstTime.Show() 'only for debug
         If My.Settings.FirstRun Then
             If MsgBox("Would you like to turn on the feature to notify you of new updates?" & vbCrLf & " You will have the option to change this in settings later.", MsgBoxStyle.Information Or MsgBoxStyle.YesNo, "Settings") = MsgBoxResult.Yes Then
                 My.Settings.CheckForUpdates = True

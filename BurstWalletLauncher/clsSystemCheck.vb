@@ -1,11 +1,15 @@
 ﻿Imports System.Net.Sockets
 Public Class clsSystemCheck
+    Public Event Done()
+
+
 
     Structure StrucService
         Public Service As String
         Public Status As Boolean
         Public Note As String
-        Public Path As String
+        Public Path As String 'If portable then relative
+        Public InstallType As Integer '0=portable '1=Installed
     End Structure
 
     Public Service() As StrucService
@@ -28,14 +32,34 @@ Public Class clsSystemCheck
 
     Public Sub CheckInstall()
 
-        'find java in system
-        'if not check if portable is downloaded
+        If CheckSystemJava() Then
+            Service(0).Status = True
+            Service(0).Path = "java"
+            Service(0).Note = "Java was found installed."
+            Service(0).InstallType = 1
+        ElseIf FindJava() Then
+            Service(0).Status = True
+            Service(0).Path = _basedir & "Java\bin\java.exe"
+            Service(0).Note = "Java portable was found."
+            Service(0).InstallType = 0
+        Else
+            Service(0).Status = False
+            Service(0).Note = "Java could not be found in your system"
+        End If
+        If CheckMariaDB() Then
+            Service(1).Status = True
+            Service(1).Path = _basedir & "MariaDb\bin\mysqld.exe"
+            Service(1).Note = "MariaDB Portable was found."
+            Service(1).InstallType = 0
+        End If
 
+    End Sub
 
+    Public Function CheckSystemJava() As Boolean
+        Dim JavaFound As Boolean = False
         Try
             Dim p As New Process
             Dim result As String = ""
-
             p.StartInfo.RedirectStandardError = True
             p.StartInfo.RedirectStandardOutput = True
             p.StartInfo.UseShellExecute = False
@@ -49,9 +73,8 @@ Public Class clsSystemCheck
                 If LCase(result).Contains("java version") Then
                     result = result.Replace("java version", "")
                     result = result.Replace(" ", "")
-                    result = result.Replace(Chr(34), "")
-                    MsgBox(result)
-                    MsgBox(CheckVersion("1.8", result, False))
+                    result = Trim(result.Replace(Chr(34), ""))
+                    JavaFound = CheckVersion("1.8", result, False)
                 End If
             End If
             p.Dispose()
@@ -59,12 +82,8 @@ Public Class clsSystemCheck
         Catch ex As Exception
 
         End Try
-
-
-
-    End Sub
-
-
+        Return JavaFound
+    End Function
     Public Sub CheckSystem()
 
         FindJava()
@@ -78,31 +97,37 @@ Public Class clsSystemCheck
         Next
 
     End Sub
-    Private Function FindJava() As Boolean
+    Private Function FindJava(Optional ByVal path As String = "") As Boolean
+        If path = "" Then path = _basedir & "Java\bin\java.exe"
 
         'check java portable
-        If IO.File.Exists(_basedir & "Java\bin\java.exe") Then
+        If IO.File.Exists(path) Then
             Service(0).Status = True
             Service(0).Note = "Found"
+            Return True
         Else
             Service(0).Status = False
             Service(0).Note = "Java package is missing from the bundle."
+            Return False
         End If
-        Return True
+
     End Function
-    Private Function CheckMariaDB() As Boolean
+    Private Function CheckMariaDB(Optional ByVal path As String = "") As Boolean
+        'default download location
+        If path = "" Then path = _basedir & "MariaDb\bin\mysqld.exe"
+
         Try
-            If IO.File.Exists(_basedir & "MariaDb\bin\mysqld.exe") Then
+            If IO.File.Exists(path) Then
                 Service(1).Status = True
                 Service(1).Note = "Found"
             Else
                 Service(1).Status = False
-                Service(1).Note = "Maria DB package is missing from the bundle."
+                Service(1).Note = "Maria DB is not found."
             End If
         Catch ex As Exception
 
         End Try
-        Return True
+        Return Service(1).Status
     End Function
     Private Sub CheckMariaPort()
         If CheckPorts(3306) Then
@@ -112,13 +137,10 @@ Public Class clsSystemCheck
             Service(2).Status = True
             Service(2).Note = "No Maria/Mysql found running."
         End If
-
     End Sub
     Private Sub CheckNRSPorts()
-
         Service(3).Status = True
         Service(3).Note = "No NRS found running."
-
         For t As Integer = 8124 To 8126
             If CheckPorts(t) Then
                 Service(3).Status = False
@@ -126,10 +148,8 @@ Public Class clsSystemCheck
                 Exit For
             End If
         Next
-
     End Sub
     Private Function CheckPorts(ByVal port As Integer) As Boolean
-
         Dim popen As Boolean = False
         Dim Client As New TcpClient
         Try
@@ -145,7 +165,7 @@ Public Class clsSystemCheck
         Return popen
     End Function
     Public Function CheckVersion(ByVal MinVersion As String, ByVal NewVersion As String, ByVal OnlyNew As Boolean) As Boolean
-        'replace strange chars and make an array
+
         MinVersion = MinVersion.Replace("_", ".")
         Dim mver() As String = Split(MinVersion, ".")
 
@@ -160,7 +180,7 @@ Public Class clsSystemCheck
             End If
         End If
 
-        Dim vheight As Integer = 1 '0=lower '1 same version '2 bigger
+        Dim vheight As Integer = 1 '0=lower version '1 same version '2 newer version
         For t As Integer = 0 To UBound(mver)
             If Val(nver(t)) > Val(mver(t)) Then
                 vheight = 2
