@@ -4,22 +4,21 @@
 ~dev edition
 
 To Be done:
-Check if maria or java is running. (if from wallet location then offer to kill it.)
 If maria/mysql is running but not from wallet. offer to install sql template and use Credentials
 Implement more error handling.
-Maybe add feature to Export SQLdb for sharing.(lets see after next NRS release.)
+Add support for quicksyncing DB
 Change update system to Core and component update system
-Add feature to change settings for wallet / java / mariadb.
 Add feature to download other types of components.
 Setting to minimize to tray(?)
-
+Add system/environment sanity check at wallet start.
+Refactor this mess.
 
 ~V1.2
-+added check that java and mariadb exists. 
-+added checks that ports are not already used.
 * Corrected spelling error.
 +Added gui for first time setup
-
++Added support for multiple databases
++Added individual components download at start.
++Added Contributors
 
 
 V1.1

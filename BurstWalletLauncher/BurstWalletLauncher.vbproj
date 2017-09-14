@@ -143,6 +143,12 @@
     <Compile Include="frmConsole.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmContributors.Designer.vb">
+      <DependentUpon>frmContributors.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmContributors.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmFirstTime.Designer.vb">
       <DependentUpon>frmFirstTime.vb</DependentUpon>
     </Compile>
@@ -189,6 +195,9 @@
     <EmbeddedResource Include="frmConsole.resx">
       <DependentUpon>frmConsole.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmContributors.resx">
+      <DependentUpon>frmContributors.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmFirstTime.resx">
       <DependentUpon>frmFirstTime.vb</DependentUpon>
     </EmbeddedResource>
@@ -224,8 +233,11 @@
   <ItemGroup>
     <Content Include="burstlogo.ico" />
     <Content Include="Changelog.txt" />
-    <None Include="Resources\LOGOBLUEm-1.png" />
-    <None Include="Resources\BurstLogo.png" />
+    <None Include="Resources\vps_168_57.jpg" />
+    <None Include="Resources\gb.png" />
+    <None Include="Resources\vps.png" />
+    <None Include="Resources\Cryptoguru.png" />
+    <None Include="Resources\burstlogo.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

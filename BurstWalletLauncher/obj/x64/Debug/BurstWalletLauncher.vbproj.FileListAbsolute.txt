@@ -13,3 +13,4 @@
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.pdb
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.vbprojResolveAssemblyReference.cache
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.frmFirstTime.resources
+\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\BurstWalletLauncher\obj\x64\Debug\BurstWalletLauncher.frmContributors.resources

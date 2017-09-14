@@ -1,6 +1,5 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.Threading
-
 Public Class ProcessWorker
     Public Event Update(ByVal Pid As Integer, ByVal Status As Integer, ByVal Data As String) 'fires when compleytly done
     Public Event Stoped()
@@ -10,17 +9,23 @@ Public Class ProcessWorker
     Private WithEvents Maria As ProcessManager
     Private _quit As Boolean
     Public MyLocation As String
-
+    Public UseMaria As Boolean
+    Public UseJavaP As Boolean
     Public Sub Start()
-        Maria = New ProcessManager
-        Maria.AppToStart = MyLocation & "MariaDb\bin\mysqld.exe"
-        Maria.WorkingDirectory = MyLocation & "MariaDb\bin\"
-        Maria.Arguments = "--console"
-        Maria.StartSignal = "ready for connections."
-
+        If UseMaria Then
+            Maria = New ProcessManager
+            Maria.AppToStart = MyLocation & "MariaDb\bin\mysqld.exe"
+            Maria.WorkingDirectory = MyLocation & "MariaDb\bin\"
+            Maria.Arguments = "--console"
+            Maria.StartSignal = "ready for connections."
+        End If
         'nrs service
         NRS = New ProcessManager
-        NRS.AppToStart = MyLocation & "Java\bin\java.exe"
+        If UseJavaP Then
+            NRS.AppToStart = MyLocation & "Java\bin\java.exe"
+        Else
+            NRS.AppToStart = "java" 'system environment has the path.
+        End If
         NRS.WorkingDirectory = MyLocation
         NRS.Arguments = "-cp burst.jar;lib\*;conf nxt.Nxt"
         NRS.StartSignal = "Started API server at 127.0.0.1:8125"
@@ -49,24 +54,23 @@ Public Class ProcessWorker
         ' #############################################
         '  Starting Processes
         ' #############################################
-
-        'Throw("StartingMaria")
         RaiseEvent Starting()
-        RaiseEvent Update(0, 1, "") ' maria starting
-        Maria.Start()
-        tmr = Now.AddMinutes(1)
-        Do
-            If Maria.IsRunning Then Exit Do
-            Thread.Sleep(500)
-            If tmr < Now Then
-                RaiseEvent Update(0, 10, "")
-                RaiseEvent Stoped()
-                Exit Sub
-            End If
-        Loop
+        If UseMaria Then
+            RaiseEvent Update(0, 1, "") ' maria starting
+            Maria.Start()
+            tmr = Now.AddMinutes(1)
+            Do
+                If Maria.IsRunning Then Exit Do
+                Thread.Sleep(500)
+                If tmr < Now Then
+                    RaiseEvent Update(0, 10, "")
+                    RaiseEvent Stoped()
+                    Exit Sub
+                End If
+            Loop
 
-        RaiseEvent Update(0, 2, "") ' maria running
-
+            RaiseEvent Update(0, 2, "") ' maria running
+        End If
         RaiseEvent Update(1, 1, "") ' nrs starting
         NRS.Start()
         tmr = Now.AddMinutes(1)
@@ -78,9 +82,8 @@ Public Class ProcessWorker
                 RaiseEvent Stoped()
                 Exit Sub
             End If
-
         Loop
-        'Throw("NRS is running")
+
         RaiseEvent Update(1, 2, "")
         ' #############################################
         '  Monitoring Processes
@@ -88,7 +91,7 @@ Public Class ProcessWorker
 
         Do
             Thread.Sleep(500)
-            If Not Maria.IsRunning Then
+            If Not Maria.IsRunning And UseMaria Then
                 RaiseEvent Update(0, 0, "") 'Maria not running
             End If
 
@@ -98,8 +101,6 @@ Public Class ProcessWorker
             'we have exit signal
             If _quit Then Exit Do
         Loop
-
-
 
         ' #############################################
         '  Stoping Processes
@@ -114,20 +115,21 @@ Public Class ProcessWorker
         End If
 
         'stopmaria
-        RaiseEvent Update(0, 3, "")
-        Maria.ShutDown(10000, 5000)
-        If Not Maria.IsRunning Then
-            RaiseEvent Update(0, 0, "") ' NRS stopping
+        If UseMaria Then
+            RaiseEvent Update(0, 3, "")
+            Maria.ShutDown(10000, 5000)
+            If Not Maria.IsRunning Then
+                RaiseEvent Update(0, 0, "") ' NRS stopping
+            End If
+
+            Try
+                Maria.Cleanup()
+                Maria = Nothing
+
+            Catch ex As Exception
+
+            End Try
         End If
-
-        Try
-            Maria.Cleanup()
-            Maria = Nothing
-
-        Catch ex As Exception
-
-        End Try
-
         Try
             NRS.Cleanup()
             NRS = Nothing

@@ -27,29 +27,36 @@ Partial Class frmMain
         Me.lblGotoWallet = New System.Windows.Forms.LinkLabel()
         Me.lblNrsStatus = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.LblMariaStatus = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.LblDbStatus = New System.Windows.Forms.Label()
+        Me.lblDbName = New System.Windows.Forms.Label()
         Me.btnStartStop = New System.Windows.Forms.Button()
         Me.btnConsole = New System.Windows.Forms.Button()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ExitToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AboutToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ContributorsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckForUpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SettingsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.WalletLauncherSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NRSSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.JavaSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MariaDBSettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lblShowUpdateNotification = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -57,9 +64,9 @@ Partial Class frmMain
         Me.GroupBox1.Controls.Add(Me.lblGotoWallet)
         Me.GroupBox1.Controls.Add(Me.lblNrsStatus)
         Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.LblMariaStatus)
-        Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(303, 30)
+        Me.GroupBox1.Controls.Add(Me.LblDbStatus)
+        Me.GroupBox1.Controls.Add(Me.lblDbName)
+        Me.GroupBox1.Location = New System.Drawing.Point(297, 27)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(165, 91)
         Me.GroupBox1.TabIndex = 0
@@ -69,7 +76,7 @@ Partial Class frmMain
         'lblGotoWallet
         '
         Me.lblGotoWallet.AutoSize = True
-        Me.lblGotoWallet.Location = New System.Drawing.Point(35, 67)
+        Me.lblGotoWallet.Location = New System.Drawing.Point(35, 61)
         Me.lblGotoWallet.Name = "lblGotoWallet"
         Me.lblGotoWallet.Size = New System.Drawing.Size(91, 13)
         Me.lblGotoWallet.TabIndex = 4
@@ -82,7 +89,7 @@ Partial Class frmMain
         Me.lblNrsStatus.AutoSize = True
         Me.lblNrsStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNrsStatus.ForeColor = System.Drawing.Color.Red
-        Me.lblNrsStatus.Location = New System.Drawing.Point(79, 47)
+        Me.lblNrsStatus.Location = New System.Drawing.Point(79, 41)
         Me.lblNrsStatus.Name = "lblNrsStatus"
         Me.lblNrsStatus.Size = New System.Drawing.Size(54, 13)
         Me.lblNrsStatus.TabIndex = 3
@@ -92,46 +99,36 @@ Partial Class frmMain
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(23, 47)
+        Me.Label3.Location = New System.Drawing.Point(17, 41)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(33, 13)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "NRS:"
         '
-        'LblMariaStatus
+        'LblDbStatus
         '
-        Me.LblMariaStatus.AutoSize = True
-        Me.LblMariaStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblMariaStatus.ForeColor = System.Drawing.Color.Red
-        Me.LblMariaStatus.Location = New System.Drawing.Point(79, 30)
-        Me.LblMariaStatus.Name = "LblMariaStatus"
-        Me.LblMariaStatus.Size = New System.Drawing.Size(54, 13)
-        Me.LblMariaStatus.TabIndex = 1
-        Me.LblMariaStatus.Text = "Stopped"
+        Me.LblDbStatus.AutoSize = True
+        Me.LblDbStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblDbStatus.ForeColor = System.Drawing.Color.Green
+        Me.LblDbStatus.Location = New System.Drawing.Point(79, 24)
+        Me.LblDbStatus.Name = "LblDbStatus"
+        Me.LblDbStatus.Size = New System.Drawing.Size(59, 13)
+        Me.LblDbStatus.TabIndex = 1
+        Me.LblDbStatus.Text = "Embeded"
         '
-        'Label1
+        'lblDbName
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(23, 30)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(51, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "Maria db:"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Rockwell", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(26, 38)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(249, 21)
-        Me.Label5.TabIndex = 1
-        Me.Label5.Text = "Burstcoin wallet cg-bundle"
+        Me.lblDbName.AutoSize = True
+        Me.lblDbName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDbName.Location = New System.Drawing.Point(17, 24)
+        Me.lblDbName.Name = "lblDbName"
+        Me.lblDbName.Size = New System.Drawing.Size(44, 13)
+        Me.lblDbName.TabIndex = 0
+        Me.lblDbName.Text = "Firebird:"
         '
         'btnStartStop
         '
-        Me.btnStartStop.Location = New System.Drawing.Point(25, 76)
+        Me.btnStartStop.Location = New System.Drawing.Point(25, 88)
         Me.btnStartStop.Name = "btnStartStop"
         Me.btnStartStop.Size = New System.Drawing.Size(123, 30)
         Me.btnStartStop.TabIndex = 2
@@ -140,7 +137,7 @@ Partial Class frmMain
         '
         'btnConsole
         '
-        Me.btnConsole.Location = New System.Drawing.Point(149, 76)
+        Me.btnConsole.Location = New System.Drawing.Point(154, 88)
         Me.btnConsole.Name = "btnConsole"
         Me.btnConsole.Size = New System.Drawing.Size(123, 30)
         Me.btnConsole.TabIndex = 3
@@ -150,12 +147,62 @@ Partial Class frmMain
         'MenuStrip1
         '
         Me.MenuStrip1.BackColor = System.Drawing.Color.White
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.SettingsToolStripMenuItem1, Me.AboutToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem1, Me.EditToolStripMenuItem, Me.AboutToolStripMenuItem2})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(489, 24)
         Me.MenuStrip1.TabIndex = 4
         Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'FileToolStripMenuItem1
+        '
+        Me.FileToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheckForUpdatesToolStripMenuItem, Me.ToolStripMenuItem2, Me.ExitToolStripMenuItem1})
+        Me.FileToolStripMenuItem1.Name = "FileToolStripMenuItem1"
+        Me.FileToolStripMenuItem1.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem1.Text = "File"
+        '
+        'CheckForUpdatesToolStripMenuItem
+        '
+        Me.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem"
+        Me.CheckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
+        Me.CheckForUpdatesToolStripMenuItem.Text = "Check for updates"
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(167, 6)
+        '
+        'ExitToolStripMenuItem1
+        '
+        Me.ExitToolStripMenuItem1.Name = "ExitToolStripMenuItem1"
+        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(170, 22)
+        Me.ExitToolStripMenuItem1.Text = "Exit"
+        '
+        'EditToolStripMenuItem
+        '
+        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SettingsToolStripMenuItem})
+        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
+        Me.EditToolStripMenuItem.Text = "Edit"
+        '
+        'SettingsToolStripMenuItem
+        '
+        Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.SettingsToolStripMenuItem.Text = "Settings"
+        '
+        'AboutToolStripMenuItem2
+        '
+        Me.AboutToolStripMenuItem2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContributorsToolStripMenuItem})
+        Me.AboutToolStripMenuItem2.Name = "AboutToolStripMenuItem2"
+        Me.AboutToolStripMenuItem2.Size = New System.Drawing.Size(52, 20)
+        Me.AboutToolStripMenuItem2.Text = "About"
+        '
+        'ContributorsToolStripMenuItem
+        '
+        Me.ContributorsToolStripMenuItem.Name = "ContributorsToolStripMenuItem"
+        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(141, 22)
+        Me.ContributorsToolStripMenuItem.Text = "Contributors"
         '
         'FileToolStripMenuItem
         '
@@ -183,7 +230,7 @@ Partial Class frmMain
         '
         'SettingsToolStripMenuItem1
         '
-        Me.SettingsToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NRSSettingsToolStripMenuItem, Me.JavaSettingsToolStripMenuItem, Me.MariaDBSettingsToolStripMenuItem, Me.WalletLauncherSettingsToolStripMenuItem})
+        Me.SettingsToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.WalletLauncherSettingsToolStripMenuItem})
         Me.SettingsToolStripMenuItem1.Name = "SettingsToolStripMenuItem1"
         Me.SettingsToolStripMenuItem1.Size = New System.Drawing.Size(39, 20)
         Me.SettingsToolStripMenuItem1.Text = "Edit"
@@ -191,30 +238,11 @@ Partial Class frmMain
         'WalletLauncherSettingsToolStripMenuItem
         '
         Me.WalletLauncherSettingsToolStripMenuItem.Name = "WalletLauncherSettingsToolStripMenuItem"
-        Me.WalletLauncherSettingsToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
-        Me.WalletLauncherSettingsToolStripMenuItem.Text = "Wallet Launcher Settings"
-        '
-        'NRSSettingsToolStripMenuItem
-        '
-        Me.NRSSettingsToolStripMenuItem.Name = "NRSSettingsToolStripMenuItem"
-        Me.NRSSettingsToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
-        Me.NRSSettingsToolStripMenuItem.Text = "NRS Settings"
-        '
-        'JavaSettingsToolStripMenuItem
-        '
-        Me.JavaSettingsToolStripMenuItem.Name = "JavaSettingsToolStripMenuItem"
-        Me.JavaSettingsToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
-        Me.JavaSettingsToolStripMenuItem.Text = "Java Settings"
-        '
-        'MariaDBSettingsToolStripMenuItem
-        '
-        Me.MariaDBSettingsToolStripMenuItem.Name = "MariaDBSettingsToolStripMenuItem"
-        Me.MariaDBSettingsToolStripMenuItem.Size = New System.Drawing.Size(204, 22)
-        Me.MariaDBSettingsToolStripMenuItem.Text = "Maria DB settings"
+        Me.WalletLauncherSettingsToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.WalletLauncherSettingsToolStripMenuItem.Text = "Settings"
         '
         'AboutToolStripMenuItem
         '
-        Me.AboutToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AboutToolStripMenuItem1})
         Me.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem"
         Me.AboutToolStripMenuItem.Size = New System.Drawing.Size(52, 20)
         Me.AboutToolStripMenuItem.Text = "About"
@@ -223,32 +251,50 @@ Partial Class frmMain
         '
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
         Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
-        Me.AboutToolStripMenuItem1.Text = "About"
+        Me.AboutToolStripMenuItem1.Text = "Contributors"
         '
         'StatusStrip1
         '
         Me.StatusStrip1.BackColor = System.Drawing.Color.White
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel2, Me.lblShowUpdateNotification})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblShowUpdateNotification})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 132)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(489, 22)
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
         '
+        'lblShowUpdateNotification
+        '
+        Me.lblShowUpdateNotification.ForeColor = System.Drawing.Color.Red
+        Me.lblShowUpdateNotification.Name = "lblShowUpdateNotification"
+        Me.lblShowUpdateNotification.Size = New System.Drawing.Size(284, 17)
+        Me.lblShowUpdateNotification.Text = "There are updates available. Click here for more info."
+        '
         'ToolStripStatusLabel2
         '
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
         Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(0, 17)
         '
-        'lblShowUpdateNotification
+        'Label2
         '
-        Me.lblShowUpdateNotification.ForeColor = System.Drawing.Color.Red
-        Me.lblShowUpdateNotification.IsLink = True
-        Me.lblShowUpdateNotification.LinkColor = System.Drawing.Color.Red
-        Me.lblShowUpdateNotification.Name = "lblShowUpdateNotification"
-        Me.lblShowUpdateNotification.Size = New System.Drawing.Size(260, 17)
-        Me.lblShowUpdateNotification.Text = "There are new updates. Click here for more info."
-        Me.lblShowUpdateNotification.Visible = False
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Rockwell", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(21, 41)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(182, 23)
+        Me.Label2.TabIndex = 7
+        Me.Label2.Text = "Burst wallet v1.3.6"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.InitialImage = Nothing
+        Me.PictureBox1.Location = New System.Drawing.Point(217, 29)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(60, 50)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 6
+        Me.PictureBox1.TabStop = False
         '
         'frmMain
         '
@@ -256,10 +302,11 @@ Partial Class frmMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(489, 154)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.btnConsole)
         Me.Controls.Add(Me.btnStartStop)
-        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -275,6 +322,7 @@ Partial Class frmMain
         Me.MenuStrip1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -283,9 +331,8 @@ Partial Class frmMain
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents lblNrsStatus As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents LblMariaStatus As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label5 As Label
+    Friend WithEvents LblDbStatus As Label
+    Friend WithEvents lblDbName As Label
     Friend WithEvents btnStartStop As Button
     Friend WithEvents btnConsole As Button
     Friend WithEvents lblGotoWallet As LinkLabel
@@ -296,12 +343,19 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem1 As ToolStripSeparator
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents CheckForUpdateToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents lblShowUpdateNotification As ToolStripStatusLabel
     Friend WithEvents SettingsToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents WalletLauncherSettingsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents NRSSettingsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents JavaSettingsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents MariaDBSettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents FileToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents CheckForUpdatesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem2 As ToolStripSeparator
+    Friend WithEvents ExitToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents EditToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SettingsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AboutToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents ContributorsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents lblShowUpdateNotification As ToolStripStatusLabel
 End Class

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmFirstTime
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,11 +20,12 @@ Partial Class frmFirstTime
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFirstTime))
         Me.pnlWiz1 = New System.Windows.Forms.Panel()
         Me.btnNext = New System.Windows.Forms.Button()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.chkUpdates = New System.Windows.Forms.CheckBox()
         Me.P3 = New System.Windows.Forms.Panel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -39,7 +40,6 @@ Partial Class frmFirstTime
         Me.r1 = New System.Windows.Forms.RadioButton()
         Me.frmHeader = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.pblogo = New System.Windows.Forms.PictureBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -52,14 +52,14 @@ Partial Class frmFirstTime
         Me.pnlMaria = New System.Windows.Forms.Panel()
         Me.pnlMariaSettings = New System.Windows.Forms.Panel()
         Me.Button5 = New System.Windows.Forms.Button()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.txtDbPass = New System.Windows.Forms.TextBox()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.txtDbUser = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtDbName = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtDbAddress = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.lblDbHeader = New System.Windows.Forms.Label()
         Me.lblMariaStatus = New System.Windows.Forms.Label()
@@ -68,22 +68,23 @@ Partial Class frmFirstTime
         Me.lblJavaStatus = New System.Windows.Forms.Label()
         Me.lblJavaHeader = New System.Windows.Forms.Label()
         Me.btnDone = New System.Windows.Forms.Button()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.pnlWiz1.SuspendLayout()
         Me.P3.SuspendLayout()
         Me.P2.SuspendLayout()
         Me.P1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pblogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlWiz2.SuspendLayout()
         Me.pnlMaria.SuspendLayout()
         Me.pnlMariaSettings.SuspendLayout()
         Me.pnlJava.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlWiz1
         '
         Me.pnlWiz1.Controls.Add(Me.btnNext)
-        Me.pnlWiz1.Controls.Add(Me.CheckBox1)
+        Me.pnlWiz1.Controls.Add(Me.chkUpdates)
         Me.pnlWiz1.Controls.Add(Me.P3)
         Me.pnlWiz1.Controls.Add(Me.P2)
         Me.pnlWiz1.Controls.Add(Me.P1)
@@ -102,17 +103,17 @@ Partial Class frmFirstTime
         Me.btnNext.Text = "Continue >>"
         Me.btnNext.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'chkUpdates
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Checked = True
-        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Location = New System.Drawing.Point(16, 333)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(173, 17)
-        Me.CheckBox1.TabIndex = 11
-        Me.CheckBox1.Text = "Turn on notification of updates."
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.chkUpdates.AutoSize = True
+        Me.chkUpdates.Checked = True
+        Me.chkUpdates.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkUpdates.Location = New System.Drawing.Point(16, 333)
+        Me.chkUpdates.Name = "chkUpdates"
+        Me.chkUpdates.Size = New System.Drawing.Size(199, 17)
+        Me.chkUpdates.TabIndex = 11
+        Me.chkUpdates.Text = "Turn on software update notification."
+        Me.chkUpdates.UseVisualStyleBackColor = True
         '
         'P3
         '
@@ -260,17 +261,6 @@ Partial Class frmFirstTime
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
-        'pblogo
-        '
-        Me.pblogo.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.pblogo.Image = Global.BurstWalletLauncher.My.Resources.Resources.BurstLogo
-        Me.pblogo.Location = New System.Drawing.Point(42, 59)
-        Me.pblogo.Name = "pblogo"
-        Me.pblogo.Size = New System.Drawing.Size(135, 135)
-        Me.pblogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.pblogo.TabIndex = 7
-        Me.pblogo.TabStop = False
-        '
         'Label7
         '
         Me.Label7.AutoSize = True
@@ -381,14 +371,14 @@ Partial Class frmFirstTime
         'pnlMariaSettings
         '
         Me.pnlMariaSettings.Controls.Add(Me.Button5)
-        Me.pnlMariaSettings.Controls.Add(Me.TextBox4)
+        Me.pnlMariaSettings.Controls.Add(Me.txtDbPass)
         Me.pnlMariaSettings.Controls.Add(Me.CheckBox2)
         Me.pnlMariaSettings.Controls.Add(Me.Label17)
-        Me.pnlMariaSettings.Controls.Add(Me.TextBox3)
+        Me.pnlMariaSettings.Controls.Add(Me.txtDbUser)
         Me.pnlMariaSettings.Controls.Add(Me.Label16)
-        Me.pnlMariaSettings.Controls.Add(Me.TextBox2)
+        Me.pnlMariaSettings.Controls.Add(Me.txtDbName)
         Me.pnlMariaSettings.Controls.Add(Me.Label15)
-        Me.pnlMariaSettings.Controls.Add(Me.TextBox1)
+        Me.pnlMariaSettings.Controls.Add(Me.txtDbAddress)
         Me.pnlMariaSettings.Controls.Add(Me.Label13)
         Me.pnlMariaSettings.Location = New System.Drawing.Point(10, 28)
         Me.pnlMariaSettings.Name = "pnlMariaSettings"
@@ -404,12 +394,12 @@ Partial Class frmFirstTime
         Me.Button5.Text = "Validate"
         Me.Button5.UseVisualStyleBackColor = True
         '
-        'TextBox4
+        'txtDbPass
         '
-        Me.TextBox4.Location = New System.Drawing.Point(96, 69)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(231, 20)
-        Me.TextBox4.TabIndex = 7
+        Me.txtDbPass.Location = New System.Drawing.Point(96, 69)
+        Me.txtDbPass.Name = "txtDbPass"
+        Me.txtDbPass.Size = New System.Drawing.Size(231, 20)
+        Me.txtDbPass.TabIndex = 7
         '
         'CheckBox2
         '
@@ -432,12 +422,12 @@ Partial Class frmFirstTime
         Me.Label17.TabIndex = 6
         Me.Label17.Text = "Password:"
         '
-        'TextBox3
+        'txtDbUser
         '
-        Me.TextBox3.Location = New System.Drawing.Point(96, 48)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(231, 20)
-        Me.TextBox3.TabIndex = 5
+        Me.txtDbUser.Location = New System.Drawing.Point(96, 48)
+        Me.txtDbUser.Name = "txtDbUser"
+        Me.txtDbUser.Size = New System.Drawing.Size(231, 20)
+        Me.txtDbUser.TabIndex = 5
         '
         'Label16
         '
@@ -448,13 +438,13 @@ Partial Class frmFirstTime
         Me.Label16.TabIndex = 4
         Me.Label16.Text = "Database:"
         '
-        'TextBox2
+        'txtDbName
         '
-        Me.TextBox2.Location = New System.Drawing.Point(96, 27)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(231, 20)
-        Me.TextBox2.TabIndex = 3
-        Me.TextBox2.Text = "burstwallet"
+        Me.txtDbName.Location = New System.Drawing.Point(96, 27)
+        Me.txtDbName.Name = "txtDbName"
+        Me.txtDbName.Size = New System.Drawing.Size(231, 20)
+        Me.txtDbName.TabIndex = 3
+        Me.txtDbName.Text = "burstwallet"
         '
         'Label15
         '
@@ -465,13 +455,13 @@ Partial Class frmFirstTime
         Me.Label15.TabIndex = 2
         Me.Label15.Text = "Username:"
         '
-        'TextBox1
+        'txtDbAddress
         '
-        Me.TextBox1.Location = New System.Drawing.Point(96, 6)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(231, 20)
-        Me.TextBox1.TabIndex = 1
-        Me.TextBox1.Text = "127.0.0.1:3306"
+        Me.txtDbAddress.Location = New System.Drawing.Point(96, 6)
+        Me.txtDbAddress.Name = "txtDbAddress"
+        Me.txtDbAddress.Size = New System.Drawing.Size(231, 20)
+        Me.txtDbAddress.TabIndex = 1
+        Me.txtDbAddress.Text = "127.0.0.1:3306"
         '
         'Label13
         '
@@ -507,9 +497,9 @@ Partial Class frmFirstTime
         Me.Label12.Font = New System.Drawing.Font("Rockwell", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.Location = New System.Drawing.Point(15, 12)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(216, 27)
+        Me.Label12.Size = New System.Drawing.Size(276, 27)
         Me.Label12.TabIndex = 14
-        Me.Label12.Text = "Verifying settings."
+        Me.Label12.Text = "Checking environment."
         '
         'pnlJava
         '
@@ -551,18 +541,29 @@ Partial Class frmFirstTime
         Me.btnDone.Text = "Done"
         Me.btnDone.UseVisualStyleBackColor = True
         '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.Location = New System.Drawing.Point(51, 58)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(114, 140)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 13
+        Me.PictureBox2.TabStop = False
+        '
         'frmFirstTime
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1184, 412)
+        Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PnlWiz2)
         Me.Controls.Add(Me.pnlWiz1)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.pblogo)
         Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.MaximizeBox = False
@@ -578,7 +579,6 @@ Partial Class frmFirstTime
         Me.P1.ResumeLayout(False)
         Me.P1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pblogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlWiz2.ResumeLayout(False)
         Me.PnlWiz2.PerformLayout()
         Me.pnlMaria.ResumeLayout(False)
@@ -587,18 +587,18 @@ Partial Class frmFirstTime
         Me.pnlMariaSettings.PerformLayout()
         Me.pnlJava.ResumeLayout(False)
         Me.pnlJava.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents PictureBox1 As PictureBox
-    Friend WithEvents pblogo As PictureBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label9 As Label
     Friend WithEvents btnNext As Button
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents chkUpdates As CheckBox
     Friend WithEvents P3 As Panel
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
@@ -617,13 +617,13 @@ Partial Class frmFirstTime
     Friend WithEvents btnDownload As Button
     Friend WithEvents pnlMaria As Panel
     Friend WithEvents pnlMariaSettings As Panel
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents txtDbPass As TextBox
     Friend WithEvents Label17 As Label
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents txtDbUser As TextBox
     Friend WithEvents Label16 As Label
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents txtDbName As TextBox
     Friend WithEvents Label15 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtDbAddress As TextBox
     Friend WithEvents Label13 As Label
     Friend WithEvents lblDbHeader As Label
     Friend WithEvents Label12 As Label
@@ -638,4 +638,5 @@ Partial Class frmFirstTime
     Friend WithEvents lblStatusInfo As Label
     Friend WithEvents Pb1 As ProgressBar
     Friend WithEvents lblStatus As Label
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

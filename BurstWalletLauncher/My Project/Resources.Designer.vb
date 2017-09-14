@@ -63,9 +63,49 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property BurstLogo() As System.Drawing.Bitmap
+        Friend ReadOnly Property burstlogo() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("BurstLogo", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("burstlogo", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Cryptoguru() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Cryptoguru", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property gb() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("gb", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property vps() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vps", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property vps_168_57() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vps_168_57", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

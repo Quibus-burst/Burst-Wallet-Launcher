@@ -8,4 +8,3 @@
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Debug\Restarter.exe
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Debug\Restarter.xml
 \\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Debug\Restarter.pdb
-\\192.168.0.50\Nickes\Git\BurstWalletLauncher\Burst-Wallet-Launcher\Restarter\obj\Debug\Restarter.vbprojResolveAssemblyReference.cache

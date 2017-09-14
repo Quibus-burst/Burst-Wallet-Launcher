@@ -22,7 +22,27 @@ BurstWalletLauncher
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
-<member name="P:BurstWalletLauncher.My.Resources.Resources.BurstLogo">
+<member name="P:BurstWalletLauncher.My.Resources.Resources.burstlogo">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:BurstWalletLauncher.My.Resources.Resources.Cryptoguru">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:BurstWalletLauncher.My.Resources.Resources.gb">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:BurstWalletLauncher.My.Resources.Resources.vps">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:BurstWalletLauncher.My.Resources.Resources.vps_168_57">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>

@@ -8,5 +8,26 @@
     <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="DbType" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DbName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">burstwallet</Value>
+    </Setting>
+    <Setting Name="DbUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">burstwallet</Value>
+    </Setting>
+    <Setting Name="DbPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">burstwallet</Value>
+    </Setting>
+    <Setting Name="DbServer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost:3306</Value>
+    </Setting>
+    <Setting Name="JavaType" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="JavaLaunch" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-d64</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

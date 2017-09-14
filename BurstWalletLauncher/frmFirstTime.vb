@@ -235,4 +235,59 @@
 
     End Sub
 
+    Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
+        My.Settings.DbType = SelectedDBType
+        My.Settings.JavaType = Scheck.Service(1).InstallType 'portable or not java
+        My.Settings.CheckForUpdates = chkUpdates.Checked
+        My.Settings.DbName = txtDbName.Text
+        My.Settings.DbPass = txtDbPass.Text
+        My.Settings.DbUser = txtDbUser.Text
+        My.Settings.DbServer = txtDbAddress.Text
+        My.Settings.FirstRun = False
+        My.Settings.Save()
+
+        Dim Data As String = ""
+        Select Case SelectedDBType
+            Case 0
+                Data = "#Using Firebird" & vbCrLf
+                Data &= "nxt.dbUrl=jdbc:firebirdsql:embedded:./burst_db/database.fdb" & vbCrLf
+                Data &= "nxt.dbUsername=" & vbCrLf
+                Data &= "nxt.dbPassword="
+            Case 1
+                Data = "#Using MariaDb Portable" & vbCrLf
+                Data &= "nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet" & vbCrLf
+                Data &= "nxt.dbUsername=burstwallet" & vbCrLf
+                Data &= "nxt.dbPassword=burstwallet"
+            Case 2
+                Data = "#Using installed MariaDb" & vbCrLf
+                Data &= "nxt.dbUrl=jdbc:mariadb://" & My.Settings.DbServer & "/" & My.Settings.DbName & vbCrLf
+                Data &= "nxt.dbUsername=" & My.Settings.DbUser & vbCrLf
+                Data &= "nxt.dbPassword=" & My.Settings.DbPass
+        End Select
+        Try
+            Dim basedir As String = Application.StartupPath
+            If Not basedir.EndsWith("\") Then basedir &= "\"
+            IO.File.WriteAllText(basedir & "conf\nxt.properties", Data)
+        Catch ex As Exception
+
+        End Try
+
+        Me.Close()
+        'write nxt.properties now
+        '#H2
+        '#nxt.dbUrl=jdbc:h2:./burst_db/burst;DB_CLOSE_ON_EXIT=False
+
+        '#Firebird
+        'nxt.dbUrl = jdbc : firebirdsql : embedded : ./burst_db/database.fdb
+
+        'mariadb
+        '#nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet
+        '#nxt.dbUsername=
+        '#nxt.dbPassword=
+
+
+
+
+
+    End Sub
 End Class

@@ -19,21 +19,31 @@
             Pworker.Quit()
         Else
 
-            Dim systemcheck As New clsSystemCheck
-            systemcheck.CheckSystem()
-            If Not systemcheck.AllServicesOk Then
-                Dim Msg As String = ""
-                For t As Integer = 0 To UBound(systemcheck.Service)
-                    If systemcheck.Service(t).Status = False Then Msg &= systemcheck.Service(t).Note & vbCrLf
-                Next
-                MsgBox(Msg, MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Cannot start.")
-                Exit Sub
-            End If
+            '           Dim systemcheck As New clsSystemCheck
+            '           systemcheck.CheckSystem()
+            '            If Not systemcheck.AllServicesOk Then
+            '            For t As Integer = 2 To UBound(systemcheck.Service)
+            '            If systemcheck.Service(t).Status = False Then Msg &= systemcheck.Service(t).Note & vbCrLf
+            '            Next
+            '            MsgBox(Msg, MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Cannot start.")
+            '            Exit Sub
+            '        End If
 
             Dim Mylocation = Application.StartupPath
             If Not Mylocation.EndsWith("\") Then Mylocation &= "\"
             Pworker = New ProcessWorker
             Pworker.MyLocation = Mylocation
+            If My.Settings.DbType = 1 Then
+                Pworker.UseMaria = True
+            Else
+                Pworker.UseMaria = False
+            End If
+            If My.Settings.JavaType = 0 Then
+                Pworker.UseJavaP = True
+            Else
+                Pworker.UseJavaP = False
+            End If
+
             Running = True
 
             btnStartStop.Enabled = False
@@ -48,23 +58,36 @@
         BaseDir = Application.StartupPath
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
 
-
-        frmFirstTime.Show() 'only for debug
         If My.Settings.FirstRun Then
-            If MsgBox("Would you like to turn on the feature to notify you of new updates?" & vbCrLf & " You will have the option to change this in settings later.", MsgBoxStyle.Information Or MsgBoxStyle.YesNo, "Settings") = MsgBoxResult.Yes Then
-                My.Settings.CheckForUpdates = True
-                My.Settings.FirstRun = False
-            Else
-                My.Settings.CheckForUpdates = False
-                My.Settings.FirstRun = False
-            End If
-            My.Settings.Save()
+            frmFirstTime.ShowDialog()
         End If
-
+        If My.Settings.FirstRun Then
+            End
+        End If
         UpdateNotifer = New clsUpdateNotifier
         If My.Settings.CheckForUpdates Then
             UpdateNotifer.Start()
         End If
+
+        Select Case My.Settings.DbType
+            Case 0
+                lblDbName.Text = "Firebird"
+                LblDbStatus.Text = "Embeded"
+                LblDbStatus.ForeColor = Color.DarkGreen
+            Case 1
+                lblDbName.Text = "MariaDb"
+                LblDbStatus.Text = "Stopped"
+                LblDbStatus.ForeColor = Color.Red
+            Case 2
+                lblDbName.Text = "MariaDb"
+                LblDbStatus.Text = "Unknown"
+                LblDbStatus.ForeColor = Color.DarkOrange
+            Case 3
+                lblDbName.Text = "H2"
+                LblDbStatus.Text = "Embeded"
+                LblDbStatus.ForeColor = Color.DarkGreen
+        End Select
+
 
 
 
@@ -105,12 +128,12 @@
             Return
         End If
         'threadsafe here
-
-        LblMariaStatus.Text = "Stopped"
-        LblMariaStatus.ForeColor = Color.Red
+        If My.Settings.DbType = 1 Then
+            LblDbStatus.Text = "Stopped"
+            LblDbStatus.ForeColor = Color.Red
+        End If
         lblNrsStatus.Text = "Stopped"
         lblNrsStatus.ForeColor = Color.Red
-
         btnStartStop.Text = "Start Wallet"
         btnStartStop.Enabled = True
         Running = False
@@ -129,9 +152,8 @@
         Select Case Status
             Case 0 'Stoped
                 If Pid = 0 Then
-                    LblMariaStatus.Text = "Stopped"
-                    LblMariaStatus.ForeColor = Color.Red
-
+                    LblDbStatus.Text = "Stopped"
+                    LblDbStatus.ForeColor = Color.Red
                 End If
                 If Pid = 1 Then
                     lblNrsStatus.Text = "Stopped"
@@ -139,8 +161,8 @@
                 End If
             Case 1 'Starting
                 If Pid = 0 Then
-                    LblMariaStatus.Text = "Starting"
-                    LblMariaStatus.ForeColor = Color.DarkOrange
+                    LblDbStatus.Text = "Starting"
+                    LblDbStatus.ForeColor = Color.DarkOrange
                 End If
                 If Pid = 1 Then
                     lblNrsStatus.Text = "Starting"
@@ -148,12 +170,12 @@
                 End If
             Case 2 'Running
                 If Pid = 0 Then
-                    LblMariaStatus.Text = "Running"
-                    LblMariaStatus.ForeColor = Color.Green
+                    LblDbStatus.Text = "Running"
+                    LblDbStatus.ForeColor = Color.DarkGreen
                 End If
                 If Pid = 1 Then
                     lblNrsStatus.Text = "Running"
-                    lblNrsStatus.ForeColor = Color.Green
+                    lblNrsStatus.ForeColor = Color.DarkGreen
                     btnStartStop.Text = "Stop Wallet"
                     Running = True
                     btnStartStop.Enabled = True
@@ -161,9 +183,8 @@
                 End If
             Case 3 'Stopping
                 If Pid = 0 Then
-                    LblMariaStatus.Text = "Stopping"
-                    LblMariaStatus.ForeColor = Color.DarkOrange
-
+                    LblDbStatus.Text = "Stopping"
+                    LblDbStatus.ForeColor = Color.DarkOrange
                 End If
                 If Pid = 1 Then
                     lblNrsStatus.Text = "Stopping"
@@ -213,16 +234,26 @@
         End Try
     End Sub
 
-    Private Sub lblShowUpdateNotification_Click(sender As Object, e As EventArgs) Handles lblShowUpdateNotification.Click
+
+
+
+    Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
         frmUpdate.Show()
     End Sub
 
-    Private Sub CheckForUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdateToolStripMenuItem.Click
-        frmUpdate.Show()
+    Private Sub ExitToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem1.Click
+        Me.Close()
     End Sub
 
-    Private Sub WalletLauncherSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WalletLauncherSettingsToolStripMenuItem.Click
+    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
         frmSettings.Show()
+    End Sub
 
+    Private Sub ContributorsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContributorsToolStripMenuItem.Click
+        frmContributors.Show()
+    End Sub
+
+    Private Sub lblShowUpdateNotification_Click_1(sender As Object, e As EventArgs) Handles lblShowUpdateNotification.Click
+        frmUpdate.Show()
     End Sub
 End Class

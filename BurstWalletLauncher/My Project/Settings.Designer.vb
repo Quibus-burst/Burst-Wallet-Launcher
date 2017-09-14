@@ -77,6 +77,90 @@ Namespace My
                 Me("FirstRun") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property DbType() As Integer
+            Get
+                Return CType(Me("DbType"),Integer)
+            End Get
+            Set
+                Me("DbType") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("burstwallet")>  _
+        Public Property DbName() As String
+            Get
+                Return CType(Me("DbName"),String)
+            End Get
+            Set
+                Me("DbName") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("burstwallet")>  _
+        Public Property DbUser() As String
+            Get
+                Return CType(Me("DbUser"),String)
+            End Get
+            Set
+                Me("DbUser") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("burstwallet")>  _
+        Public Property DbPass() As String
+            Get
+                Return CType(Me("DbPass"),String)
+            End Get
+            Set
+                Me("DbPass") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("localhost:3306")>  _
+        Public Property DbServer() As String
+            Get
+                Return CType(Me("DbServer"),String)
+            End Get
+            Set
+                Me("DbServer") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property JavaType() As Integer
+            Get
+                Return CType(Me("JavaType"),Integer)
+            End Get
+            Set
+                Me("JavaType") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("-d64")>  _
+        Public Property JavaLaunch() As String
+            Get
+                Return CType(Me("JavaLaunch"),String)
+            End Get
+            Set
+                Me("JavaLaunch") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
