@@ -38,7 +38,7 @@
             Else
                 Pworker.UseMaria = False
             End If
-            If My.Settings.JavaType = 0 Then
+            If My.Settings.JavaType = 1 Then
                 Pworker.UseJavaP = True
             Else
                 Pworker.UseJavaP = False
@@ -87,8 +87,6 @@
                 LblDbStatus.Text = "Embeded"
                 LblDbStatus.ForeColor = Color.DarkGreen
         End Select
-
-
 
 
 
@@ -246,7 +244,10 @@
     End Sub
 
     Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
-        frmSettings.Show()
+        Dim s As New frmSettings
+
+        s.ShowDialog()
+
     End Sub
 
     Private Sub ContributorsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContributorsToolStripMenuItem.Click

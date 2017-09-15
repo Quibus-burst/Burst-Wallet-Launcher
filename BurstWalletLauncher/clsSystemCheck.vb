@@ -36,12 +36,12 @@ Public Class clsSystemCheck
             Service(0).Status = True
             Service(0).Path = "java"
             Service(0).Note = "Java was found installed."
-            Service(0).InstallType = 1
+            Service(0).InstallType = 0
         ElseIf FindJava() Then
             Service(0).Status = True
             Service(0).Path = _basedir & "Java\bin\java.exe"
             Service(0).Note = "Java portable was found."
-            Service(0).InstallType = 0
+            Service(0).InstallType = 1
         Else
             Service(0).Status = False
             Service(0).Note = "Java could not be found in your system"
@@ -50,7 +50,7 @@ Public Class clsSystemCheck
             Service(1).Status = True
             Service(1).Path = _basedir & "MariaDb\bin\mysqld.exe"
             Service(1).Note = "MariaDB Portable was found."
-            Service(1).InstallType = 0
+            Service(1).InstallType = 1
         End If
 
     End Sub

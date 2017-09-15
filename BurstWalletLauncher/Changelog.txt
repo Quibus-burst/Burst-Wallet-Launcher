@@ -11,6 +11,7 @@ Change update system to Core and component update system
 Add feature to download other types of components.
 Setting to minimize to tray(?)
 Add system/environment sanity check at wallet start.
+Add ntp check from pool.org?
 Refactor this mess.
 
 ~V1.2
@@ -19,7 +20,7 @@ Refactor this mess.
 +Added support for multiple databases
 +Added individual components download at start.
 +Added Contributors
-
++Added Settings window.
 
 V1.1
 + Update Functions

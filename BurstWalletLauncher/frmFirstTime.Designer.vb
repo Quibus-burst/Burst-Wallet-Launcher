@@ -557,7 +557,7 @@ Partial Class frmFirstTime
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(1184, 412)
+        Me.ClientSize = New System.Drawing.Size(1083, 366)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PnlWiz2)
         Me.Controls.Add(Me.pnlWiz1)

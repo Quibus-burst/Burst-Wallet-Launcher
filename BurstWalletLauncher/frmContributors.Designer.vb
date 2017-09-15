@@ -24,21 +24,21 @@ Partial Class frmContributors
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmContributors))
         Me.P1 = New System.Windows.Forms.Panel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
         Me.P1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -60,6 +60,17 @@ Partial Class frmContributors
         Me.P1.Name = "P1"
         Me.P1.Size = New System.Drawing.Size(591, 87)
         Me.P1.TabIndex = 9
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.LinkLabel1.Location = New System.Drawing.Point(402, 66)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(179, 13)
+        Me.LinkLabel1.TabIndex = 3
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "https://explore.burst.cryptoguru.org/"
         '
         'Label2
         '
@@ -106,6 +117,17 @@ Partial Class frmContributors
         Me.Panel1.Size = New System.Drawing.Size(591, 87)
         Me.Panel1.TabIndex = 10
         '
+        'LinkLabel2
+        '
+        Me.LinkLabel2.AutoSize = True
+        Me.LinkLabel2.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.LinkLabel2.Location = New System.Drawing.Point(474, 72)
+        Me.LinkLabel2.Name = "LinkLabel2"
+        Me.LinkLabel2.Size = New System.Drawing.Size(107, 13)
+        Me.LinkLabel2.TabIndex = 5
+        Me.LinkLabel2.TabStop = True
+        Me.LinkLabel2.Text = "https://www.vps.ag/"
+        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -151,6 +173,17 @@ Partial Class frmContributors
         Me.Panel2.Size = New System.Drawing.Size(591, 87)
         Me.Panel2.TabIndex = 11
         '
+        'LinkLabel3
+        '
+        Me.LinkLabel3.AutoSize = True
+        Me.LinkLabel3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.LinkLabel3.Location = New System.Drawing.Point(443, 69)
+        Me.LinkLabel3.Name = "LinkLabel3"
+        Me.LinkLabel3.Size = New System.Drawing.Size(138, 13)
+        Me.LinkLabel3.TabIndex = 6
+        Me.LinkLabel3.TabStop = True
+        Me.LinkLabel3.Text = "https://forums.getburst.net/"
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -191,39 +224,6 @@ Partial Class frmContributors
         Me.Button1.TabIndex = 12
         Me.Button1.Text = "Close"
         Me.Button1.UseVisualStyleBackColor = True
-        '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.LinkLabel1.Location = New System.Drawing.Point(402, 66)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(179, 13)
-        Me.LinkLabel1.TabIndex = 3
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "https://explore.burst.cryptoguru.org/"
-        '
-        'LinkLabel2
-        '
-        Me.LinkLabel2.AutoSize = True
-        Me.LinkLabel2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.LinkLabel2.Location = New System.Drawing.Point(474, 72)
-        Me.LinkLabel2.Name = "LinkLabel2"
-        Me.LinkLabel2.Size = New System.Drawing.Size(107, 13)
-        Me.LinkLabel2.TabIndex = 5
-        Me.LinkLabel2.TabStop = True
-        Me.LinkLabel2.Text = "https://www.vps.ag/"
-        '
-        'LinkLabel3
-        '
-        Me.LinkLabel3.AutoSize = True
-        Me.LinkLabel3.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.LinkLabel3.Location = New System.Drawing.Point(443, 69)
-        Me.LinkLabel3.Name = "LinkLabel3"
-        Me.LinkLabel3.Size = New System.Drawing.Size(138, 13)
-        Me.LinkLabel3.TabIndex = 6
-        Me.LinkLabel3.TabStop = True
-        Me.LinkLabel3.Text = "https://forums.getburst.net/"
         '
         'frmContributors
         '

@@ -188,7 +188,7 @@ Partial Class frmMain
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'AboutToolStripMenuItem2
@@ -201,7 +201,7 @@ Partial Class frmMain
         'ContributorsToolStripMenuItem
         '
         Me.ContributorsToolStripMenuItem.Name = "ContributorsToolStripMenuItem"
-        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(141, 22)
+        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ContributorsToolStripMenuItem.Text = "Contributors"
         '
         'FileToolStripMenuItem

@@ -198,7 +198,7 @@
             Exit Sub
         Else
             pnlJava.BackColor = Color.PaleGreen
-            lblJavaStatus.Text = "A portable version of Java is found"
+            lblJavaStatus.Text = Scheck.Service(0).Note
             JavaOk = True
         End If
         If SelectedDBType = 1 Then
@@ -208,7 +208,7 @@
                 Exit Sub
             Else
                 pnlMaria.BackColor = Color.PaleGreen
-                lblMariaStatus.Text = "A portable version of MariaDB is found"
+                lblMariaStatus.Text = Scheck.Service(1).Note
                 DbOk = True
             End If
         End If
@@ -237,7 +237,7 @@
 
     Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
         My.Settings.DbType = SelectedDBType
-        My.Settings.JavaType = Scheck.Service(1).InstallType 'portable or not java
+        My.Settings.JavaType = Scheck.Service(0).InstallType 'portable or not java
         My.Settings.CheckForUpdates = chkUpdates.Checked
         My.Settings.DbName = txtDbName.Text
         My.Settings.DbPass = txtDbPass.Text
