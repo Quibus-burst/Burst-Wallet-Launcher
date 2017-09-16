@@ -12,9 +12,9 @@ Add feature to download other types of components.
 Setting to minimize to tray(?)
 Add system/environment sanity check at wallet start.
 Add ntp check from pool.org?
-Create an update procedure on launch.
+Add support to install as a service. (Needs a system wrapper+named pipes)
+Add a components download window where you can select to download a component.
 Refactor this mess.
-
 
 ~V1.2
 * Corrected spelling error.
@@ -23,6 +23,7 @@ Refactor this mess.
 +Added individual components download at start.
 +Added Contributors
 +Added Settings window.
++Added Upgrade Scenarios Handler
 
 V1.1
 + Update Functions

@@ -64,45 +64,26 @@
         If My.Settings.FirstRun Then
             End
         End If
+
+        CheckUpgrade()
+
         UpdateNotifer = New clsUpdateNotifier
         If My.Settings.CheckForUpdates Then
             UpdateNotifer.Start()
         End If
 
-        Select Case My.Settings.DbType
-            Case 0
-                lblDbName.Text = "Firebird"
-                LblDbStatus.Text = "Embeded"
-                LblDbStatus.ForeColor = Color.DarkGreen
-            Case 1
-                lblDbName.Text = "MariaDb"
-                LblDbStatus.Text = "Stopped"
-                LblDbStatus.ForeColor = Color.Red
-            Case 2
-                lblDbName.Text = "MariaDb"
-                LblDbStatus.Text = "Unknown"
-                LblDbStatus.ForeColor = Color.DarkOrange
-            Case 3
-                lblDbName.Text = "H2"
-                LblDbStatus.Text = "Embeded"
-                LblDbStatus.ForeColor = Color.DarkGreen
-        End Select
-
+        SetDbInfo()
 
 
     End Sub
 
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Try
-
             If Running Then
                 MsgBox("You must stop the wallet before you can close the launcher", MsgBoxStyle.OkOnly, "Exit")
                 e.Cancel = True
                 Exit Sub
             End If
-
-
-
         Catch ex As Exception
 
         End Try
@@ -217,7 +198,6 @@
         Process.Start("http://localhost:8125")
     End Sub
 
-
     Private Sub NewUpdatesAvilable(ByVal data As String) Handles UpdateNotifer.GetCompleate
         If Me.InvokeRequired Then
             Dim d As New DNewUpdatesAvilable(AddressOf NewUpdatesAvilable)
@@ -231,9 +211,6 @@
 
         End Try
     End Sub
-
-
-
 
     Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
         frmUpdate.Show()
@@ -258,5 +235,87 @@
         frmUpdate.Show()
     End Sub
 
+    Private Sub CheckUpgrade()
+
+        Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
+        CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
+
+        Dim OldVer As Integer = My.Settings.Upgrade
+        If CurVer <= OldVer Then Exit Sub
+
+        Do
+            Select Case OldVer
+                Case 11 'upgrade from 11 to 12
+                    'write a config file if missing
+
+
+
+            End Select
+            OldVer += 1
+            If CurVer = OldVer Then Exit Do
+        Loop
+
+        My.Settings.Upgrade = CurVer
+        My.Settings.Save()
+
+    End Sub
+
+    Public Sub WriteNRSConfig()
+
+        'writing nxt.properties
+        Dim Data As String = ""
+        Select Case My.Settings.DbType
+            Case DbType.FireBird
+                Data = "#Using Firebird" & vbCrLf
+                Data &= "nxt.dbUrl=jdbc:firebirdsql:embedded:./burst_db/burst.firebirxd.db" & vbCrLf
+                Data &= "nxt.dbUsername=" & vbCrLf
+                Data &= "nxt.dbPassword="
+            Case DbType.pMariaDB
+                Data = "#Using MariaDb Portable" & vbCrLf
+                Data &= "nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet" & vbCrLf
+                Data &= "nxt.dbUsername=burstwallet" & vbCrLf
+                Data &= "nxt.dbPassword=burstwallet"
+            Case DbType.MariaDB
+                Data = "#Using installed MariaDb" & vbCrLf
+                Data &= "nxt.dbUrl=jdbc:mariadb://" & My.Settings.DbServer & "/" & My.Settings.DbName & vbCrLf
+                Data &= "nxt.dbUsername=" & My.Settings.DbUser & vbCrLf
+                Data &= "nxt.dbPassword=" & My.Settings.DbPass
+            Case DbType.H2
+                Data = "#Using H2" & vbCrLf
+                Data &= "nxt.dbUrl=jdbc:h2:./burst_db/burst;DB_CLOSE_ON_EXIT=False" & vbCrLf
+                Data &= "nxt.dbUsername=" & vbCrLf
+                Data &= "nxt.dbPassword="
+        End Select
+        Try
+            Dim basedir As String = Application.StartupPath
+            If Not basedir.EndsWith("\") Then basedir &= "\"
+            IO.File.WriteAllText(basedir & "conf\nxt.properties", Data)
+        Catch ex As Exception
+
+        End Try
+
+
+
+    End Sub
+    Public Sub SetDbInfo()
+        Select Case My.Settings.DbType
+            Case DbType.FireBird
+                lblDbName.Text = "Firebird"
+                LblDbStatus.Text = "Embeded"
+                LblDbStatus.ForeColor = Color.DarkGreen
+            Case DbType.pMariaDB
+                lblDbName.Text = "MariaDb"
+                LblDbStatus.Text = "Stopped"
+                LblDbStatus.ForeColor = Color.Red
+            Case DbType.MariaDB
+                lblDbName.Text = "MariaDb"
+                LblDbStatus.Text = "Unknown"
+                LblDbStatus.ForeColor = Color.DarkOrange
+            Case DbType.H2
+                lblDbName.Text = "H2"
+                LblDbStatus.Text = "Embeded"
+                LblDbStatus.ForeColor = Color.DarkGreen
+        End Select
+    End Sub
 
 End Class

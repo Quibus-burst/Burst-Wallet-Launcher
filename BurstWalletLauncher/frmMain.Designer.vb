@@ -54,6 +54,9 @@ Partial Class frmMain
         Me.lblShowUpdateNotification = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.ImportDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExportDatabaseToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChangeDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -180,7 +183,7 @@ Partial Class frmMain
         '
         'EditToolStripMenuItem
         '
-        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SettingsToolStripMenuItem})
+        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SettingsToolStripMenuItem, Me.ImportDatabaseToolStripMenuItem, Me.ExportDatabaseToolStripMenuItem1, Me.ChangeDatabaseToolStripMenuItem})
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
@@ -188,7 +191,7 @@ Partial Class frmMain
         'SettingsToolStripMenuItem
         '
         Me.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem"
-        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
+        Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings"
         '
         'ToolsToolStripMenuItem
@@ -214,7 +217,7 @@ Partial Class frmMain
         'ContributorsToolStripMenuItem
         '
         Me.ContributorsToolStripMenuItem.Name = "ContributorsToolStripMenuItem"
-        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(141, 22)
+        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ContributorsToolStripMenuItem.Text = "Contributors"
         '
         'FileToolStripMenuItem
@@ -298,6 +301,24 @@ Partial Class frmMain
         Me.Label2.TabIndex = 7
         Me.Label2.Text = "Burst wallet v1.3.6cg"
         '
+        'ImportDatabaseToolStripMenuItem
+        '
+        Me.ImportDatabaseToolStripMenuItem.Name = "ImportDatabaseToolStripMenuItem"
+        Me.ImportDatabaseToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.ImportDatabaseToolStripMenuItem.Text = "Import Database"
+        '
+        'ExportDatabaseToolStripMenuItem1
+        '
+        Me.ExportDatabaseToolStripMenuItem1.Name = "ExportDatabaseToolStripMenuItem1"
+        Me.ExportDatabaseToolStripMenuItem1.Size = New System.Drawing.Size(166, 22)
+        Me.ExportDatabaseToolStripMenuItem1.Text = "Export Database"
+        '
+        'ChangeDatabaseToolStripMenuItem
+        '
+        Me.ChangeDatabaseToolStripMenuItem.Name = "ChangeDatabaseToolStripMenuItem"
+        Me.ChangeDatabaseToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.ChangeDatabaseToolStripMenuItem.Text = "Change Database"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -359,4 +380,7 @@ Partial Class frmMain
     Friend WithEvents lblShowUpdateNotification As ToolStripStatusLabel
     Friend WithEvents ToolsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExportDatabaseToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ImportDatabaseToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExportDatabaseToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ChangeDatabaseToolStripMenuItem As ToolStripMenuItem
 End Class

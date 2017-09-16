@@ -260,45 +260,14 @@
         My.Settings.DbUser = txtDbUser.Text
         My.Settings.DbServer = txtDbAddress.Text
         My.Settings.FirstRun = False
+        Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
+        CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
+        My.Settings.Upgrade = CurVer
         My.Settings.Save()
-
         'writing nxt.properties
-        Dim Data As String = ""
-        Select Case SelectedDBType
-            Case DbType.FireBird
-                Data = "#Using Firebird" & vbCrLf
-                Data &= "nxt.dbUrl=jdbc:firebirdsql:embedded:./burst_db/database.fdb" & vbCrLf
-                Data &= "nxt.dbUsername=" & vbCrLf
-                Data &= "nxt.dbPassword="
-            Case DbType.pMariaDB
-                Data = "#Using MariaDb Portable" & vbCrLf
-                Data &= "nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet" & vbCrLf
-                Data &= "nxt.dbUsername=burstwallet" & vbCrLf
-                Data &= "nxt.dbPassword=burstwallet"
-            Case DbType.MariaDB
-                Data = "#Using installed MariaDb" & vbCrLf
-                Data &= "nxt.dbUrl=jdbc:mariadb://" & My.Settings.DbServer & "/" & My.Settings.DbName & vbCrLf
-                Data &= "nxt.dbUsername=" & My.Settings.DbUser & vbCrLf
-                Data &= "nxt.dbPassword=" & My.Settings.DbPass
-            Case DbType.H2
-                Data = "#Using H2" & vbCrLf
-                Data &= "nxt.dbUrl=jdbc:h2:./burst_db/burst;DB_CLOSE_ON_EXIT=False" & vbCrLf
-                Data &= "nxt.dbUsername=" & vbCrLf
-                Data &= "nxt.dbPassword="
-        End Select
-        Try
-            Dim basedir As String = Application.StartupPath
-            If Not basedir.EndsWith("\") Then basedir &= "\"
-            IO.File.WriteAllText(basedir & "conf\nxt.properties", Data)
-        Catch ex As Exception
-
-        End Try
+        frmMain.WriteNRSConfig()
 
         Me.Close()
-
-
-
-
 
     End Sub
 

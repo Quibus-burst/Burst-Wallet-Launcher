@@ -2,8 +2,6 @@
 Public Class clsSystemCheck
     Public Event Done()
 
-
-
     Public Structure StrucService
         Public Service As String
         Public Status As Boolean
@@ -15,6 +13,7 @@ Public Class clsSystemCheck
     Public Service() As StrucService
     Public AllServicesOk As Boolean
     Private _basedir As String
+
     Sub New()
         ReDim Service(3)
         AllServicesOk = False
