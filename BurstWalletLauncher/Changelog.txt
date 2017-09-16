@@ -12,7 +12,9 @@ Add feature to download other types of components.
 Setting to minimize to tray(?)
 Add system/environment sanity check at wallet start.
 Add ntp check from pool.org?
+Create an update procedure on launch.
 Refactor this mess.
+
 
 ~V1.2
 * Corrected spelling error.

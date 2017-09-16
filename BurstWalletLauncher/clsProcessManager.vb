@@ -12,8 +12,8 @@ Public Class ProcessWorker
     Public UseMaria As Boolean
     Public UseJavaP As Boolean
     Public Sub Start()
+        Maria = New ProcessManager
         If UseMaria Then
-            Maria = New ProcessManager
             Maria.AppToStart = MyLocation & "MariaDb\bin\mysqld.exe"
             Maria.WorkingDirectory = MyLocation & "MariaDb\bin\"
             Maria.Arguments = "--console"
@@ -73,7 +73,7 @@ Public Class ProcessWorker
         End If
         RaiseEvent Update(1, 1, "") ' nrs starting
         NRS.Start()
-        tmr = Now.AddMinutes(1)
+        tmr = Now.AddMinutes(5)
         Do
             If NRS.IsRunning Then Exit Do
             Thread.Sleep(500)

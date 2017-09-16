@@ -24,20 +24,24 @@ Partial Class frmFirstTime
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFirstTime))
         Me.pnlWiz1 = New System.Windows.Forms.Panel()
+        Me.P1 = New System.Windows.Forms.Panel()
+        Me.lblFireBirdDesc = New System.Windows.Forms.Label()
+        Me.lblFireBirdHeader = New System.Windows.Forms.Label()
+        Me.r1 = New System.Windows.Forms.RadioButton()
         Me.btnNext = New System.Windows.Forms.Button()
         Me.chkUpdates = New System.Windows.Forms.CheckBox()
         Me.P3 = New System.Windows.Forms.Panel()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.lblOwnDesc = New System.Windows.Forms.Label()
+        Me.lblOwnHeader = New System.Windows.Forms.Label()
         Me.r3 = New System.Windows.Forms.RadioButton()
         Me.P2 = New System.Windows.Forms.Panel()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.lblPMariaDesc = New System.Windows.Forms.Label()
+        Me.lblPMariaHeader = New System.Windows.Forms.Label()
         Me.r2 = New System.Windows.Forms.RadioButton()
-        Me.P1 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.r1 = New System.Windows.Forms.RadioButton()
+        Me.P0 = New System.Windows.Forms.Panel()
+        Me.lblH2Desc = New System.Windows.Forms.Label()
+        Me.lblH2Header = New System.Windows.Forms.Label()
+        Me.r0 = New System.Windows.Forms.RadioButton()
         Me.frmHeader = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -49,7 +53,7 @@ Partial Class frmFirstTime
         Me.lblStatus = New System.Windows.Forms.Label()
         Me.btnBack = New System.Windows.Forms.Button()
         Me.btnDownload = New System.Windows.Forms.Button()
-        Me.pnlMaria = New System.Windows.Forms.Panel()
+        Me.pnlDb = New System.Windows.Forms.Panel()
         Me.pnlMariaSettings = New System.Windows.Forms.Panel()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.txtDbPass = New System.Windows.Forms.TextBox()
@@ -62,7 +66,7 @@ Partial Class frmFirstTime
         Me.txtDbAddress = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.lblDbHeader = New System.Windows.Forms.Label()
-        Me.lblMariaStatus = New System.Windows.Forms.Label()
+        Me.lblDBstatus = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.pnlJava = New System.Windows.Forms.Panel()
         Me.lblJavaStatus = New System.Windows.Forms.Label()
@@ -70,12 +74,13 @@ Partial Class frmFirstTime
         Me.btnDone = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.pnlWiz1.SuspendLayout()
+        Me.P1.SuspendLayout()
         Me.P3.SuspendLayout()
         Me.P2.SuspendLayout()
-        Me.P1.SuspendLayout()
+        Me.P0.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlWiz2.SuspendLayout()
-        Me.pnlMaria.SuspendLayout()
+        Me.pnlDb.SuspendLayout()
         Me.pnlMariaSettings.SuspendLayout()
         Me.pnlJava.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,20 +88,63 @@ Partial Class frmFirstTime
         '
         'pnlWiz1
         '
+        Me.pnlWiz1.Controls.Add(Me.P1)
         Me.pnlWiz1.Controls.Add(Me.btnNext)
         Me.pnlWiz1.Controls.Add(Me.chkUpdates)
         Me.pnlWiz1.Controls.Add(Me.P3)
         Me.pnlWiz1.Controls.Add(Me.P2)
-        Me.pnlWiz1.Controls.Add(Me.P1)
+        Me.pnlWiz1.Controls.Add(Me.P0)
         Me.pnlWiz1.Controls.Add(Me.frmHeader)
         Me.pnlWiz1.Location = New System.Drawing.Point(238, -1)
         Me.pnlWiz1.Name = "pnlWiz1"
-        Me.pnlWiz1.Size = New System.Drawing.Size(420, 367)
+        Me.pnlWiz1.Size = New System.Drawing.Size(420, 380)
         Me.pnlWiz1.TabIndex = 11
+        '
+        'P1
+        '
+        Me.P1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.P1.Controls.Add(Me.lblFireBirdDesc)
+        Me.P1.Controls.Add(Me.lblFireBirdHeader)
+        Me.P1.Controls.Add(Me.r1)
+        Me.P1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.P1.Location = New System.Drawing.Point(9, 120)
+        Me.P1.Name = "P1"
+        Me.P1.Size = New System.Drawing.Size(403, 73)
+        Me.P1.TabIndex = 13
+        '
+        'lblFireBirdDesc
+        '
+        Me.lblFireBirdDesc.AutoSize = True
+        Me.lblFireBirdDesc.Location = New System.Drawing.Point(38, 27)
+        Me.lblFireBirdDesc.Name = "lblFireBirdDesc"
+        Me.lblFireBirdDesc.Size = New System.Drawing.Size(230, 13)
+        Me.lblFireBirdDesc.TabIndex = 5
+        Me.lblFireBirdDesc.Text = "The Firebird database is suitable for most users."
+        '
+        'lblFireBirdHeader
+        '
+        Me.lblFireBirdHeader.AutoSize = True
+        Me.lblFireBirdHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblFireBirdHeader.Location = New System.Drawing.Point(38, 11)
+        Me.lblFireBirdHeader.Name = "lblFireBirdHeader"
+        Me.lblFireBirdHeader.Size = New System.Drawing.Size(131, 13)
+        Me.lblFireBirdHeader.TabIndex = 4
+        Me.lblFireBirdHeader.Text = "Use Firebird database"
+        '
+        'r1
+        '
+        Me.r1.AutoSize = True
+        Me.r1.Checked = True
+        Me.r1.Location = New System.Drawing.Point(18, 11)
+        Me.r1.Name = "r1"
+        Me.r1.Size = New System.Drawing.Size(14, 13)
+        Me.r1.TabIndex = 3
+        Me.r1.TabStop = True
+        Me.r1.UseVisualStyleBackColor = True
         '
         'btnNext
         '
-        Me.btnNext.Location = New System.Drawing.Point(308, 325)
+        Me.btnNext.Location = New System.Drawing.Point(308, 343)
         Me.btnNext.Name = "btnNext"
         Me.btnNext.Size = New System.Drawing.Size(104, 31)
         Me.btnNext.TabIndex = 12
@@ -108,7 +156,7 @@ Partial Class frmFirstTime
         Me.chkUpdates.AutoSize = True
         Me.chkUpdates.Checked = True
         Me.chkUpdates.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkUpdates.Location = New System.Drawing.Point(16, 333)
+        Me.chkUpdates.Location = New System.Drawing.Point(28, 350)
         Me.chkUpdates.Name = "chkUpdates"
         Me.chkUpdates.Size = New System.Drawing.Size(199, 17)
         Me.chkUpdates.TabIndex = 11
@@ -118,33 +166,33 @@ Partial Class frmFirstTime
         'P3
         '
         Me.P3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.P3.Controls.Add(Me.Label6)
-        Me.P3.Controls.Add(Me.Label5)
+        Me.P3.Controls.Add(Me.lblOwnDesc)
+        Me.P3.Controls.Add(Me.lblOwnHeader)
         Me.P3.Controls.Add(Me.r3)
         Me.P3.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.P3.Location = New System.Drawing.Point(9, 231)
+        Me.P3.Location = New System.Drawing.Point(9, 268)
         Me.P3.Name = "P3"
-        Me.P3.Size = New System.Drawing.Size(403, 90)
+        Me.P3.Size = New System.Drawing.Size(403, 73)
         Me.P3.TabIndex = 10
         '
-        'Label6
+        'lblOwnDesc
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(38, 29)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(258, 13)
-        Me.Label6.TabIndex = 4
-        Me.Label6.Text = "You will have to enter connection details in next step."
+        Me.lblOwnDesc.AutoSize = True
+        Me.lblOwnDesc.Location = New System.Drawing.Point(38, 29)
+        Me.lblOwnDesc.Name = "lblOwnDesc"
+        Me.lblOwnDesc.Size = New System.Drawing.Size(258, 13)
+        Me.lblOwnDesc.TabIndex = 4
+        Me.lblOwnDesc.Text = "You will have to enter connection details in next step."
         '
-        'Label5
+        'lblOwnHeader
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(38, 12)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(238, 13)
-        Me.Label5.TabIndex = 3
-        Me.Label5.Text = "Use installed MariaDB / MySql Database"
+        Me.lblOwnHeader.AutoSize = True
+        Me.lblOwnHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblOwnHeader.Location = New System.Drawing.Point(38, 12)
+        Me.lblOwnHeader.Name = "lblOwnHeader"
+        Me.lblOwnHeader.Size = New System.Drawing.Size(238, 13)
+        Me.lblOwnHeader.TabIndex = 3
+        Me.lblOwnHeader.Text = "Use installed MariaDB / MySql Database"
         '
         'r3
         '
@@ -159,34 +207,34 @@ Partial Class frmFirstTime
         'P2
         '
         Me.P2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.P2.Controls.Add(Me.Label4)
-        Me.P2.Controls.Add(Me.Label3)
+        Me.P2.Controls.Add(Me.lblPMariaDesc)
+        Me.P2.Controls.Add(Me.lblPMariaHeader)
         Me.P2.Controls.Add(Me.r2)
         Me.P2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.P2.Location = New System.Drawing.Point(9, 137)
+        Me.P2.Location = New System.Drawing.Point(9, 194)
         Me.P2.Name = "P2"
-        Me.P2.Size = New System.Drawing.Size(403, 90)
+        Me.P2.Size = New System.Drawing.Size(403, 73)
         Me.P2.TabIndex = 9
         '
-        'Label4
+        'lblPMariaDesc
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(38, 30)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(292, 39)
-        Me.Label4.TabIndex = 3
-        Me.Label4.Text = "MariaDB is used for more experienced users." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Wallet launcher will download, setup" &
-    " and control this for you." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Additional footprint required is about 600Mb."
+        Me.lblPMariaDesc.AutoSize = True
+        Me.lblPMariaDesc.Location = New System.Drawing.Point(38, 30)
+        Me.lblPMariaDesc.Name = "lblPMariaDesc"
+        Me.lblPMariaDesc.Size = New System.Drawing.Size(292, 26)
+        Me.lblPMariaDesc.TabIndex = 3
+        Me.lblPMariaDesc.Text = "MariaDB is used for more experienced users." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Wallet launcher will download, setup" &
+    " and control this for you."
         '
-        'Label3
+        'lblPMariaHeader
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(38, 12)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(202, 13)
-        Me.Label3.TabIndex = 2
-        Me.Label3.Text = "Use a portable version of MariaDB"
+        Me.lblPMariaHeader.AutoSize = True
+        Me.lblPMariaHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPMariaHeader.Location = New System.Drawing.Point(38, 12)
+        Me.lblPMariaHeader.Name = "lblPMariaHeader"
+        Me.lblPMariaHeader.Size = New System.Drawing.Size(202, 13)
+        Me.lblPMariaHeader.TabIndex = 2
+        Me.lblPMariaHeader.Text = "Use a portable version of MariaDB"
         '
         'r2
         '
@@ -198,55 +246,55 @@ Partial Class frmFirstTime
         Me.r2.TabStop = True
         Me.r2.UseVisualStyleBackColor = True
         '
-        'P1
+        'P0
         '
-        Me.P1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.P1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.P1.Controls.Add(Me.Label2)
-        Me.P1.Controls.Add(Me.Label1)
-        Me.P1.Controls.Add(Me.r1)
-        Me.P1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.P1.Location = New System.Drawing.Point(9, 46)
-        Me.P1.Name = "P1"
-        Me.P1.Size = New System.Drawing.Size(403, 87)
-        Me.P1.TabIndex = 8
+        Me.P0.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.P0.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.P0.Controls.Add(Me.lblH2Desc)
+        Me.P0.Controls.Add(Me.lblH2Header)
+        Me.P0.Controls.Add(Me.r0)
+        Me.P0.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.P0.Location = New System.Drawing.Point(9, 46)
+        Me.P0.Name = "P0"
+        Me.P0.Size = New System.Drawing.Size(403, 73)
+        Me.P0.TabIndex = 8
         '
-        'Label2
+        'lblH2Desc
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(38, 28)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(230, 26)
-        Me.Label2.TabIndex = 2
-        Me.Label2.Text = "The Firebird database is suitable for most users." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This type also provide the sma" &
-    "llest footprint."
+        Me.lblH2Desc.AutoSize = True
+        Me.lblH2Desc.CausesValidation = False
+        Me.lblH2Desc.ForeColor = System.Drawing.Color.Black
+        Me.lblH2Desc.Location = New System.Drawing.Point(38, 27)
+        Me.lblH2Desc.Name = "lblH2Desc"
+        Me.lblH2Desc.Size = New System.Drawing.Size(202, 13)
+        Me.lblH2Desc.TabIndex = 5
+        Me.lblH2Desc.Text = "Compatible with older and non cg wallets."
         '
-        'Label1
+        'lblH2Header
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(38, 12)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(131, 13)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Use Firebird database"
+        Me.lblH2Header.AutoSize = True
+        Me.lblH2Header.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblH2Header.Location = New System.Drawing.Point(38, 12)
+        Me.lblH2Header.Name = "lblH2Header"
+        Me.lblH2Header.Size = New System.Drawing.Size(105, 13)
+        Me.lblH2Header.TabIndex = 4
+        Me.lblH2Header.Text = "Use H2 database"
         '
-        'r1
+        'r0
         '
-        Me.r1.AutoSize = True
-        Me.r1.Checked = True
-        Me.r1.Location = New System.Drawing.Point(18, 12)
-        Me.r1.Name = "r1"
-        Me.r1.Size = New System.Drawing.Size(14, 13)
-        Me.r1.TabIndex = 0
-        Me.r1.TabStop = True
-        Me.r1.UseVisualStyleBackColor = True
+        Me.r0.AutoSize = True
+        Me.r0.Location = New System.Drawing.Point(18, 12)
+        Me.r0.Name = "r0"
+        Me.r0.Size = New System.Drawing.Size(14, 13)
+        Me.r0.TabIndex = 3
+        Me.r0.TabStop = True
+        Me.r0.UseVisualStyleBackColor = True
         '
         'frmHeader
         '
         Me.frmHeader.AutoSize = True
         Me.frmHeader.Font = New System.Drawing.Font("Rockwell", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.frmHeader.Location = New System.Drawing.Point(11, 11)
+        Me.frmHeader.Location = New System.Drawing.Point(6, 11)
         Me.frmHeader.Name = "frmHeader"
         Me.frmHeader.Size = New System.Drawing.Size(397, 27)
         Me.frmHeader.TabIndex = 7
@@ -257,7 +305,7 @@ Partial Class frmFirstTime
         Me.PictureBox1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.PictureBox1.Location = New System.Drawing.Point(-1, -2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(239, 368)
+        Me.PictureBox1.Size = New System.Drawing.Size(239, 381)
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
@@ -266,7 +314,7 @@ Partial Class frmFirstTime
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.Label7.Font = New System.Drawing.Font("Rockwell", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(18, 222)
+        Me.Label7.Location = New System.Drawing.Point(18, 276)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(185, 19)
         Me.Label7.TabIndex = 8
@@ -276,7 +324,7 @@ Partial Class frmFirstTime
         '
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Label8.Location = New System.Drawing.Point(19, 244)
+        Me.Label8.Location = New System.Drawing.Point(19, 298)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(193, 39)
         Me.Label8.TabIndex = 9
@@ -295,24 +343,24 @@ Partial Class frmFirstTime
         '
         'PnlWiz2
         '
+        Me.PnlWiz2.Controls.Add(Me.pnlDb)
         Me.PnlWiz2.Controls.Add(Me.lblStatusInfo)
         Me.PnlWiz2.Controls.Add(Me.Pb1)
         Me.PnlWiz2.Controls.Add(Me.lblStatus)
         Me.PnlWiz2.Controls.Add(Me.btnBack)
         Me.PnlWiz2.Controls.Add(Me.btnDownload)
-        Me.PnlWiz2.Controls.Add(Me.pnlMaria)
         Me.PnlWiz2.Controls.Add(Me.Label12)
         Me.PnlWiz2.Controls.Add(Me.pnlJava)
         Me.PnlWiz2.Controls.Add(Me.btnDone)
         Me.PnlWiz2.Location = New System.Drawing.Point(664, -1)
         Me.PnlWiz2.Name = "PnlWiz2"
-        Me.PnlWiz2.Size = New System.Drawing.Size(420, 367)
+        Me.PnlWiz2.Size = New System.Drawing.Size(420, 380)
         Me.PnlWiz2.TabIndex = 12
         '
         'lblStatusInfo
         '
         Me.lblStatusInfo.AutoSize = True
-        Me.lblStatusInfo.Location = New System.Drawing.Point(56, 288)
+        Me.lblStatusInfo.Location = New System.Drawing.Point(63, 340)
         Me.lblStatusInfo.Name = "lblStatusInfo"
         Me.lblStatusInfo.Size = New System.Drawing.Size(116, 13)
         Me.lblStatusInfo.TabIndex = 20
@@ -321,7 +369,7 @@ Partial Class frmFirstTime
         '
         'Pb1
         '
-        Me.Pb1.Location = New System.Drawing.Point(20, 304)
+        Me.Pb1.Location = New System.Drawing.Point(20, 356)
         Me.Pb1.Name = "Pb1"
         Me.Pb1.Size = New System.Drawing.Size(205, 15)
         Me.Pb1.TabIndex = 19
@@ -330,7 +378,7 @@ Partial Class frmFirstTime
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(17, 288)
+        Me.lblStatus.Location = New System.Drawing.Point(17, 340)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(40, 13)
         Me.lblStatus.TabIndex = 18
@@ -339,7 +387,7 @@ Partial Class frmFirstTime
         '
         'btnBack
         '
-        Me.btnBack.Location = New System.Drawing.Point(244, 325)
+        Me.btnBack.Location = New System.Drawing.Point(244, 340)
         Me.btnBack.Name = "btnBack"
         Me.btnBack.Size = New System.Drawing.Size(81, 31)
         Me.btnBack.TabIndex = 17
@@ -348,28 +396,29 @@ Partial Class frmFirstTime
         '
         'btnDownload
         '
-        Me.btnDownload.Location = New System.Drawing.Point(244, 288)
+        Me.btnDownload.Location = New System.Drawing.Point(244, 303)
         Me.btnDownload.Name = "btnDownload"
         Me.btnDownload.Size = New System.Drawing.Size(168, 31)
         Me.btnDownload.TabIndex = 16
         Me.btnDownload.Text = "Download missing components"
         Me.btnDownload.UseVisualStyleBackColor = True
         '
-        'pnlMaria
+        'pnlDb
         '
-        Me.pnlMaria.BackColor = System.Drawing.Color.LightCoral
-        Me.pnlMaria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlMaria.Controls.Add(Me.pnlMariaSettings)
-        Me.pnlMaria.Controls.Add(Me.lblDbHeader)
-        Me.pnlMaria.Controls.Add(Me.lblMariaStatus)
-        Me.pnlMaria.Cursor = System.Windows.Forms.Cursors.Default
-        Me.pnlMaria.Location = New System.Drawing.Point(9, 117)
-        Me.pnlMaria.Name = "pnlMaria"
-        Me.pnlMaria.Size = New System.Drawing.Size(403, 157)
-        Me.pnlMaria.TabIndex = 15
+        Me.pnlDb.BackColor = System.Drawing.Color.LightCoral
+        Me.pnlDb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlDb.Controls.Add(Me.pnlMariaSettings)
+        Me.pnlDb.Controls.Add(Me.lblDbHeader)
+        Me.pnlDb.Controls.Add(Me.lblDBstatus)
+        Me.pnlDb.Cursor = System.Windows.Forms.Cursors.Default
+        Me.pnlDb.Location = New System.Drawing.Point(9, 117)
+        Me.pnlDb.Name = "pnlDb"
+        Me.pnlDb.Size = New System.Drawing.Size(403, 180)
+        Me.pnlDb.TabIndex = 15
         '
         'pnlMariaSettings
         '
+        Me.pnlMariaSettings.BackColor = System.Drawing.Color.Transparent
         Me.pnlMariaSettings.Controls.Add(Me.Button5)
         Me.pnlMariaSettings.Controls.Add(Me.txtDbPass)
         Me.pnlMariaSettings.Controls.Add(Me.CheckBox2)
@@ -380,25 +429,25 @@ Partial Class frmFirstTime
         Me.pnlMariaSettings.Controls.Add(Me.Label15)
         Me.pnlMariaSettings.Controls.Add(Me.txtDbAddress)
         Me.pnlMariaSettings.Controls.Add(Me.Label13)
-        Me.pnlMariaSettings.Location = New System.Drawing.Point(10, 28)
+        Me.pnlMariaSettings.Location = New System.Drawing.Point(10, 46)
         Me.pnlMariaSettings.Name = "pnlMariaSettings"
-        Me.pnlMariaSettings.Size = New System.Drawing.Size(377, 126)
-        Me.pnlMariaSettings.TabIndex = 3
+        Me.pnlMariaSettings.Size = New System.Drawing.Size(387, 126)
+        Me.pnlMariaSettings.TabIndex = 14
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(257, 93)
+        Me.Button5.Location = New System.Drawing.Point(286, 93)
         Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(117, 24)
+        Me.Button5.Size = New System.Drawing.Size(86, 24)
         Me.Button5.TabIndex = 4
         Me.Button5.Text = "Validate"
         Me.Button5.UseVisualStyleBackColor = True
         '
         'txtDbPass
         '
-        Me.txtDbPass.Location = New System.Drawing.Point(96, 69)
+        Me.txtDbPass.Location = New System.Drawing.Point(102, 67)
         Me.txtDbPass.Name = "txtDbPass"
-        Me.txtDbPass.Size = New System.Drawing.Size(231, 20)
+        Me.txtDbPass.Size = New System.Drawing.Size(270, 20)
         Me.txtDbPass.TabIndex = 7
         '
         'CheckBox2
@@ -406,7 +455,7 @@ Partial Class frmFirstTime
         Me.CheckBox2.AutoSize = True
         Me.CheckBox2.Checked = True
         Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox2.Location = New System.Drawing.Point(12, 98)
+        Me.CheckBox2.Location = New System.Drawing.Point(18, 98)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(239, 17)
         Me.CheckBox2.TabIndex = 5
@@ -416,7 +465,7 @@ Partial Class frmFirstTime
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(9, 72)
+        Me.Label17.Location = New System.Drawing.Point(15, 70)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(56, 13)
         Me.Label17.TabIndex = 6
@@ -424,15 +473,15 @@ Partial Class frmFirstTime
         '
         'txtDbUser
         '
-        Me.txtDbUser.Location = New System.Drawing.Point(96, 48)
+        Me.txtDbUser.Location = New System.Drawing.Point(102, 46)
         Me.txtDbUser.Name = "txtDbUser"
-        Me.txtDbUser.Size = New System.Drawing.Size(231, 20)
+        Me.txtDbUser.Size = New System.Drawing.Size(270, 20)
         Me.txtDbUser.TabIndex = 5
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(9, 30)
+        Me.Label16.Location = New System.Drawing.Point(15, 28)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(56, 13)
         Me.Label16.TabIndex = 4
@@ -440,16 +489,16 @@ Partial Class frmFirstTime
         '
         'txtDbName
         '
-        Me.txtDbName.Location = New System.Drawing.Point(96, 27)
+        Me.txtDbName.Location = New System.Drawing.Point(102, 25)
         Me.txtDbName.Name = "txtDbName"
-        Me.txtDbName.Size = New System.Drawing.Size(231, 20)
+        Me.txtDbName.Size = New System.Drawing.Size(270, 20)
         Me.txtDbName.TabIndex = 3
         Me.txtDbName.Text = "burstwallet"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(9, 51)
+        Me.Label15.Location = New System.Drawing.Point(15, 49)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(58, 13)
         Me.Label15.TabIndex = 2
@@ -457,16 +506,16 @@ Partial Class frmFirstTime
         '
         'txtDbAddress
         '
-        Me.txtDbAddress.Location = New System.Drawing.Point(96, 6)
+        Me.txtDbAddress.Location = New System.Drawing.Point(102, 4)
         Me.txtDbAddress.Name = "txtDbAddress"
-        Me.txtDbAddress.Size = New System.Drawing.Size(231, 20)
+        Me.txtDbAddress.Size = New System.Drawing.Size(270, 20)
         Me.txtDbAddress.TabIndex = 1
         Me.txtDbAddress.Text = "127.0.0.1:3306"
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(9, 9)
+        Me.Label13.Location = New System.Drawing.Point(15, 7)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(81, 13)
         Me.Label13.TabIndex = 0
@@ -478,24 +527,24 @@ Partial Class frmFirstTime
         Me.lblDbHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblDbHeader.Location = New System.Drawing.Point(7, 12)
         Me.lblDbHeader.Name = "lblDbHeader"
-        Me.lblDbHeader.Size = New System.Drawing.Size(55, 13)
+        Me.lblDbHeader.Size = New System.Drawing.Size(61, 13)
         Me.lblDbHeader.TabIndex = 2
-        Me.lblDbHeader.Text = "MariaDB"
+        Me.lblDbHeader.Text = "Database"
         '
-        'lblMariaStatus
+        'lblDBstatus
         '
-        Me.lblMariaStatus.AutoSize = True
-        Me.lblMariaStatus.Location = New System.Drawing.Point(7, 32)
-        Me.lblMariaStatus.Name = "lblMariaStatus"
-        Me.lblMariaStatus.Size = New System.Drawing.Size(157, 13)
-        Me.lblMariaStatus.TabIndex = 4
-        Me.lblMariaStatus.Text = "MariaDB is not yet downloaded."
+        Me.lblDBstatus.AutoSize = True
+        Me.lblDBstatus.Location = New System.Drawing.Point(25, 30)
+        Me.lblDBstatus.Name = "lblDBstatus"
+        Me.lblDBstatus.Size = New System.Drawing.Size(157, 13)
+        Me.lblDBstatus.TabIndex = 4
+        Me.lblDBstatus.Text = "MariaDB is not yet downloaded."
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Rockwell", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(15, 12)
+        Me.Label12.Location = New System.Drawing.Point(4, 11)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(276, 27)
         Me.Label12.TabIndex = 14
@@ -516,7 +565,7 @@ Partial Class frmFirstTime
         'lblJavaStatus
         '
         Me.lblJavaStatus.AutoSize = True
-        Me.lblJavaStatus.Location = New System.Drawing.Point(7, 28)
+        Me.lblJavaStatus.Location = New System.Drawing.Point(25, 27)
         Me.lblJavaStatus.Name = "lblJavaStatus"
         Me.lblJavaStatus.Size = New System.Drawing.Size(199, 13)
         Me.lblJavaStatus.TabIndex = 3
@@ -534,7 +583,7 @@ Partial Class frmFirstTime
         '
         'btnDone
         '
-        Me.btnDone.Location = New System.Drawing.Point(331, 325)
+        Me.btnDone.Location = New System.Drawing.Point(331, 340)
         Me.btnDone.Name = "btnDone"
         Me.btnDone.Size = New System.Drawing.Size(81, 31)
         Me.btnDone.TabIndex = 12
@@ -545,9 +594,9 @@ Partial Class frmFirstTime
         '
         Me.PictureBox2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(51, 58)
+        Me.PictureBox2.Location = New System.Drawing.Point(40, 58)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(114, 140)
+        Me.PictureBox2.Size = New System.Drawing.Size(143, 202)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 13
         Me.PictureBox2.TabStop = False
@@ -557,7 +606,7 @@ Partial Class frmFirstTime
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(1083, 366)
+        Me.ClientSize = New System.Drawing.Size(1083, 521)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PnlWiz2)
         Me.Controls.Add(Me.pnlWiz1)
@@ -572,17 +621,19 @@ Partial Class frmFirstTime
         Me.Text = "First Time"
         Me.pnlWiz1.ResumeLayout(False)
         Me.pnlWiz1.PerformLayout()
+        Me.P1.ResumeLayout(False)
+        Me.P1.PerformLayout()
         Me.P3.ResumeLayout(False)
         Me.P3.PerformLayout()
         Me.P2.ResumeLayout(False)
         Me.P2.PerformLayout()
-        Me.P1.ResumeLayout(False)
-        Me.P1.PerformLayout()
+        Me.P0.ResumeLayout(False)
+        Me.P0.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PnlWiz2.ResumeLayout(False)
         Me.PnlWiz2.PerformLayout()
-        Me.pnlMaria.ResumeLayout(False)
-        Me.pnlMaria.PerformLayout()
+        Me.pnlDb.ResumeLayout(False)
+        Me.pnlDb.PerformLayout()
         Me.pnlMariaSettings.ResumeLayout(False)
         Me.pnlMariaSettings.PerformLayout()
         Me.pnlJava.ResumeLayout(False)
@@ -600,24 +651,42 @@ Partial Class frmFirstTime
     Friend WithEvents btnNext As Button
     Friend WithEvents chkUpdates As CheckBox
     Friend WithEvents P3 As Panel
-    Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
+    Friend WithEvents lblOwnDesc As Label
+    Friend WithEvents lblOwnHeader As Label
     Friend WithEvents r3 As RadioButton
     Friend WithEvents P2 As Panel
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
+    Friend WithEvents lblPMariaDesc As Label
+    Friend WithEvents lblPMariaHeader As Label
     Friend WithEvents r2 As RadioButton
-    Friend WithEvents P1 As Panel
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents r1 As RadioButton
+    Friend WithEvents P0 As Panel
     Friend WithEvents frmHeader As Label
     Friend WithEvents PnlWiz2 As Panel
     Friend WithEvents btnBack As Button
     Friend WithEvents btnDownload As Button
-    Friend WithEvents pnlMaria As Panel
+    Friend WithEvents pnlDb As Panel
+    Friend WithEvents lblDbHeader As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents pnlJava As Panel
+    Friend WithEvents lblJavaStatus As Label
+    Friend WithEvents lblJavaHeader As Label
+    Friend WithEvents btnDone As Button
+    Friend WithEvents lblDBstatus As Label
+    Friend WithEvents pnlWiz1 As Panel
+    Friend WithEvents lblStatusInfo As Label
+    Friend WithEvents Pb1 As ProgressBar
+    Friend WithEvents lblStatus As Label
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents lblH2Header As Label
+    Friend WithEvents r0 As RadioButton
+    Friend WithEvents P1 As Panel
+    Friend WithEvents lblFireBirdDesc As Label
+    Friend WithEvents lblFireBirdHeader As Label
+    Friend WithEvents r1 As RadioButton
+    Friend WithEvents lblH2Desc As Label
     Friend WithEvents pnlMariaSettings As Panel
+    Friend WithEvents Button5 As Button
     Friend WithEvents txtDbPass As TextBox
+    Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents Label17 As Label
     Friend WithEvents txtDbUser As TextBox
     Friend WithEvents Label16 As Label
@@ -625,18 +694,4 @@ Partial Class frmFirstTime
     Friend WithEvents Label15 As Label
     Friend WithEvents txtDbAddress As TextBox
     Friend WithEvents Label13 As Label
-    Friend WithEvents lblDbHeader As Label
-    Friend WithEvents Label12 As Label
-    Friend WithEvents pnlJava As Panel
-    Friend WithEvents lblJavaStatus As Label
-    Friend WithEvents lblJavaHeader As Label
-    Friend WithEvents btnDone As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents CheckBox2 As CheckBox
-    Friend WithEvents lblMariaStatus As Label
-    Friend WithEvents pnlWiz1 As Panel
-    Friend WithEvents lblStatusInfo As Label
-    Friend WithEvents Pb1 As ProgressBar
-    Friend WithEvents lblStatus As Label
-    Friend WithEvents PictureBox2 As PictureBox
 End Class

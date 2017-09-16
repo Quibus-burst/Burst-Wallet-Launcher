@@ -257,4 +257,6 @@
     Private Sub lblShowUpdateNotification_Click_1(sender As Object, e As EventArgs) Handles lblShowUpdateNotification.Click
         frmUpdate.Show()
     End Sub
+
+
 End Class

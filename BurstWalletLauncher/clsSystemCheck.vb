@@ -4,12 +4,12 @@ Public Class clsSystemCheck
 
 
 
-    Structure StrucService
+    Public Structure StrucService
         Public Service As String
         Public Status As Boolean
         Public Note As String
-        Public Path As String 'If portable then relative
-        Public InstallType As Integer '0=portable '1=Installed
+        Public Path As String
+        Public InstallType As Integer
     End Structure
 
     Public Service() As StrucService
@@ -18,11 +18,13 @@ Public Class clsSystemCheck
     Sub New()
         ReDim Service(3)
         AllServicesOk = False
-        Service(0).Service = "Java"
-        Service(0).Status = False
-        Service(1).Service = "Maria DB"
-        Service(1).Status = False
-        Service(2).Service = "Maria DB Port"
+        Service(ServiceJava).Service = "Java"
+        Service(ServiceJava).Status = False
+        Service(ServiceJava).InstallType = InstallType.Missing
+        Service(ServiceMaria).Service = "MariaDB"
+        Service(ServiceMaria).Status = False
+        Service(ServiceMaria).InstallType = InstallType.Missing
+        Service(2).Service = "MariaDB Port"
         Service(2).Status = False
         Service(3).Service = "NRS Ports"
         Service(3).Status = False
@@ -33,24 +35,17 @@ Public Class clsSystemCheck
     Public Sub CheckInstall()
 
         If CheckSystemJava() Then
-            Service(0).Status = True
-            Service(0).Path = "java"
-            Service(0).Note = "Java was found installed."
-            Service(0).InstallType = 0
-        ElseIf FindJava() Then
-            Service(0).Status = True
-            Service(0).Path = _basedir & "Java\bin\java.exe"
-            Service(0).Note = "Java portable was found."
-            Service(0).InstallType = 1
+            Service(ServiceJava).InstallType = InstallType.Installed
+        ElseIf FindJavaPortable() Then
+            Service(ServiceJava).InstallType = InstallType.Portable
         Else
-            Service(0).Status = False
-            Service(0).Note = "Java could not be found in your system"
+            Service(ServiceJava).InstallType = InstallType.Missing
         End If
+
         If CheckMariaDB() Then
-            Service(1).Status = True
-            Service(1).Path = _basedir & "MariaDb\bin\mysqld.exe"
-            Service(1).Note = "MariaDB Portable was found."
-            Service(1).InstallType = 1
+            Service(ServiceMaria).InstallType = InstallType.Portable
+        Else
+            Service(ServiceMaria).InstallType = InstallType.Missing
         End If
 
     End Sub
@@ -84,20 +79,8 @@ Public Class clsSystemCheck
         End Try
         Return JavaFound
     End Function
-    Public Sub CheckSystem()
 
-        FindJava()
-        CheckMariaDB()
-        CheckMariaPort()
-        CheckNRSPorts()
-
-        AllServicesOk = True
-        For t As Integer = 0 To UBound(Service)
-            If Service(t).Status = False Then AllServicesOk = False
-        Next
-
-    End Sub
-    Private Function FindJava(Optional ByVal path As String = "") As Boolean
+    Private Function FindJavaPortable(Optional ByVal path As String = "") As Boolean
         If path = "" Then path = _basedir & "Java\bin\java.exe"
 
         'check java portable
@@ -113,9 +96,7 @@ Public Class clsSystemCheck
 
     End Function
     Private Function CheckMariaDB(Optional ByVal path As String = "") As Boolean
-        'default download location
         If path = "" Then path = _basedir & "MariaDb\bin\mysqld.exe"
-
         Try
             If IO.File.Exists(path) Then
                 Service(1).Status = True

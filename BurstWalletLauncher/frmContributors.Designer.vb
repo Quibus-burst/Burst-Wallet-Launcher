@@ -88,10 +88,10 @@ Partial Class frmContributors
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(88, 30)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(385, 32)
+        Me.Label1.Size = New System.Drawing.Size(401, 32)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Cryptoguru is a proof of capacity consortium that dedicates their " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "time to evolv" &
-    "e burst and its core wallet."
+        Me.Label1.Text = "The PoC Consortium is a CryptoGuru project that dedicates time to " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "evolve the BU" &
+    "RST cryptocurrency."
         '
         'PictureBox1
         '
@@ -191,10 +191,10 @@ Partial Class frmContributors
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label6.Location = New System.Drawing.Point(89, 27)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(476, 32)
+        Me.Label6.Size = New System.Drawing.Size(406, 32)
         Me.Label6.TabIndex = 5
-        Me.Label6.Text = "@ryanw runs the getburst.net forum and has dedicated himself to hunt down and" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "pr" &
-    "esent all burst news."
+        Me.Label6.Text = "@ryanw runs the getburst.net forums, and works on developing and " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "expanding the " &
+    "Burst community."
         '
         'Label4
         '
@@ -202,9 +202,9 @@ Partial Class frmContributors
         Me.Label4.Font = New System.Drawing.Font("Rockwell", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(88, 3)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(288, 23)
+        Me.Label4.Size = New System.Drawing.Size(252, 23)
         Me.Label4.TabIndex = 4
-        Me.Label4.Text = "Social media and Burst news."
+        Me.Label4.Text = "Community development"
         '
         'PictureBox3
         '
