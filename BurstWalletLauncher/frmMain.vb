@@ -1,6 +1,6 @@
 ﻿Public Class frmMain
     Private Delegate Sub DUpdate(ByVal [Pid] As Integer, ByVal [Status] As Integer, ByVal [data] As String)
-    Private Delegate Sub DNewUpdatesAvilable(ByVal [data] As String)
+    Private Delegate Sub DNewUpdatesAvilable()
     Private Delegate Sub DStarting()
     Private Delegate Sub DStoped()
     Private WithEvents UpdateNotifer As clsUpdateNotifier
@@ -62,7 +62,7 @@
         'Start classes
         '################################
         App = New clsApp
-        App.FindAllLocal()
+        App.SetLocalInfo()
 
         If My.Settings.FirstRun Then
             frmFirstTime.ShowDialog()
@@ -71,11 +71,11 @@
             End
         End If
 
-        CheckUpgrade()
+        CheckUpgrade() 'if there is any upgradescenarios
 
-        UpdateNotifer = New clsUpdateNotifier
         If My.Settings.CheckForUpdates Then
-            UpdateNotifer.Start()
+            App.StartUpdateNotifications()
+            AddHandler App.UpdateAvailable, AddressOf NewUpdatesAvilable
         End If
 
         SetDbInfo()
@@ -203,14 +203,14 @@
         Process.Start("http://localhost:8125")
     End Sub
 
-    Private Sub NewUpdatesAvilable(ByVal data As String) Handles UpdateNotifer.GetCompleate
+    Private Sub NewUpdatesAvilable()
         If Me.InvokeRequired Then
             Dim d As New DNewUpdatesAvilable(AddressOf NewUpdatesAvilable)
-            Me.Invoke(d, New Object() {data})
+            Me.Invoke(d, New Object() {})
             Return
         End If
         Try
-            'we have updates
+
             lblShowUpdateNotification.Visible = True
         Catch ex As Exception
 

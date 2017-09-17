@@ -1,8 +1,7 @@
 ﻿Public Class frmFirstTime
     Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer)
     Private Delegate Sub DDldone()
-
-
+    Private Delegate Sub DDlError()
     Private SelectedDBType As Integer = 0
     Private DbVerified As Boolean = False
 
@@ -186,8 +185,13 @@
         Pb1.Visible = True
         btnDownload.Enabled = False
         btnBack.Enabled = False
-        AddHandler App.Progress, AddressOf Progress
-        AddHandler App.DownloadDone, AddressOf DlDone
+        Try
+            AddHandler App.Progress, AddressOf Progress
+            AddHandler App.DownloadDone, AddressOf DlDone
+            AddHandler App.Aborted, AddressOf DlError
+        Catch ex As Exception
+
+        End Try
         DlDone() 'we can init from done sub that loops over all needed
 
     End Sub
@@ -230,11 +234,31 @@
         lblStatusInfo.Text = "All components are downloaded."
         btnBack.Enabled = True
         'cleanup
-        RemoveHandler App.Progress, AddressOf Progress
-        RemoveHandler App.DownloadDone, AddressOf DlDone
-
+        Try
+            RemoveHandler App.Progress, AddressOf Progress
+            RemoveHandler App.DownloadDone, AddressOf DlDone
+            RemoveHandler App.Aborted, AddressOf DlError
+        Catch ex As Exception
+        End Try
     End Sub
-    Public Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer)
+
+    Private Sub DlError()
+        If Me.InvokeRequired Then
+            Dim d As New DDlError(AddressOf DlError)
+            Me.Invoke(d, New Object() {})
+            Return
+        End If
+        Try
+            MsgBox("Something went wrong. Burst wallet launcher needs internet connection to download components. Please check internet connection and your firewalls.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Error")
+            RemoveHandler App.Progress, AddressOf Progress
+            RemoveHandler App.DownloadDone, AddressOf DlDone
+            RemoveHandler App.Aborted, AddressOf DlError
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer)
         If Me.InvokeRequired Then
             Dim d As New DProgress(AddressOf Progress)
             Me.Invoke(d, New Object() {Job, AppId, percent})
@@ -244,9 +268,9 @@
 
         Select Case Job
             Case 0
-                lblStatusInfo.Text = "Downloading: " & App.AppName(AppId)
+                lblStatusInfo.Text = "Downloading: " & App.GetAppNameFromId(AppId)
             Case 1
-                lblStatusInfo.Text = "Extracting: " & App.AppName(AppId)
+                lblStatusInfo.Text = "Extracting: " & App.GetAppNameFromId(AppId)
         End Select
 
         Pb1.Value = percent

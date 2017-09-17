@@ -1,109 +1,85 @@
 ﻿Public Class frmUpdate
 
-    Private WithEvents Upd As clsUpdater
-    Private Delegate Sub DNewVersionsDone()
-    Private Delegate Sub DUpdateDone()
-    Private Delegate Sub DProgress(ByVal [ptype] As Integer, ByVal [Msg] As String, ByVal [percent] As Integer)
+    Private Delegate Sub DDLDone()
+    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer)
+    Private Delegate Sub DDLError()
     Private WithEvents tmr As New Timer
     Private Sub frmUpdate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Upd = New clsUpdater
-        Upd.ThreadNewVersions()
+
+        If Not App.SetRemoteInfo() Then
+            MsgBox("There was an error getting update info. Check internet connection and try again.")
+            Me.Close()
+        End If
+
+        If CheckAndUpdateLW() Then
+            btnUpdate.Enabled = True
+        Else
+            btnUpdate.Enabled = False
+        End If
+
+
     End Sub
 
-    Private Sub NewVersionsDone() Handles Upd.LoadDone
+    Private Sub DLDone()
         If Me.InvokeRequired Then
-            Dim d As New DNewVersionsDone(AddressOf NewVersionsDone)
+            Dim d As New DDLDone(AddressOf DLDone)
             Me.Invoke(d, New Object() {})
             Return
         End If
-        Dim needupdate As Boolean = False
-        lblcLauncher.Text = "v" & Upd.Updates(0).sCurVer
-        lblNLauncher.Text = "v" & Upd.Updates(0).sNewVer
-        If Upd.Updates(0).sCurVer = Upd.Updates(0).sNewVer Then
-            lblcLauncher.ForeColor = Color.DarkGreen
-        Else
-            lblcLauncher.ForeColor = Color.Red
-            needupdate = True
-        End If
+        CheckAndUpdateLW()
+        Dim AppCount As Integer = UBound([Enum].GetNames(GetType(AppNames)))
+        For t As Integer = 0 To AppCount
+            If App.ShouldUpdate(t) Then
+                App.DownloadApp(t)
+                Exit Sub
+            End If
+        Next
 
-
-        lblcNRS.Text = "v" & Upd.Updates(1).sCurVer
-        lblnNRS.Text = "v" & Upd.Updates(1).sNewVer
-        If Upd.Updates(1).sCurVer = Upd.Updates(1).sNewVer Then
-            lblcNRS.ForeColor = Color.DarkGreen
-        Else
-            lblcNRS.ForeColor = Color.Red
-            needupdate = True
-        End If
-
-        lblStatus.Text = "Done"
-
-        If needupdate Then btnUpdate.Enabled = True
-
-    End Sub
-
-    Private Sub Progress(ByVal ptype As Integer, ByVal Msg As String, ByVal percent As Integer) Handles Upd.Progress
-        If Me.InvokeRequired Then
-            Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {ptype, Msg, percent})
-            Return
-        End If
-        'threadsafe
-
-        Select Case ptype
-            Case 0 'wainting for wallet
-                pb1.Visible = False
-                lblStatus.Text = Msg
-            Case 1
-                pb1.Visible = True
-                lblStatus.Text = Msg
-                pb1.Value = percent
-            Case 2
-                pb1.Visible = True
-                pb1.Value = percent
-                lblStatus.Text = Msg
-        End Select
-
-
-
-
-    End Sub
-    Private Sub UpdateDone() Handles Upd.UpdateDone
-        If Me.InvokeRequired Then
-            Dim d As New DUpdateDone(AddressOf UpdateDone)
-            Me.Invoke(d, New Object() {})
-            Return
-        End If
-
-        If Upd.Updates(0).CurVer <> Upd.Updates(0).NewVer Then
+        If App.isUpdated(AppNames.Launcher) Then
+            'we should restart now since we have updates pending on ourselfs
             Dim wdir As String = Application.StartupPath
             If Not wdir.EndsWith("\") Then wdir &= "\"
             If IO.File.Exists(wdir & "Restarter.exe") Then
                 Dim p As Process = New Process
                 p.StartInfo.WorkingDirectory = wdir
-                p.StartInfo.Arguments = Upd.LauncherUpdateFile & " " & IO.Path.GetFileName(Application.ExecutablePath)
+                p.StartInfo.Arguments = "BWLUpdate" & " " & IO.Path.GetFileName(Application.ExecutablePath)
                 p.StartInfo.UseShellExecute = True
                 p.StartInfo.FileName = wdir & "Restarter.exe"
                 p.Start()
                 End
-            Else
-                Dim msg As String = "The file restarter.exe is missing." & vbCrLf & vbCrLf
-                msg &= "To continue update you must do the following:" & vbCrLf
-                msg &= "1. Close the wallet launcher" & vbCrLf
-                msg &= "2. Delete the file BurstWalletLauncher.exe" & vbCrLf
-                msg &= "3. Rename the file BWLUpdate to BurstWalletLauncher.exe" & vbCrLf
-
-                MsgBox(msg, MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Update")
             End If
-        Else
-                frmMain.lblShowUpdateNotification.Visible = False
-            pb1.Visible = False
-            lblStatus.Text = "Checking for new updates"
-            Upd.LoadCurVersions()
-            Upd.ThreadNewVersions()
         End If
 
+
+        RemoveHandler App.DownloadDone, AddressOf DLDone
+        RemoveHandler App.Progress, AddressOf Progress
+        RemoveHandler App.Aborted, AddressOf DlError
+        frmMain.lblShowUpdateNotification.Visible = False
+        pb1.Visible = False
+        lblStatus.Text = "Update complete."
+
     End Sub
+
+    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, ByVal percent As Integer)
+        If Me.InvokeRequired Then
+            Dim d As New DProgress(AddressOf Progress)
+            Me.Invoke(d, New Object() {Job, AppId, percent})
+            Return
+        End If
+        'threadsafe
+
+        pb1.Value = percent
+        Select Case Job
+            Case 0
+                lblStatus.Text = "Downloading: " & App.GetAppNameFromId(AppId)
+            Case 1
+                lblStatus.Text = "Extracting: " & App.GetAppNameFromId(AppId)
+        End Select
+
+
+
+    End Sub
+
 
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
 
@@ -112,7 +88,18 @@
                 Exit Sub
             End If
         End If
+        If App.ShouldUpdate(AppNames.Launcher) Then
+            If MsgBox("Burst wallet launcher will automatically restart after update." & vbCrLf & " Do you want to continue?", MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                Exit Sub
+            End If
+        End If
         btnUpdate.Enabled = False
+
+        AddHandler App.DownloadDone, AddressOf DLDone
+        AddHandler App.Progress, AddressOf Progress
+        AddHandler App.Aborted, AddressOf DLerror
+
+
         If frmMain.Running Then
             lblStatus.Text = "Waiting for wallet to stop"
             frmMain.Pworker.Quit() 'stopping wallet if running
@@ -120,26 +107,68 @@
             tmr.Start()
             tmr.Enabled = True
         Else
-            Upd.StartUpdates()
+            DLDone()
         End If
-
-
-
-
 
     End Sub
 
     Public Sub tmr_tick() Handles tmr.Tick
 
-        'launch updatesequence when wallet is stopped
         If frmMain.Running = False Then
-            Upd.StartUpdates()
             tmr.Stop()
             tmr.Enabled = False
+            DLDone()
         End If
 
-
-
     End Sub
+
+
+    Private Function CheckAndUpdateLW() As Boolean
+
+        Dim StrApp As String() = [Enum].GetNames(GetType(AppNames)) 'only used to count
+        Dim L(2) As String
+        Dim AnyUpdates As Boolean = False
+        Lw1.Items.Clear()
+        For t As Integer = 0 To UBound(StrApp)
+            If App.isInstalled(t) Then 'no reason to test non installed
+                If App.HasRepository(t) Then 'Is it available at repo?
+                    L(0) = App.GetAppNameFromId(t)
+                    L(1) = App.GetLocalVersion(t)
+                    L(2) = App.GetRemoteVersion(t)
+                    Dim itm As New ListViewItem(L)
+
+                    If App.ShouldUpdate(t) Then
+                        itm.SubItems(1).ForeColor = Color.DarkRed
+                        AnyUpdates = True
+                    Else
+                        itm.SubItems(1).ForeColor = Color.DarkGreen
+                    End If
+
+                    itm.UseItemStyleForSubItems = False
+                    Lw1.Items.Add(itm)
+                End If
+            End If
+        Next
+
+        Return AnyUpdates
+
+
+    End Function
+    Private Sub DlError()
+        If Me.InvokeRequired Then
+            Dim d As New DDLError(AddressOf DlError)
+            Me.Invoke(d, New Object() {})
+            Return
+        End If
+        Try
+            MsgBox("Something went wrong. Burst wallet launcher needs internet connection to download components. Please check internet connection and your firewalls.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Error")
+            RemoveHandler App.Progress, AddressOf Progress
+            RemoveHandler App.DownloadDone, AddressOf DLDone
+            RemoveHandler App.Aborted, AddressOf DlError
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 
 End Class

@@ -23,7 +23,11 @@
         JavaPortable = 3
         MariaPortable = 4
     End Enum
-
+    Public Enum States
+        Stopped
+        Running
+        Abort
+    End Enum
     '############################
     'Const
     '############################

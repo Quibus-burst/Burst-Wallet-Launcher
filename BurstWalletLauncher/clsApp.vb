@@ -7,18 +7,20 @@ Public Class clsApp
     Public Event DownloadDone()
     Public Event Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percernt As Integer)
     Public Event Aborted()
-
+    Public Event UpdateAvailable()
     Private Structure StrucApps
         Dim LocalFound As Boolean
         Dim RemoteUrl As String
         Dim RemoteVersion As String
         Dim LocalVersion As String
         Dim ExtractToDir As String
-        'MariaDB|5.5.29||MariaDB/MariaDb-5.5.29.zip
+        Dim Updated As Boolean
     End Structure
     Private _Apps() As StrucApps
     Private _basedir As String
     Private _Repositories() As String
+    Private _UpdateNotifyState As Integer
+
     Public Sub New()
 
         'our appstore
@@ -31,6 +33,7 @@ Public Class clsApp
             _Apps(i).RemoteVersion = ""
             _Apps(i).RemoteUrl = ""
             _Apps(i).ExtractToDir = ""
+            _Apps(i).Updated = False
         Next
 
         'repositories to download from
@@ -44,8 +47,8 @@ Public Class clsApp
         If Not _basedir.EndsWith("\") Then _basedir &= "\"
     End Sub
 
-#Region " Local Detection "
-    Public Sub FindAllLocal()
+#Region " Detection "
+    Public Sub SetLocalInfo()
         'Set Launcher version
         Launcher()
         'check nrs
@@ -57,7 +60,36 @@ Public Class clsApp
         'check portable maria
         MariaDB()
     End Sub
+    Public Function SetRemoteInfo() As Boolean
+        Dim data As String = ""
+        Dim AllOk As Boolean = False
+        For i = 0 To UBound(_Repositories)
+            Dim Http As New clsHttp
+            data = Http.GetUrl(_Repositories(i) & "AppInfo")
+            Http = Nothing
+            If data.Length <> 0 Then Exit For
+        Next
 
+        'ok we have the data to parse
+        'now we need to translate the names into correct integer values corresponding to Appname enum
+        If data.Length <> 0 Then
+            Dim Lines() As String = Split(data, vbCrLf)
+            For Each Line In Lines
+
+                If Trim(Line) <> "" Then
+                    Dim Cell() As String = Split(Line, "|")
+                    Dim AppId As Integer = [Enum].Parse(GetType(AppNames), Cell(0)) 'converting name to appid
+                    _Apps(AppId).RemoteVersion = Cell(1)
+                    _Apps(AppId).ExtractToDir = Cell(2)
+                    _Apps(AppId).RemoteUrl = Cell(3)
+                    _Apps(AppId).Updated = False 'reset updates
+                    AllOk = True
+                End If
+            Next
+        End If
+
+        Return AllOk
+    End Function
     Public Function isInstalled(ByVal id As Integer) As Boolean
         Return _Apps(id).LocalFound
     End Function
@@ -172,7 +204,7 @@ Public Class clsApp
         'we are now in threaded environment
         'if we do not have remoteinfo lets get it.
         If _Apps(AppNames.NRS).RemoteUrl = "" Then
-            If Not GetRemoteInfo() Then
+            If Not SetRemoteInfo() Then
                 RaiseEvent Aborted()
                 Exit Sub
             End If
@@ -187,6 +219,7 @@ Public Class clsApp
             Exit Sub
         End If
         DeleteFile(appid)
+        _Apps(appid).Updated = True
 
 
     End Sub
@@ -234,7 +267,8 @@ Public Class clsApp
         Next
         Return DLOk
     End Function
-    Private Function Extract(ByVal AppId As Integer)
+    Private Function Extract(ByVal AppId As Integer) As Boolean
+        Dim AllOk As Boolean = False
         Try
             Dim filename As String = _basedir & Path.GetFileName(_Apps(AppId).RemoteUrl)
             Dim target As String = _basedir & _Apps(AppId).ExtractToDir
@@ -253,12 +287,15 @@ Public Class clsApp
                 counter += 1
                 percent = Math.Round((counter / totalfiles) * 100, 0)
                 RaiseEvent Progress(1, AppId, percent)
+
             Next
+            AllOk = True
             Archive.Dispose()
         Catch ex As Exception
 
         End Try
 
+        Return AllOk
 
 
     End Function
@@ -277,43 +314,62 @@ Public Class clsApp
 
 
     End Sub
-    Private Function GetRemoteInfo() As Boolean
-        Dim data As String = ""
-        Dim AllOk As Boolean = False
-        For i = 0 To UBound(_Repositories)
-            Dim Http As New clsHttp
-            data = Http.GetUrl(_Repositories(i) & "versions")
-            Http = Nothing
-            If data.Length <> 0 Then Exit For
-        Next
 
-        'ok we have the data to parse
-        'now we need to translate the names into correct integer values corresponding to Appname enum
-        If data.Length <> 0 Then
-            Dim Lines() As String = Split(data, vbCrLf)
-            For Each Line In Lines
-
-                If Trim(Line) <> "" Then
-                    Dim Cell() As String = Split(Line, "|")
-                    Dim AppId As Integer = [Enum].Parse(GetType(AppNames), Cell(0)) 'converting name to appid
-                    _Apps(AppId).RemoteVersion = Cell(1)
-                    _Apps(AppId).ExtractToDir = Cell(2)
-                    _Apps(AppId).RemoteUrl = Cell(3)
-                    AllOk = True
-                End If
-            Next
-        End If
-
-
-        Return AllOk
-    End Function
 #End Region
 
+#Region " Updates "
+    Public Sub StartUpdateNotifications()
+
+        If Not _UpdateNotifyState = States.Stopped Then
+            Exit Sub
+        End If
+        _UpdateNotifyState = States.Running
+
+        Dim trda As Thread
+        trda = New Thread(AddressOf UpdateNotifyTimer)
+        trda.IsBackground = True
+        trda.Start()
+        trda = Nothing
+    End Sub
+    Public Sub StopUpdateNotifications()
+        _UpdateNotifyState = States.Abort
+
+    End Sub
+    Private Sub UpdateNotifyTimer()
+        Dim Nextcheck As New Date
+        Dim Data As String = ""
+        Do
+            If SetRemoteInfo() Then
+                For l = 0 To UBound(_Apps)
+                    If CheckVersion(_Apps(l).LocalVersion, _Apps(l).RemoteVersion, True) Then
+                        RaiseEvent UpdateAvailable()
+                        Exit For
+                    End If
+                Next
+            End If
+            Nextcheck = Now.AddDays(1) '24 hours check
+            Do 'sleepthread
+                Thread.Sleep(600000) 'sleep for 10 minutes
+                If Now >= Nextcheck Then Exit Do
+                If _UpdateNotifyState = States.Abort Then Exit Do
+            Loop
+            If _UpdateNotifyState = States.Abort Then Exit Do
+        Loop
+        _UpdateNotifyState = States.Stopped
+    End Sub
+#End Region
+
+
 #Region " Misc Functions "
-    Private Function CheckVersion(ByVal MinVersion As String, ByVal NewVersion As String, ByVal OnlyNew As Boolean) As Boolean
+    Private Function FilterVersionNr(ByVal data As String) As String
         Dim acceptedChars() As Char = "01234567890._".ToCharArray
-        MinVersion = (From ch As Char In MinVersion Select ch Where acceptedChars.Contains(ch)).ToArray
-        NewVersion = (From ch As Char In NewVersion Select ch Where acceptedChars.Contains(ch)).ToArray
+        data = (From ch As Char In data Select ch Where acceptedChars.Contains(ch)).ToArray
+        Return data
+    End Function
+    Public Function CheckVersion(ByVal MinVersion As String, ByVal NewVersion As String, ByVal OnlyNew As Boolean) As Boolean
+
+        MinVersion = FilterVersionNr(MinVersion)
+        NewVersion = FilterVersionNr(NewVersion)
 
         MinVersion = MinVersion.Replace("_", ".")
         Dim mver() As String = Split(MinVersion, ".")
@@ -348,7 +404,7 @@ Public Class clsApp
 
         Return result
     End Function
-    Public Function AppName(ByVal AppId As Integer) As String
+    Public Function GetAppNameFromId(ByVal AppId As Integer) As String
         Select Case AppId
             Case AppNames.NRS
                 Return "NRS"
@@ -362,6 +418,27 @@ Public Class clsApp
                 Return "Burst wallet launcher"
         End Select
         Return ""
+    End Function
+    Public Function GetLocalVersion(ByVal appid As Integer) As String
+        Return FilterVersionNr(_Apps(appid).LocalVersion)
+    End Function
+    Public Function GetRemoteVersion(ByVal appid As Integer) As String
+        Return FilterVersionNr(_Apps(appid).RemoteVersion)
+    End Function
+    Public Function ShouldUpdate(ByVal AppId As Integer) As Boolean
+        If _Apps(AppId).LocalFound Then 'we have it installed?
+            If _Apps(AppId).RemoteVersion <> "" Then 'this means it has a repository entry
+                Return CheckVersion(_Apps(AppId).LocalVersion, _Apps(AppId).RemoteVersion, True)
+            End If
+        End If
+        Return False
+    End Function
+    Public Function HasRepository(ByVal AppId As Integer) As Boolean
+        If _Apps(AppId).RemoteVersion <> "" Then Return True
+        Return False
+    End Function
+    Public Function isUpdated(ByVal AppId As Integer) As Boolean
+        Return _Apps(AppId).Updated
     End Function
 #End Region
 
