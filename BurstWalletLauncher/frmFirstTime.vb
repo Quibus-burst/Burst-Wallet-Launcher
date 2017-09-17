@@ -1,9 +1,8 @@
 ﻿Public Class frmFirstTime
-    Private Delegate Sub DProgress(ByVal [Pid] As Integer, ByVal [Msg] As String, ByVal [percent] As Integer)
+    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer)
     Private Delegate Sub DDldone()
 
-    Private WithEvents ComponentsCheck As clsSystemCheck
-    Private WithEvents Dl As clsUpdater
+
     Private SelectedDBType As Integer = 0
     Private DbVerified As Boolean = False
 
@@ -103,13 +102,6 @@
     Private Sub frmFirstTime_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Width = 674
         Me.Height = 418 ' 405
-        Try
-            ComponentsCheck = New clsSystemCheck
-            ComponentsCheck.CheckInstall()
-        Catch ex As Exception
-
-        End Try
-
     End Sub
 
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
@@ -124,13 +116,13 @@
         pnlMariaSettings.Visible = False
 
         'Set java panael
-        If ComponentsCheck.Service(ServiceJava).InstallType = InstallType.Installed Then
+        If App.isInstalled(AppNames.JavaInstalled) Then
             pnlJava.BackColor = Color.PaleGreen
             lblJavaStatus.Text = "Java was found installed."
-        ElseIf ComponentsCheck.Service(ServiceJava).InstallType = InstallType.Portable Then
+        ElseIf App.isInstalled(AppNames.JavaPortable) Then
             pnlJava.BackColor = Color.PaleGreen
             lblJavaStatus.Text = "Java was found in a portable version."
-        Else 'missing
+        Else
             pnlJava.BackColor = Color.LightCoral
             lblJavaStatus.Text = "Java is not found. Use download components to download a portable version."
             'offer the download
@@ -150,7 +142,7 @@
                 lblDbHeader.Text = "Firebird"
                 lblDBstatus.Text = "Firebird embedded does not require aditional components."
             Case DbType.pMariaDB
-                If ComponentsCheck.Service(ServiceMaria).InstallType = InstallType.Portable Then
+                If App.isInstalled(AppNames.MariaPortable) Then
                     pnlDb.BackColor = Color.PaleGreen
                     lblDbHeader.Text = "MariaDB"
                     lblDBstatus.Text = "MariaDB was found as a portable version."
@@ -194,33 +186,33 @@
         Pb1.Visible = True
         btnDownload.Enabled = False
         btnBack.Enabled = False
-        Dl = New clsUpdater
-        Dl.GetNewVersions()
+        AddHandler App.Progress, AddressOf Progress
+        AddHandler App.DownloadDone, AddressOf DlDone
         DlDone() 'we can init from done sub that loops over all needed
 
     End Sub
 
-    Public Sub DlDone() Handles Dl.ComponentDone
+    Public Sub DlDone()
         If Me.InvokeRequired Then
             Dim d As New DDldone(AddressOf DlDone)
             Me.Invoke(d, New Object() {})
             Return
         End If
-        'if java is missing in syscheck then dl java with id 2
-        ComponentsCheck.CheckInstall()
+
         Pb1.Value = 0
-        If ComponentsCheck.Service(ServiceJava).InstallType = InstallType.Missing Then
-            Dl.cId = 2 'java is line 3 in versions file
-            Dl.UpdateComponent() 'startdownlodad and wait untill we comeback
+
+        'download java if installed or portable is missing
+        If Not App.isInstalled(AppNames.JavaInstalled) And Not App.isInstalled(AppNames.JavaPortable) Then
+            App.DownloadApp(AppNames.JavaPortable)
             Exit Sub
-        Else
+        Else 'if we have downloaded we can update screen
             pnlJava.BackColor = Color.PaleGreen
             lblJavaStatus.Text = "Java was found in a portable version."
         End If
+
         If SelectedDBType = DbType.pMariaDB Then
-            If ComponentsCheck.Service(ServiceMaria).InstallType = InstallType.Missing Then
-                Dl.cId = 3 'MariaDB is line 3 in versions
-                Dl.UpdateComponent() 'startdownlodad and wait untill we comeback
+            If Not App.isInstalled(AppNames.MariaPortable) Then
+                App.DownloadApp(AppNames.MariaPortable)
                 Exit Sub
             Else
                 pnlDb.BackColor = Color.PaleGreen
@@ -237,23 +229,37 @@
         Pb1.Visible = False
         lblStatusInfo.Text = "All components are downloaded."
         btnBack.Enabled = True
-
+        'cleanup
+        RemoveHandler App.Progress, AddressOf Progress
+        RemoveHandler App.DownloadDone, AddressOf DlDone
 
     End Sub
-    Public Sub Progress(ByVal i As Integer, ByVal msg As String, percent As Integer) Handles Dl.Progress
+    Public Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer)
         If Me.InvokeRequired Then
             Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {i, msg, percent})
+            Me.Invoke(d, New Object() {Job, AppId, percent})
             Return
         End If
-        lblStatusInfo.Text = msg
+        '  Dim AppName = [Enum].GetName(GetType(AppNames), AppId)
+
+        Select Case Job
+            Case 0
+                lblStatusInfo.Text = "Downloading: " & App.AppName(AppId)
+            Case 1
+                lblStatusInfo.Text = "Extracting: " & App.AppName(AppId)
+        End Select
+
         Pb1.Value = percent
 
     End Sub
 
     Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
         My.Settings.DbType = SelectedDBType
-        My.Settings.JavaType = ComponentsCheck.Service(ServiceJava).InstallType
+        If App.isInstalled(AppNames.JavaInstalled) Then
+            My.Settings.JavaType = AppNames.JavaInstalled
+        Else
+            My.Settings.JavaType = AppNames.JavaPortable
+        End If
         My.Settings.CheckForUpdates = chkUpdates.Checked
         My.Settings.DbName = txtDbName.Text
         My.Settings.DbPass = txtDbPass.Text
@@ -262,7 +268,7 @@
         My.Settings.FirstRun = False
         Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
         CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
-        My.Settings.Upgrade = CurVer
+        My.Settings.Upgradev = CurVer
         My.Settings.Save()
         'writing nxt.properties
         frmMain.WriteNRSConfig()

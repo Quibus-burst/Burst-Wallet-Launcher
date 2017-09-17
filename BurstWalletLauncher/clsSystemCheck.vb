@@ -17,12 +17,12 @@ Public Class clsSystemCheck
     Sub New()
         ReDim Service(3)
         AllServicesOk = False
-        Service(ServiceJava).Service = "Java"
-        Service(ServiceJava).Status = False
-        Service(ServiceJava).InstallType = InstallType.Missing
-        Service(ServiceMaria).Service = "MariaDB"
-        Service(ServiceMaria).Status = False
-        Service(ServiceMaria).InstallType = InstallType.Missing
+        ' Service(ServiceJava).Service = "Java"
+        ' Service(ServiceJava).Status = False
+        ' Service(ServiceJava).InstallType = InstallType.Missing
+        ' Service(ServiceMaria).Service = "MariaDB"
+        ' Service(ServiceMaria).Status = False
+        ' Service(ServiceMaria).InstallType = InstallType.Missing
         Service(2).Service = "MariaDB Port"
         Service(2).Status = False
         Service(3).Service = "NRS Ports"
@@ -34,17 +34,17 @@ Public Class clsSystemCheck
     Public Sub CheckInstall()
 
         If CheckSystemJava() Then
-            Service(ServiceJava).InstallType = InstallType.Installed
+            '     Service(ServiceJava).InstallType = InstallType.Installed
         ElseIf FindJavaPortable() Then
-            Service(ServiceJava).InstallType = InstallType.Portable
+            '     Service(ServiceJava).InstallType = InstallType.Portable
         Else
-            Service(ServiceJava).InstallType = InstallType.Missing
+            '     Service(ServiceJava).InstallType = InstallType.Missing
         End If
 
         If CheckMariaDB() Then
-            Service(ServiceMaria).InstallType = InstallType.Portable
+            '     Service(ServiceMaria).InstallType = InstallType.Portable
         Else
-            Service(ServiceMaria).InstallType = InstallType.Missing
+            '   Service(ServiceMaria).InstallType = InstallType.Missing
         End If
 
     End Sub

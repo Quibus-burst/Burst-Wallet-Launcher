@@ -58,6 +58,12 @@
         BaseDir = Application.StartupPath
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
 
+        '################################
+        'Start classes
+        '################################
+        App = New clsApp
+        App.FindAllLocal()
+
         If My.Settings.FirstRun Then
             frmFirstTime.ShowDialog()
         End If
@@ -117,7 +123,6 @@
         btnStartStop.Enabled = True
         Running = False
     End Sub
-
 
     Private Sub Updates(ByVal Pid As Integer, ByVal Status As Integer, ByVal data As String) Handles Pworker.Update
         If Me.InvokeRequired Then
@@ -240,7 +245,7 @@
         Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
         CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
 
-        Dim OldVer As Integer = My.Settings.Upgrade
+        Dim OldVer As Integer = My.Settings.Upgradev
         If CurVer <= OldVer Then Exit Sub
 
         Do
@@ -255,7 +260,7 @@
             If CurVer = OldVer Then Exit Do
         Loop
 
-        My.Settings.Upgrade = CurVer
+        My.Settings.Upgradev = CurVer
         My.Settings.Save()
 
     End Sub

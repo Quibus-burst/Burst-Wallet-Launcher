@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmSettings
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,16 +20,12 @@ Partial Class frmSettings
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.chkCheckForUpdates = New System.Windows.Forms.CheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.txtRepo = New System.Windows.Forms.TextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.chkAutoIP = New System.Windows.Forms.CheckBox()
@@ -66,7 +62,6 @@ Partial Class frmSettings
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        Me.Panel5.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -117,7 +112,6 @@ Partial Class frmSettings
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.Panel5)
         Me.TabPage1.Controls.Add(Me.Panel2)
         Me.TabPage1.Controls.Add(Me.Label1)
         Me.TabPage1.Controls.Add(Me.Button1)
@@ -128,45 +122,6 @@ Partial Class frmSettings
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Launcher"
         Me.TabPage1.UseVisualStyleBackColor = True
-        '
-        'Panel5
-        '
-        Me.Panel5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.Label13)
-        Me.Panel5.Controls.Add(Me.txtRepo)
-        Me.Panel5.Controls.Add(Me.Label14)
-        Me.Panel5.Location = New System.Drawing.Point(24, 156)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(417, 156)
-        Me.Panel5.TabIndex = 9
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(111, 14)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(92, 13)
-        Me.Label13.TabIndex = 2
-        Me.Label13.Text = "(one on each line)"
-        '
-        'txtRepo
-        '
-        Me.txtRepo.Location = New System.Drawing.Point(12, 39)
-        Me.txtRepo.Multiline = True
-        Me.txtRepo.Name = "txtRepo"
-        Me.txtRepo.Size = New System.Drawing.Size(383, 102)
-        Me.txtRepo.TabIndex = 1
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(8, 11)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(97, 16)
-        Me.Label14.TabIndex = 0
-        Me.Label14.Text = "Repositories"
         '
         'Panel2
         '
@@ -538,8 +493,6 @@ Partial Class frmSettings
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
@@ -596,8 +549,4 @@ Partial Class frmSettings
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents CheckBox2 As CheckBox
-    Friend WithEvents Panel5 As Panel
-    Friend WithEvents Label14 As Label
-    Friend WithEvents Label13 As Label
-    Friend WithEvents txtRepo As TextBox
 End Class

@@ -35,7 +35,7 @@
     <Setting Name="Repo" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://files.getburst.net;http://files2.getburst.net</Value>
     </Setting>
-    <Setting Name="Upgrade" Type="System.Int32" Scope="User">
+    <Setting Name="Upgradev" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">11</Value>
     </Setting>
   </Settings>

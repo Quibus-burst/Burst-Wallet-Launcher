@@ -189,12 +189,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("11")>  _
-        Public Property Upgrade() As Integer
+        Public Property Upgradev() As Integer
             Get
-                Return CType(Me("Upgrade"),Integer)
+                Return CType(Me("Upgradev"),Integer)
             End Get
             Set
-                Me("Upgrade") = value
+                Me("Upgradev") = value
             End Set
         End Property
     End Class

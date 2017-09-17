@@ -5,12 +5,12 @@
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         chkCheckForUpdates.Checked = My.Settings.CheckForUpdates
         chkAutoIP.Checked = My.Settings.CheckForUpdates
-        Dim bStr() As String = Split(My.Settings.Repo, ";")
-        For Each Repo As String In bStr
-            If Repo.Length <> 0 Then
-                txtRepo.AppendText(Repo & vbCrLf)
-            End If
-        Next
+        ' Dim bStr() As String = Split(My.Settings.Repo, ";")
+        '  For Each Repo As String In bStr
+        '  If Repo.Length <> 0 Then
+        '  txtRepo.AppendText(Repo & vbCrLf)
+        '  End If
+        '   Next
         pnlDbSettings.Enabled = False
         ChangeDbType(My.Settings.DbType)
         txtDbServer.Text = My.Settings.DbServer
@@ -94,11 +94,11 @@
         My.Settings.CheckForUpdates = chkCheckForUpdates.Checked
         My.Settings.AutoIP = chkAutoIP.Checked
         My.Settings.Repo = ""
-        Dim Lines() As String = Split(txtRepo.Text, vbCrLf)
+        ' Dim Lines() As String = Split(txtRepo.Text, vbCrLf)
         Dim Result As String = ""
-        For Each Repo As String In Lines
-            If Trim(Repo).Length <> 0 Then Result &= Repo & ";"
-        Next
+        '   For Each Repo As String In Lines
+        '  If Trim(Repo).Length <> 0 Then Result &= Repo & ";"
+        '   Next
         My.Settings.Repo = Result
         My.Settings.DbType = DbType
         My.Settings.DbServer = txtDbServer.Text
