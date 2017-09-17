@@ -80,7 +80,6 @@
 
     End Sub
 
-
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
 
         If frmMain.Running Then
@@ -121,7 +120,6 @@
         End If
 
     End Sub
-
 
     Private Function CheckAndUpdateLW() As Boolean
 
@@ -169,6 +167,5 @@
 
         End Try
     End Sub
-
 
 End Class

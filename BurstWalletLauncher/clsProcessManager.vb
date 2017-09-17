@@ -249,11 +249,8 @@ Public Class ProcessManager
     End Sub
     Sub OutputHandler(sender As Object, e As DataReceivedEventArgs)
         If Not String.IsNullOrEmpty(e.Data) Then
-
             If e.Data.Contains(StartSignal) Then FoundStartSignal = True
-
             RaiseEvent UpdateConsole(4, e.Data)
-
         End If
     End Sub
     Sub ErroutHandler(sender As Object, e As DataReceivedEventArgs)

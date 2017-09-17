@@ -3,7 +3,7 @@
     Private Delegate Sub DNewUpdatesAvilable()
     Private Delegate Sub DStarting()
     Private Delegate Sub DStoped()
-    Private WithEvents UpdateNotifer As clsUpdateNotifier
+
     Public Console(1) As String
     Public WithEvents Pworker As ProcessWorker
     Public Running As Boolean

@@ -137,9 +137,6 @@
     <Compile Include="clsApp.vb" />
     <Compile Include="clsHttp.vb" />
     <Compile Include="clsProcessManager.vb" />
-    <Compile Include="clsSystemCheck.vb" />
-    <Compile Include="clsUpdateNotifier.vb" />
-    <Compile Include="clsUpdater.vb" />
     <Compile Include="frmConsole.Designer.vb" />
     <Compile Include="frmConsole.vb">
       <SubType>Form</SubType>
