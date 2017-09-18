@@ -1,58 +1,18 @@
 ﻿Public Class frmMain
-    Private Delegate Sub DUpdate(ByVal [Pid] As Integer, ByVal [Status] As Integer, ByVal [data] As String)
+    Private Delegate Sub DUpdate(ByVal [AppId] As Integer, ByVal [Operation] As Integer, ByVal [data] As String)
+    Private Delegate Sub DStarting(ByVal [AppId] As Integer)
+    Private Delegate Sub DStoped(ByVal [AppId] As Integer)
+    Private Delegate Sub DAborted(ByVal [AppId] As Integer, ByVal [data] As String)
     Private Delegate Sub DNewUpdatesAvilable()
-    Private Delegate Sub DStarting()
-    Private Delegate Sub DStoped()
+
 
     Public Console(1) As String
-    Public WithEvents Pworker As ProcessWorker
     Public Running As Boolean
     Public Updateinfo As String
     Public BaseDir As String
     Public Repositories() As String
-    Private Sub btnStartStop_Click(sender As Object, e As EventArgs) Handles btnStartStop.Click
 
-        If Running Then
-            lblGotoWallet.Visible = False
-            btnStartStop.Text = "Stoping"
-            btnStartStop.Enabled = False
-            Pworker.Quit()
-        Else
-
-            '           Dim systemcheck As New clsSystemCheck
-            '           systemcheck.CheckSystem()
-            '            If Not systemcheck.AllServicesOk Then
-            '            For t As Integer = 2 To UBound(systemcheck.Service)
-            '            If systemcheck.Service(t).Status = False Then Msg &= systemcheck.Service(t).Note & vbCrLf
-            '            Next
-            '            MsgBox(Msg, MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Cannot start.")
-            '            Exit Sub
-            '        End If
-
-            Dim Mylocation = Application.StartupPath
-            If Not Mylocation.EndsWith("\") Then Mylocation &= "\"
-            Pworker = New ProcessWorker
-            Pworker.MyLocation = Mylocation
-            If My.Settings.DbType = 1 Then
-                Pworker.UseMaria = True
-            Else
-                Pworker.UseMaria = False
-            End If
-            If My.Settings.JavaType = 1 Then
-                Pworker.UseJavaP = True
-            Else
-                Pworker.UseJavaP = False
-            End If
-
-            Running = True
-
-            btnStartStop.Enabled = False
-            Pworker.Start()
-            btnStartStop.Text = "Starting"
-        End If
-
-    End Sub
-
+#Region " Form Events "
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         BaseDir = Application.StartupPath
@@ -79,10 +39,16 @@
         End If
 
         SetDbInfo()
+        lblWallet.Text = "Burst wallet v" & App.GetLocalVersion(AppNames.NRS)
 
+
+        ProcHandler = New clsProcessHandler
+        AddHandler ProcHandler.Started, AddressOf Starting
+        AddHandler ProcHandler.Stopped, AddressOf Stopped
+        AddHandler ProcHandler.Update, AddressOf ProcEvents
+        AddHandler ProcHandler.Aborting, AddressOf Aborted
 
     End Sub
-
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Try
             If Running Then
@@ -95,69 +61,192 @@
         End Try
 
     End Sub
+#End Region
 
-    Private Sub Starting() Handles Pworker.Starting
+#Region " Clickabe Objects "
+    'buttons
+    Private Sub btnStartStop_Click(sender As Object, e As EventArgs) Handles btnStartStop.Click
+
+        If Running Then
+            lblGotoWallet.Visible = False
+            btnStartStop.Text = "Stopping"
+            btnStartStop.Enabled = False
+            StopWallet()
+            'stopsequence
+            '0 NRS
+            '1 Mariap if needed
+
+        Else
+            StartWallet()
+
+            Running = True
+
+            btnStartStop.Enabled = False
+
+            btnStartStop.Text = "Starting"
+        End If
+
+    End Sub
+    Private Sub StartWallet()
+
+        If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
+            Dim pset(1) As clsProcessHandler.pSettings
+            pset(0) = New clsProcessHandler.pSettings
+            'mariadb
+            pset(0).AppId = AppNames.MariaPortable
+            pset(0).AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
+            pset(0).Cores = 0
+            pset(0).Params = "--console"
+            pset(0).WorkingDirectory = BaseDir & "MariaDb\bin\"
+            pset(0).StartSignal = "ready for connections"
+            pset(0).StartsignalMaxTime = 60
+
+            pset(1).AppId = AppNames.NRS
+            If My.Settings.JavaType = AppNames.JavaInstalled Then
+                pset(1).AppPath = "java"
+            Else
+                pset(1).AppPath = BaseDir & "Java\bin\java.exe"
+            End If
+            pset(1).Cores = 4
+            pset(1).Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
+            pset(1).StartSignal = "Started API server at"
+            pset(1).StartsignalMaxTime = 300
+            pset(1).WorkingDirectory = BaseDir
+
+            ProcHandler.StartProcessSquence(pset)
+
+
+        Else 'normal start
+            Dim Pset As New clsProcessHandler.pSettings
+            Pset.AppId = AppNames.NRS
+            If My.Settings.JavaType = AppNames.JavaInstalled Then
+                Pset.AppPath = "java"
+            Else
+                Pset.AppPath = BaseDir & "Java\bin\java.exe"
+            End If
+            Pset.Cores = 4
+            Pset.Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
+            Pset.StartSignal = "Started API server at"
+            Pset.StartsignalMaxTime = 300
+            Pset.WorkingDirectory = BaseDir
+
+            ProcHandler.StartProcess(Pset)
+
+        End If
+    End Sub
+    Private Sub StopWallet()
+        If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
+            Dim Pid(1) As Object
+            Pid(0) = AppNames.NRS
+            Pid(1) = AppNames.MariaPortable
+            ProcHandler.StopProcessSquence(Pid)
+        Else
+            ProcHandler.StopProcess(AppNames.NRS)
+        End If
+    End Sub
+    Private Sub btnConsole_Click(sender As Object, e As EventArgs) Handles btnConsole.Click
+        frmConsole.Show()
+    End Sub
+
+    'labels
+    Private Sub lblGotoWallet_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblGotoWallet.LinkClicked
+        Process.Start("http://localhost:8125")
+    End Sub
+    Private Sub lblShowUpdateNotification_Click_1(sender As Object, e As EventArgs) Handles lblShowUpdateNotification.Click
+        frmUpdate.Show()
+    End Sub
+
+    'toolstrips
+    Private Sub ExitToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem1.Click
+        Me.Close()
+    End Sub
+    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
+        Dim s As New frmSettings
+
+        s.ShowDialog()
+
+    End Sub
+    Private Sub ContributorsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContributorsToolStripMenuItem.Click
+        frmContributors.Show()
+    End Sub
+    Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
+        frmUpdate.Show()
+    End Sub
+#End Region
+
+
+
+
+
+    Private Sub Starting(ByVal AppId As Integer)
         If Me.InvokeRequired Then
             Dim d As New DStarting(AddressOf Starting)
-            Me.Invoke(d, New Object() {})
+            Me.Invoke(d, New Object() {AppId})
             Return
         End If
-        'threadsafe here
+
+        Select Case AppId
+            Case AppNames.NRS
+                lblNrsStatus.Text = "Starting"
+                lblNrsStatus.ForeColor = Color.DarkOrange
+            Case AppNames.MariaPortable
+                LblDbStatus.Text = "Starting"
+                LblDbStatus.ForeColor = Color.DarkOrange
+        End Select
+
 
     End Sub
 
-    Private Sub Stoped() Handles Pworker.Stoped
+    Private Sub Stopped(ByVal AppId As Integer)
         If Me.InvokeRequired Then
-            Dim d As New DStoped(AddressOf Stoped)
-            Me.Invoke(d, New Object() {})
+            Dim d As New DStoped(AddressOf Stopped)
+            Me.Invoke(d, New Object() {AppId})
             Return
         End If
-        'threadsafe here
-        If My.Settings.DbType = 1 Then
-            LblDbStatus.Text = "Stopped"
-            LblDbStatus.ForeColor = Color.Red
+
+        If AppId = AppNames.NRS Then
+            lblNrsStatus.Text = "Stopped"
+            lblNrsStatus.ForeColor = Color.Red
         End If
-        lblNrsStatus.Text = "Stopped"
-        lblNrsStatus.ForeColor = Color.Red
-        btnStartStop.Text = "Start Wallet"
-        btnStartStop.Enabled = True
-        Running = False
+        If My.Settings.DbType = DbType.pMariaDB Then
+            If AppId = AppNames.MariaPortable Then
+                LblDbStatus.Text = "Stopped"
+                LblDbStatus.ForeColor = Color.Red
+                btnStartStop.Text = "Start Wallet"
+                btnStartStop.Enabled = True
+                Running = False
+            End If
+        Else
+            btnStartStop.Text = "Start Wallet"
+            btnStartStop.Enabled = True
+            Running = False
+        End If
+
     End Sub
 
-    Private Sub Updates(ByVal Pid As Integer, ByVal Status As Integer, ByVal data As String) Handles Pworker.Update
+    Private Sub ProcEvents(ByVal AppId As Integer, ByVal Operation As Integer, ByVal data As String)
         If Me.InvokeRequired Then
-            Dim d As New DUpdate(AddressOf Updates)
-            Me.Invoke(d, New Object() {Pid, Status, data})
+            Dim d As New DUpdate(AddressOf ProcEvents)
+            Me.Invoke(d, New Object() {AppId, Operation, data})
             Return
         End If
         'threadsafe here
-
-
-        Select Case Status
-            Case 0 'Stoped
-                If Pid = 0 Then
+        Select Case Operation
+            Case ProcOp.Stopped  'Stoped
+                If AppId = AppNames.NRS Then
                     LblDbStatus.Text = "Stopped"
                     LblDbStatus.ForeColor = Color.Red
                 End If
-                If Pid = 1 Then
+                If AppId = AppNames.MariaPortable Then
                     lblNrsStatus.Text = "Stopped"
                     lblNrsStatus.ForeColor = Color.Red
                 End If
-            Case 1 'Starting
-                If Pid = 0 Then
-                    LblDbStatus.Text = "Starting"
-                    LblDbStatus.ForeColor = Color.DarkOrange
-                End If
-                If Pid = 1 Then
-                    lblNrsStatus.Text = "Starting"
-                    lblNrsStatus.ForeColor = Color.DarkOrange
-                End If
-            Case 2 'Running
-                If Pid = 0 Then
+            Case ProcOp.FoundSignal
+                If AppId = AppNames.MariaPortable Then
                     LblDbStatus.Text = "Running"
                     LblDbStatus.ForeColor = Color.DarkGreen
                 End If
-                If Pid = 1 Then
+                If AppId = AppNames.NRS Then
                     lblNrsStatus.Text = "Running"
                     lblNrsStatus.ForeColor = Color.DarkGreen
                     btnStartStop.Text = "Stop Wallet"
@@ -165,43 +254,64 @@
                     btnStartStop.Enabled = True
                     lblGotoWallet.Visible = True
                 End If
-            Case 3 'Stopping
-                If Pid = 0 Then
+            Case ProcOp.Stopping
+                If AppId = AppNames.MariaPortable Then
                     LblDbStatus.Text = "Stopping"
                     LblDbStatus.ForeColor = Color.DarkOrange
                 End If
-                If Pid = 1 Then
+                If AppId = AppNames.NRS Then
                     lblNrsStatus.Text = "Stopping"
                     lblNrsStatus.ForeColor = Color.DarkOrange
                 End If
-            Case 4 'Console Update
-                If Pid = 0 Then
+            Case ProcOp.ConsoleOut
+                If AppId = AppNames.MariaPortable Then
                     Console(0) &= data & vbCrLf
                 End If
-                If Pid = 1 Then
+                If AppId = AppNames.NRS Then
                     Console(1) &= data & vbCrLf
                 End If
-            Case 5 'Error Update
-                If Pid = 0 Then
+            Case ProcOp.ConsoleErr
+                If AppId = AppNames.MariaPortable Then
                     Console(0) &= data & vbCrLf
                 End If
-                If Pid = 1 Then
+                If AppId = AppNames.NRS Then
                     Console(1) &= data & vbCrLf
                 End If
-            Case 10 'Error
+            Case ProcOp.Err  'Error
                 MsgBox("A Unhandled error happend when services tried to start. Console view might give clue to what is wrong. Some services might still be running.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Error")
                 Running = False
         End Select
 
     End Sub
 
-    Private Sub btnConsole_Click(sender As Object, e As EventArgs) Handles btnConsole.Click
-        frmConsole.Show()
+    Private Sub Aborted(ByVal AppId As Integer, ByVal Data As String)
+        If Me.InvokeRequired Then
+            Dim d As New DAborted(AddressOf Aborted)
+            Me.Invoke(d, New Object() {AppId, Data})
+            Return
+        End If
+        MsgBox(Data)
+        If AppId = AppNames.NRS Then
+            lblNrsStatus.Text = "Stopped"
+            lblNrsStatus.ForeColor = Color.Red
+        End If
+        If My.Settings.DbType = DbType.pMariaDB Then
+            If AppId = AppNames.MariaPortable Then
+                LblDbStatus.Text = "Stopped"
+                LblDbStatus.ForeColor = Color.Red
+                btnStartStop.Text = "Start Wallet"
+                btnStartStop.Enabled = True
+                Running = False
+            End If
+        Else
+            btnStartStop.Text = "Start Wallet"
+            btnStartStop.Enabled = True
+            Running = False
+        End If
+
     End Sub
 
-    Private Sub lblGotoWallet_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblGotoWallet.LinkClicked
-        Process.Start("http://localhost:8125")
-    End Sub
+
 
     Private Sub NewUpdatesAvilable()
         If Me.InvokeRequired Then
@@ -217,29 +327,19 @@
         End Try
     End Sub
 
-    Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
-        frmUpdate.Show()
-    End Sub
 
-    Private Sub ExitToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem1.Click
-        Me.Close()
-    End Sub
 
-    Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
-        Dim s As New frmSettings
 
-        s.ShowDialog()
 
-    End Sub
 
-    Private Sub ContributorsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContributorsToolStripMenuItem.Click
-        frmContributors.Show()
-    End Sub
 
-    Private Sub lblShowUpdateNotification_Click_1(sender As Object, e As EventArgs) Handles lblShowUpdateNotification.Click
-        frmUpdate.Show()
-    End Sub
+#Region " Process Handler "
 
+
+
+#End Region
+
+#Region " Misc "
     Private Sub CheckUpgrade()
 
         Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
@@ -264,7 +364,6 @@
         My.Settings.Save()
 
     End Sub
-
     Public Sub WriteNRSConfig()
 
         'writing nxt.properties
@@ -305,22 +404,23 @@
     Public Sub SetDbInfo()
         Select Case My.Settings.DbType
             Case DbType.FireBird
-                lblDbName.Text = "Firebird"
+                lblDbName.Text = App.GetDbNameFromType(DbType.FireBird)
                 LblDbStatus.Text = "Embeded"
                 LblDbStatus.ForeColor = Color.DarkGreen
             Case DbType.pMariaDB
-                lblDbName.Text = "MariaDb"
+                lblDbName.Text = App.GetDbNameFromType(DbType.pMariaDB)
                 LblDbStatus.Text = "Stopped"
                 LblDbStatus.ForeColor = Color.Red
             Case DbType.MariaDB
-                lblDbName.Text = "MariaDb"
+                lblDbName.Text = App.GetDbNameFromType(DbType.MariaDB)
                 LblDbStatus.Text = "Unknown"
                 LblDbStatus.ForeColor = Color.DarkOrange
             Case DbType.H2
-                lblDbName.Text = "H2"
+                lblDbName.Text = App.GetDbNameFromType(DbType.H2)
                 LblDbStatus.Text = "Embeded"
                 LblDbStatus.ForeColor = Color.DarkGreen
         End Select
     End Sub
+#End Region
 
 End Class

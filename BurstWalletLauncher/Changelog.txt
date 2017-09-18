@@ -6,19 +6,22 @@
 To Be done:
 
 Add support for quicksyncing Feature
-If maria/mysql is running but not from wallet. offer to install sql template and use Credentials
-Add support to install as a service. (Needs a system wrapper+named pipes)
-AutoIp Settings
+Add Core limiting system
+Add option to use GPU
 Add firewall rules to Windows for NRS.
+Add support to install as a service. (Needs a system wrapper+named pipes)
 
-Implement more error handling.
+
+
+If maria/mysql is running but not from wallet. offer to install sql template and use Credentials
+AutoIp Settings
+Implement better error handling.
 Change update system to Core and component update system
 Add a components download window where you can select to download a component.
 Setting to minimize to tray(?)
 Add system/environment sanity check at wallet start.
 Add ntp check from pool.org?
 
-Refactor this mess.
 
 ~V1.2
 * Corrected spelling error.

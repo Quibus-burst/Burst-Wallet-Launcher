@@ -10,13 +10,8 @@
         pMariaDB = 2
         MariaDB = 3
     End Enum
-    Public Enum InstallType As Integer
-        Installed = 0
-        Portable = 1
-        Missing = 3
-    End Enum
+
     Public Enum AppNames As Integer
-        'dont forget to update const TotalNrOfApps
         Launcher = 0
         NRS = 1
         JavaInstalled = 2
@@ -28,17 +23,24 @@
         Running
         Abort
     End Enum
+    Public Enum ProcOp As Integer
+        Running = 1
+        FoundSignal = 2
+        Stopping = 3
+        Stopped = 4
+        Err = 5
+        ConsoleErr = 6
+        ConsoleOut = 7
+    End Enum
     '############################
     'Const
     '############################
-    'Public Const TotalNrOfApps As Integer = 4 'base 0
-    '  Public Const ServiceJava As Integer = 0
-    '  Public Const ServiceMaria As Integer = 1
+
 
     '############################
     'Classes
     '############################
     Public WithEvents App As clsApp
-
+    Public WithEvents ProcHandler As clsProcessHandler
 
 End Module

@@ -72,6 +72,7 @@ Public Class ProcessWorker
             RaiseEvent Update(0, 2, "") ' maria running
         End If
         RaiseEvent Update(1, 1, "") ' nrs starting
+
         NRS.Start()
         tmr = Now.AddMinutes(5)
         Do
@@ -208,11 +209,11 @@ Public Class ProcessManager
         AddHandler p.OutputDataReceived, AddressOf OutputHandler
         AddHandler p.ErrorDataReceived, AddressOf ErroutHandler
         p.StartInfo.FileName = AppToStart
+
         p.Start()
+        p.ProcessorAffinity = CType(127, IntPtr)
         p.BeginErrorReadLine()
         p.BeginOutputReadLine()
-
-
     End Sub
     Public Function IsRunning() As Boolean
         Try

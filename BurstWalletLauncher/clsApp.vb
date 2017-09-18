@@ -341,9 +341,11 @@ Public Class clsApp
         Do
             If SetRemoteInfo() Then
                 For l = 0 To UBound(_Apps)
-                    If CheckVersion(_Apps(l).LocalVersion, _Apps(l).RemoteVersion, True) Then
-                        RaiseEvent UpdateAvailable()
-                        Exit For
+                    If _Apps(l).LocalFound And _Apps(l).RemoteVersion <> "" Then 'is it installed and do we have a repo for it?
+                        If CheckVersion(_Apps(l).LocalVersion, _Apps(l).RemoteVersion, True) Then
+                            RaiseEvent UpdateAvailable()
+                            Exit For
+                        End If
                     End If
                 Next
             End If
@@ -358,7 +360,6 @@ Public Class clsApp
         _UpdateNotifyState = States.Stopped
     End Sub
 #End Region
-
 
 #Region " Misc Functions "
     Private Function FilterVersionNr(ByVal data As String) As String
@@ -419,11 +420,27 @@ Public Class clsApp
         End Select
         Return ""
     End Function
-    Public Function GetLocalVersion(ByVal appid As Integer) As String
-        Return FilterVersionNr(_Apps(appid).LocalVersion)
+    Public Function GetDbNameFromType(ByVal Dtype As Integer) As String
+
+        Select Case Dtype
+            Case DbType.H2
+                Return "H2"
+            Case DbType.FireBird
+                Return "FireBird"
+            Case DbType.MariaDB
+                Return "MariaDB"
+            Case DbType.pMariaDB
+                Return "MariaDB"
+        End Select
+        Return ""
     End Function
-    Public Function GetRemoteVersion(ByVal appid As Integer) As String
-        Return FilterVersionNr(_Apps(appid).RemoteVersion)
+    Public Function GetLocalVersion(ByVal appid As Integer, Optional ByVal UseFilter As Boolean = True) As String
+        If UseFilter Then Return FilterVersionNr(_Apps(appid).LocalVersion)
+        Return _Apps(appid).LocalVersion
+    End Function
+    Public Function GetRemoteVersion(ByVal appid As Integer, Optional ByVal UseFilter As Boolean = True) As String
+        If UseFilter Then Return FilterVersionNr(_Apps(appid).RemoteVersion)
+        Return _Apps(appid).RemoteVersion
     End Function
     Public Function ShouldUpdate(ByVal AppId As Integer) As Boolean
         If _Apps(AppId).LocalFound Then 'we have it installed?

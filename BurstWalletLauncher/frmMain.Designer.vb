@@ -38,6 +38,9 @@ Partial Class frmMain
         Me.ExitToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SettingsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ImportDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExportDatabaseToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChangeDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExportDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
@@ -53,10 +56,7 @@ Partial Class frmMain
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.lblShowUpdateNotification = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.ImportDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExportDatabaseToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ChangeDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lblWallet = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -194,6 +194,24 @@ Partial Class frmMain
         Me.SettingsToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.SettingsToolStripMenuItem.Text = "Settings"
         '
+        'ImportDatabaseToolStripMenuItem
+        '
+        Me.ImportDatabaseToolStripMenuItem.Name = "ImportDatabaseToolStripMenuItem"
+        Me.ImportDatabaseToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.ImportDatabaseToolStripMenuItem.Text = "Import Database"
+        '
+        'ExportDatabaseToolStripMenuItem1
+        '
+        Me.ExportDatabaseToolStripMenuItem1.Name = "ExportDatabaseToolStripMenuItem1"
+        Me.ExportDatabaseToolStripMenuItem1.Size = New System.Drawing.Size(166, 22)
+        Me.ExportDatabaseToolStripMenuItem1.Text = "Export Database"
+        '
+        'ChangeDatabaseToolStripMenuItem
+        '
+        Me.ChangeDatabaseToolStripMenuItem.Name = "ChangeDatabaseToolStripMenuItem"
+        Me.ChangeDatabaseToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.ChangeDatabaseToolStripMenuItem.Text = "Change Database"
+        '
         'ToolsToolStripMenuItem
         '
         Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExportDatabaseToolStripMenuItem})
@@ -217,7 +235,7 @@ Partial Class frmMain
         'ContributorsToolStripMenuItem
         '
         Me.ContributorsToolStripMenuItem.Name = "ContributorsToolStripMenuItem"
-        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(141, 22)
         Me.ContributorsToolStripMenuItem.Text = "Contributors"
         '
         'FileToolStripMenuItem
@@ -285,39 +303,22 @@ Partial Class frmMain
         Me.lblShowUpdateNotification.Name = "lblShowUpdateNotification"
         Me.lblShowUpdateNotification.Size = New System.Drawing.Size(284, 17)
         Me.lblShowUpdateNotification.Text = "There are updates available. Click here for more info."
+        Me.lblShowUpdateNotification.Visible = False
         '
         'ToolStripStatusLabel2
         '
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
         Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(0, 17)
         '
-        'Label2
+        'lblWallet
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Rockwell", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(21, 41)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(206, 23)
-        Me.Label2.TabIndex = 7
-        Me.Label2.Text = "Burst wallet v1.3.6cg"
-        '
-        'ImportDatabaseToolStripMenuItem
-        '
-        Me.ImportDatabaseToolStripMenuItem.Name = "ImportDatabaseToolStripMenuItem"
-        Me.ImportDatabaseToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
-        Me.ImportDatabaseToolStripMenuItem.Text = "Import Database"
-        '
-        'ExportDatabaseToolStripMenuItem1
-        '
-        Me.ExportDatabaseToolStripMenuItem1.Name = "ExportDatabaseToolStripMenuItem1"
-        Me.ExportDatabaseToolStripMenuItem1.Size = New System.Drawing.Size(166, 22)
-        Me.ExportDatabaseToolStripMenuItem1.Text = "Export Database"
-        '
-        'ChangeDatabaseToolStripMenuItem
-        '
-        Me.ChangeDatabaseToolStripMenuItem.Name = "ChangeDatabaseToolStripMenuItem"
-        Me.ChangeDatabaseToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
-        Me.ChangeDatabaseToolStripMenuItem.Text = "Change Database"
+        Me.lblWallet.AutoSize = True
+        Me.lblWallet.Font = New System.Drawing.Font("Rockwell", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWallet.Location = New System.Drawing.Point(21, 41)
+        Me.lblWallet.Name = "lblWallet"
+        Me.lblWallet.Size = New System.Drawing.Size(206, 23)
+        Me.lblWallet.TabIndex = 7
+        Me.lblWallet.Text = "Burst wallet v1.3.6cg"
         '
         'frmMain
         '
@@ -325,7 +326,7 @@ Partial Class frmMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(489, 154)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.lblWallet)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.btnConsole)
         Me.Controls.Add(Me.btnStartStop)
@@ -368,7 +369,7 @@ Partial Class frmMain
     Friend WithEvents WalletLauncherSettingsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AboutToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblWallet As Label
     Friend WithEvents FileToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents CheckForUpdatesToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As ToolStripSeparator

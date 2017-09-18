@@ -32,8 +32,10 @@ Partial Class frmSettings
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.pnlMaria = New System.Windows.Forms.Panel()
         Me.pnlDbSettings = New System.Windows.Forms.Panel()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Button2 = New System.Windows.Forms.Button()
@@ -45,13 +47,7 @@ Partial Class frmSettings
         Me.txtDbName = New System.Windows.Forms.TextBox()
         Me.txtDbServer = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.rDB2 = New System.Windows.Forms.RadioButton()
-        Me.rDB1 = New System.Windows.Forms.RadioButton()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.rDB3 = New System.Windows.Forms.RadioButton()
-        Me.rDB0 = New System.Windows.Forms.RadioButton()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Button4 = New System.Windows.Forms.Button()
@@ -60,19 +56,20 @@ Partial Class frmSettings
         Me.rJava1 = New System.Windows.Forms.RadioButton()
         Me.rJava0 = New System.Windows.Forms.RadioButton()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.lblDb = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        Me.Panel4.SuspendLayout()
+        Me.pnlMaria.SuspendLayout()
         Me.pnlDbSettings.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
         '
+        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button1.Location = New System.Drawing.Point(358, 352)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(100, 33)
@@ -180,9 +177,11 @@ Partial Class frmSettings
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.lblDb)
+        Me.TabPage2.Controls.Add(Me.Label13)
+        Me.TabPage2.Controls.Add(Me.Label3)
         Me.TabPage2.Controls.Add(Me.Button3)
-        Me.TabPage2.Controls.Add(Me.Panel4)
-        Me.TabPage2.Controls.Add(Me.Panel1)
+        Me.TabPage2.Controls.Add(Me.pnlMaria)
         Me.TabPage2.Controls.Add(Me.Label2)
         Me.TabPage2.Location = New System.Drawing.Point(104, 4)
         Me.TabPage2.Name = "TabPage2"
@@ -192,8 +191,27 @@ Partial Class frmSettings
         Me.TabPage2.Text = "Database"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(21, 44)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(121, 13)
+        Me.Label13.TabIndex = 13
+        Me.Label13.Text = "You are currently using: "
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(21, 61)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(375, 13)
+        Me.Label3.TabIndex = 12
+        Me.Label3.Text = "If you want to change database please use ""change database"" in tools menu."
+        '
         'Button3
         '
+        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button3.Location = New System.Drawing.Point(358, 352)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(100, 33)
@@ -201,18 +219,17 @@ Partial Class frmSettings
         Me.Button3.Text = "Save"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'Panel4
+        'pnlMaria
         '
-        Me.Panel4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel4.Controls.Add(Me.pnlDbSettings)
-        Me.Panel4.Controls.Add(Me.rDB2)
-        Me.Panel4.Controls.Add(Me.rDB1)
-        Me.Panel4.Controls.Add(Me.Label4)
-        Me.Panel4.Location = New System.Drawing.Point(24, 140)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(417, 209)
-        Me.Panel4.TabIndex = 10
+        Me.pnlMaria.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.pnlMaria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlMaria.Controls.Add(Me.pnlDbSettings)
+        Me.pnlMaria.Controls.Add(Me.Label4)
+        Me.pnlMaria.Enabled = False
+        Me.pnlMaria.Location = New System.Drawing.Point(24, 81)
+        Me.pnlMaria.Name = "pnlMaria"
+        Me.pnlMaria.Size = New System.Drawing.Size(417, 161)
+        Me.pnlMaria.TabIndex = 10
         '
         'pnlDbSettings
         '
@@ -227,7 +244,7 @@ Partial Class frmSettings
         Me.pnlDbSettings.Controls.Add(Me.txtDbServer)
         Me.pnlDbSettings.Controls.Add(Me.Label5)
         Me.pnlDbSettings.Enabled = False
-        Me.pnlDbSettings.Location = New System.Drawing.Point(3, 78)
+        Me.pnlDbSettings.Location = New System.Drawing.Point(3, 29)
         Me.pnlDbSettings.Name = "pnlDbSettings"
         Me.pnlDbSettings.Size = New System.Drawing.Size(411, 126)
         Me.pnlDbSettings.TabIndex = 10
@@ -317,81 +334,15 @@ Partial Class frmSettings
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "ServerAddress:"
         '
-        'rDB2
-        '
-        Me.rDB2.AutoSize = True
-        Me.rDB2.Location = New System.Drawing.Point(11, 55)
-        Me.rDB2.Name = "rDB2"
-        Me.rDB2.Size = New System.Drawing.Size(186, 17)
-        Me.rDB2.TabIndex = 9
-        Me.rDB2.TabStop = True
-        Me.rDB2.Text = "Own MariaDB / Mysql Connection"
-        Me.rDB2.UseVisualStyleBackColor = True
-        '
-        'rDB1
-        '
-        Me.rDB1.AutoSize = True
-        Me.rDB1.Location = New System.Drawing.Point(11, 32)
-        Me.rDB1.Name = "rDB1"
-        Me.rDB1.Size = New System.Drawing.Size(302, 17)
-        Me.rDB1.TabIndex = 8
-        Me.rDB1.TabStop = True
-        Me.rDB1.Text = "MariaDB Portable - Controlled and manged by the launcher"
-        Me.rDB1.UseVisualStyleBackColor = True
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(8, 10)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(132, 16)
+        Me.Label4.Size = New System.Drawing.Size(217, 16)
         Me.Label4.TabIndex = 1
-        Me.Label4.Text = "Server databases"
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Controls.Add(Me.rDB3)
-        Me.Panel1.Controls.Add(Me.rDB0)
-        Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Location = New System.Drawing.Point(24, 44)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(417, 90)
-        Me.Panel1.TabIndex = 7
-        '
-        'rDB3
-        '
-        Me.rDB3.AutoSize = True
-        Me.rDB3.Location = New System.Drawing.Point(11, 30)
-        Me.rDB3.Name = "rDB3"
-        Me.rDB3.Size = New System.Drawing.Size(183, 17)
-        Me.rDB3.TabIndex = 7
-        Me.rDB3.TabStop = True
-        Me.rDB3.Text = "H2 - Compatible with older wallets"
-        Me.rDB3.UseVisualStyleBackColor = True
-        '
-        'rDB0
-        '
-        Me.rDB0.AutoSize = True
-        Me.rDB0.Location = New System.Drawing.Point(11, 53)
-        Me.rDB0.Name = "rDB0"
-        Me.rDB0.Size = New System.Drawing.Size(208, 17)
-        Me.rDB0.TabIndex = 6
-        Me.rDB0.TabStop = True
-        Me.rDB0.Text = "Firebird - Recommended for most users"
-        Me.rDB0.UseVisualStyleBackColor = True
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(8, 11)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(153, 16)
-        Me.Label3.TabIndex = 0
-        Me.Label3.Text = "Embeded databases"
+        Me.Label4.Text = "Own MariaDB / MySql Settings"
         '
         'Label2
         '
@@ -417,6 +368,7 @@ Partial Class frmSettings
         '
         'Button4
         '
+        Me.Button4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Button4.Location = New System.Drawing.Point(358, 352)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(100, 33)
@@ -478,6 +430,14 @@ Partial Class frmSettings
         Me.Label11.TabIndex = 3
         Me.Label11.Text = "Java settings"
         '
+        'lblDb
+        '
+        Me.lblDb.AutoSize = True
+        Me.lblDb.Location = New System.Drawing.Point(139, 44)
+        Me.lblDb.Name = "lblDb"
+        Me.lblDb.Size = New System.Drawing.Size(0, 13)
+        Me.lblDb.TabIndex = 14
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -497,12 +457,10 @@ Partial Class frmSettings
         Me.Panel2.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
+        Me.pnlMaria.ResumeLayout(False)
+        Me.pnlMaria.PerformLayout()
         Me.pnlDbSettings.ResumeLayout(False)
         Me.pnlDbSettings.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         Me.Panel3.ResumeLayout(False)
@@ -519,12 +477,8 @@ Partial Class frmSettings
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Panel4 As Panel
+    Friend WithEvents pnlMaria As Panel
     Friend WithEvents Label4 As Label
-    Friend WithEvents Panel1 As Panel
-    Friend WithEvents rDB3 As RadioButton
-    Friend WithEvents rDB0 As RadioButton
-    Friend WithEvents Label3 As Label
     Friend WithEvents pnlDbSettings As Panel
     Friend WithEvents Button2 As Button
     Friend WithEvents Label8 As Label
@@ -535,8 +489,6 @@ Partial Class frmSettings
     Friend WithEvents txtDbName As TextBox
     Friend WithEvents txtDbServer As TextBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents rDB2 As RadioButton
-    Friend WithEvents rDB1 As RadioButton
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label9 As Label
     Friend WithEvents chkAutoIP As CheckBox
@@ -549,4 +501,7 @@ Partial Class frmSettings
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents lblDb As Label
 End Class

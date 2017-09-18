@@ -101,7 +101,16 @@
 
         If frmMain.Running Then
             lblStatus.Text = "Waiting for wallet to stop"
-            frmMain.Pworker.Quit() 'stopping wallet if running
+
+            If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
+                Dim Pid(1) As Object
+                Pid(0) = AppNames.NRS
+                Pid(1) = AppNames.MariaPortable
+                ProcHandler.StopProcessSquence(Pid)
+            Else
+                ProcHandler.StopProcess(AppNames.NRS)
+            End If
+
             tmr.Interval = 500
             tmr.Start()
             tmr.Enabled = True
