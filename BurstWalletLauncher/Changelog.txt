@@ -9,9 +9,7 @@ Add support for quicksyncing Feature
 Add Core limiting system
 Add option to use GPU
 Add firewall rules to Windows for NRS.
-Add support to install as a service. (Needs a system wrapper+named pipes)
-
-
+Add support to install as a service. (Needs a system wrapper+named pipes or can we use servicecontroller?)
 
 If maria/mysql is running but not from wallet. offer to install sql template and use Credentials
 AutoIp Settings
@@ -25,10 +23,11 @@ Add ntp check from pool.org?
 
 ~V1.2
 * Corrected spelling error.
+* Internal codeststructure changed to be more modular
 +Added gui for first time setup
-+Added support for multiple databases
++Added support for multiple database types
 +Added individual components download at start.
-+Added Contributors
++Added Contributors window
 +Added Settings window.
 +Added Upgrade Scenarios Handler
 

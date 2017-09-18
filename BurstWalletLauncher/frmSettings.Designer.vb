@@ -32,6 +32,7 @@ Partial Class frmSettings
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.lblDb = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
@@ -56,7 +57,15 @@ Partial Class frmSettings
         Me.rJava1 = New System.Windows.Forms.RadioButton()
         Me.rJava0 = New System.Windows.Forms.RadioButton()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.lblDb = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.nrCores = New System.Windows.Forms.NumericUpDown()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.lblRecommendedCPU = New System.Windows.Forms.Label()
+        Me.lblMaxCores = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -65,6 +74,8 @@ Partial Class frmSettings
         Me.pnlDbSettings.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        CType(Me.nrCores, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button1
@@ -109,6 +120,7 @@ Partial Class frmSettings
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.Panel1)
         Me.TabPage1.Controls.Add(Me.Panel2)
         Me.TabPage1.Controls.Add(Me.Label1)
         Me.TabPage1.Controls.Add(Me.Button1)
@@ -190,6 +202,14 @@ Partial Class frmSettings
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Database"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'lblDb
+        '
+        Me.lblDb.AutoSize = True
+        Me.lblDb.Location = New System.Drawing.Point(139, 44)
+        Me.lblDb.Name = "lblDb"
+        Me.lblDb.Size = New System.Drawing.Size(0, 13)
+        Me.lblDb.TabIndex = 14
         '
         'Label13
         '
@@ -430,13 +450,96 @@ Partial Class frmSettings
         Me.Label11.TabIndex = 3
         Me.Label11.Text = "Java settings"
         '
-        'lblDb
+        'Panel1
         '
-        Me.lblDb.AutoSize = True
-        Me.lblDb.Location = New System.Drawing.Point(139, 44)
-        Me.lblDb.Name = "lblDb"
-        Me.lblDb.Size = New System.Drawing.Size(0, 13)
-        Me.lblDb.TabIndex = 14
+        Me.Panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.lblMaxCores)
+        Me.Panel1.Controls.Add(Me.lblRecommendedCPU)
+        Me.Panel1.Controls.Add(Me.Label18)
+        Me.Panel1.Controls.Add(Me.Label17)
+        Me.Panel1.Controls.Add(Me.nrCores)
+        Me.Panel1.Controls.Add(Me.Label16)
+        Me.Panel1.Controls.Add(Me.Label14)
+        Me.Panel1.Controls.Add(Me.Label15)
+        Me.Panel1.Location = New System.Drawing.Point(24, 156)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(417, 106)
+        Me.Panel1.TabIndex = 9
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(8, 11)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(100, 16)
+        Me.Label15.TabIndex = 0
+        Me.Label15.Text = "NRS Settings"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(29, 31)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(295, 13)
+        Me.Label14.TabIndex = 1
+        Me.Label14.Text = "Note: During sync of blockchain cpu usage can be massive. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(29, 69)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(29, 13)
+        Me.Label16.TabIndex = 2
+        Me.Label16.Text = "Use:"
+        '
+        'nrCores
+        '
+        Me.nrCores.Location = New System.Drawing.Point(64, 67)
+        Me.nrCores.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
+        Me.nrCores.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nrCores.Name = "nrCores"
+        Me.nrCores.Size = New System.Drawing.Size(40, 20)
+        Me.nrCores.TabIndex = 3
+        Me.nrCores.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(109, 69)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(41, 13)
+        Me.Label17.TabIndex = 4
+        Me.Label17.Text = "of max "
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(29, 45)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(195, 13)
+        Me.Label18.TabIndex = 5
+        Me.Label18.Text = "Recomended value for your computer is" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'lblRecommendedCPU
+        '
+        Me.lblRecommendedCPU.AutoSize = True
+        Me.lblRecommendedCPU.Location = New System.Drawing.Point(220, 45)
+        Me.lblRecommendedCPU.Name = "lblRecommendedCPU"
+        Me.lblRecommendedCPU.Size = New System.Drawing.Size(42, 13)
+        Me.lblRecommendedCPU.TabIndex = 6
+        Me.lblRecommendedCPU.Text = "6 cores"
+        '
+        'lblMaxCores
+        '
+        Me.lblMaxCores.AutoSize = True
+        Me.lblMaxCores.Location = New System.Drawing.Point(143, 69)
+        Me.lblMaxCores.Name = "lblMaxCores"
+        Me.lblMaxCores.Size = New System.Drawing.Size(42, 13)
+        Me.lblMaxCores.TabIndex = 7
+        Me.lblMaxCores.Text = "6 cores"
         '
         'frmSettings
         '
@@ -465,6 +568,9 @@ Partial Class frmSettings
         Me.TabPage3.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.nrCores, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -504,4 +610,13 @@ Partial Class frmSettings
     Friend WithEvents Label13 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents lblDb As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents nrCores As NumericUpDown
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents lblMaxCores As Label
+    Friend WithEvents lblRecommendedCPU As Label
+    Friend WithEvents Label18 As Label
 End Class

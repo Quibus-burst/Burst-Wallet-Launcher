@@ -16,6 +16,21 @@
         txtDbUser.Text = My.Settings.DbUser
         txtDbPass.Text = My.Settings.DbPass
         ChangeJavaType(My.Settings.JavaType)
+
+        nrCores.Maximum = Environment.ProcessorCount
+        nrCores.Value = My.Settings.Cpulimit
+        lblMaxCores.Text = CStr(Environment.ProcessorCount) & " cores."
+        Select Case Environment.ProcessorCount
+            Case 1
+                lblRecommendedCPU.Text = CStr(1) & " cores."
+            Case 2
+                lblRecommendedCPU.Text = CStr(1) & " cores."
+            Case 4
+                lblRecommendedCPU.Text = CStr(3) & " cores."
+            Case Else
+                lblRecommendedCPU.Text = CStr(Environment.ProcessorCount - 2) & " cores."
+        End Select
+
     End Sub
 
     Private Sub ChangeJavaType(ByVal id As Integer)
@@ -93,4 +108,9 @@
         g.DrawString(_TP.Text, _TF, _TB, _TA, New StringFormat(_strFlags))
     End Sub
 
+    Private Sub nrCores_ValueChanged(sender As Object, e As EventArgs) Handles nrCores.TextChanged
+        If nrCores.Value > Environment.ProcessorCount Then nrCores.Value = Environment.ProcessorCount
+        If nrCores.Value < 1 Then nrCores.Value = 1
+
+    End Sub
 End Class

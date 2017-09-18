@@ -37,9 +37,21 @@
             App.StartUpdateNotifications()
             AddHandler App.UpdateAvailable, AddressOf NewUpdatesAvilable
         End If
-
         SetDbInfo()
         lblWallet.Text = "Burst wallet v" & App.GetLocalVersion(AppNames.NRS)
+
+        If My.Settings.Cpulimit = 0 Or My.Settings.Cpulimit > Environment.ProcessorCount Then 'need to set correct cpu
+            Select Case Environment.ProcessorCount
+                Case 1
+                    My.Settings.Cpulimit = 1
+                Case 2
+                    My.Settings.Cpulimit = 1
+                Case 4
+                    My.Settings.Cpulimit = 3
+                Case Else
+                    My.Settings.Cpulimit = Environment.ProcessorCount - 2
+            End Select
+        End If
 
 
         ProcHandler = New clsProcessHandler
@@ -107,7 +119,7 @@
             Else
                 pset(1).AppPath = BaseDir & "Java\bin\java.exe"
             End If
-            pset(1).Cores = 4
+            pset(1).Cores = My.Settings.Cpulimit
             pset(1).Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
             pset(1).StartSignal = "Started API server at"
             pset(1).StartsignalMaxTime = 300
@@ -124,7 +136,7 @@
             Else
                 Pset.AppPath = BaseDir & "Java\bin\java.exe"
             End If
-            Pset.Cores = 4
+            Pset.Cores = My.Settings.Cpulimit
             Pset.Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
             Pset.StartSignal = "Started API server at"
             Pset.StartsignalMaxTime = 300
@@ -310,8 +322,6 @@
         End If
 
     End Sub
-
-
 
     Private Sub NewUpdatesAvilable()
         If Me.InvokeRequired Then
