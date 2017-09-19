@@ -99,63 +99,7 @@
         End If
 
     End Sub
-    Private Sub StartWallet()
 
-        If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
-            Dim pset(1) As clsProcessHandler.pSettings
-            pset(0) = New clsProcessHandler.pSettings
-            'mariadb
-            pset(0).AppId = AppNames.MariaPortable
-            pset(0).AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
-            pset(0).Cores = 0
-            pset(0).Params = "--console"
-            pset(0).WorkingDirectory = BaseDir & "MariaDb\bin\"
-            pset(0).StartSignal = "ready for connections"
-            pset(0).StartsignalMaxTime = 60
-
-            pset(1).AppId = AppNames.NRS
-            If My.Settings.JavaType = AppNames.JavaInstalled Then
-                pset(1).AppPath = "java"
-            Else
-                pset(1).AppPath = BaseDir & "Java\bin\java.exe"
-            End If
-            pset(1).Cores = My.Settings.Cpulimit
-            pset(1).Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
-            pset(1).StartSignal = "Started API server at"
-            pset(1).StartsignalMaxTime = 300
-            pset(1).WorkingDirectory = BaseDir
-
-            ProcHandler.StartProcessSquence(pset)
-
-
-        Else 'normal start
-            Dim Pset As New clsProcessHandler.pSettings
-            Pset.AppId = AppNames.NRS
-            If My.Settings.JavaType = AppNames.JavaInstalled Then
-                Pset.AppPath = "java"
-            Else
-                Pset.AppPath = BaseDir & "Java\bin\java.exe"
-            End If
-            Pset.Cores = My.Settings.Cpulimit
-            Pset.Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
-            Pset.StartSignal = "Started API server at"
-            Pset.StartsignalMaxTime = 300
-            Pset.WorkingDirectory = BaseDir
-
-            ProcHandler.StartProcess(Pset)
-
-        End If
-    End Sub
-    Private Sub StopWallet()
-        If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
-            Dim Pid(1) As Object
-            Pid(0) = AppNames.NRS
-            Pid(1) = AppNames.MariaPortable
-            ProcHandler.StopProcessSquence(Pid)
-        Else
-            ProcHandler.StopProcess(AppNames.NRS)
-        End If
-    End Sub
     Private Sub btnConsole_Click(sender As Object, e As EventArgs) Handles btnConsole.Click
         frmConsole.Show()
     End Sub
@@ -186,10 +130,7 @@
     End Sub
 #End Region
 
-
-
-
-
+#Region " Wallet Events "
     Private Sub Starting(ByVal AppId As Integer)
         If Me.InvokeRequired Then
             Dim d As New DStarting(AddressOf Starting)
@@ -322,31 +263,63 @@
         End If
 
     End Sub
+    Private Sub StartWallet()
 
-    Private Sub NewUpdatesAvilable()
-        If Me.InvokeRequired Then
-            Dim d As New DNewUpdatesAvilable(AddressOf NewUpdatesAvilable)
-            Me.Invoke(d, New Object() {})
-            Return
+        If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
+            Dim pset(1) As clsProcessHandler.pSettings
+            pset(0) = New clsProcessHandler.pSettings
+            'mariadb
+            pset(0).AppId = AppNames.MariaPortable
+            pset(0).AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
+            pset(0).Cores = 0
+            pset(0).Params = "--console"
+            pset(0).WorkingDirectory = BaseDir & "MariaDb\bin\"
+            pset(0).StartSignal = "ready for connections"
+            pset(0).StartsignalMaxTime = 60
+
+            pset(1).AppId = AppNames.NRS
+            If My.Settings.JavaType = AppNames.JavaInstalled Then
+                pset(1).AppPath = "java"
+            Else
+                pset(1).AppPath = BaseDir & "Java\bin\java.exe"
+            End If
+            pset(1).Cores = My.Settings.Cpulimit
+            pset(1).Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
+            pset(1).StartSignal = "Started API server at"
+            pset(1).StartsignalMaxTime = 300
+            pset(1).WorkingDirectory = BaseDir
+
+            ProcHandler.StartProcessSquence(pset)
+
+
+        Else 'normal start
+            Dim Pset As New clsProcessHandler.pSettings
+            Pset.AppId = AppNames.NRS
+            If My.Settings.JavaType = AppNames.JavaInstalled Then
+                Pset.AppPath = "java"
+            Else
+                Pset.AppPath = BaseDir & "Java\bin\java.exe"
+            End If
+            Pset.Cores = My.Settings.Cpulimit
+            Pset.Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
+            Pset.StartSignal = "Started API server at"
+            Pset.StartsignalMaxTime = 300
+            Pset.WorkingDirectory = BaseDir
+
+            ProcHandler.StartProcess(Pset)
+
         End If
-        Try
-
-            lblShowUpdateNotification.Visible = True
-        Catch ex As Exception
-
-        End Try
     End Sub
-
-
-
-
-
-
-
-#Region " Process Handler "
-
-
-
+    Public Sub StopWallet()
+        If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
+            Dim Pid(1) As Object
+            Pid(0) = AppNames.NRS
+            Pid(1) = AppNames.MariaPortable
+            ProcHandler.StopProcessSquence(Pid)
+        Else
+            ProcHandler.StopProcess(AppNames.NRS)
+        End If
+    End Sub
 #End Region
 
 #Region " Misc "
@@ -430,6 +403,24 @@
                 LblDbStatus.Text = "Embeded"
                 LblDbStatus.ForeColor = Color.DarkGreen
         End Select
+    End Sub
+    Private Sub NewUpdatesAvilable()
+        If Me.InvokeRequired Then
+            Dim d As New DNewUpdatesAvilable(AddressOf NewUpdatesAvilable)
+            Me.Invoke(d, New Object() {})
+            Return
+        End If
+        Try
+
+            lblShowUpdateNotification.Visible = True
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub ExportDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportDatabaseToolStripMenuItem.Click
+        frmExportDb.Show()
+
     End Sub
 #End Region
 

@@ -30,6 +30,7 @@ Add ntp check from pool.org?
 +Added Contributors window
 +Added Settings window.
 +Added Upgrade Scenarios Handler
++Limit CPU cores feature
 
 V1.1
 + Update Functions

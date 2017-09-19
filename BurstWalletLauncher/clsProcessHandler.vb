@@ -268,18 +268,23 @@ Public Class clsProcessHandler
         End Sub
         Sub OutputHandler(sender As Object, e As DataReceivedEventArgs)
             If Not String.IsNullOrEmpty(e.Data) Then
-                If e.Data.Contains(StartSignal) Then
-                    FoundStartSignal = True
-                    RaiseEvent UpdateConsole(Appid, ProcOp.FoundSignal, "")
+                If FoundStartSignal = False Then
+                    If e.Data.Contains(StartSignal) Then
+                        FoundStartSignal = True
+                        RaiseEvent UpdateConsole(Appid, ProcOp.FoundSignal, "")
+                    End If
                 End If
                 RaiseEvent UpdateConsole(Appid, ProcOp.ConsoleOut, e.Data)
             End If
         End Sub
         Sub ErroutHandler(sender As Object, e As DataReceivedEventArgs)
+
             If Not String.IsNullOrEmpty(e.Data) Then
-                If e.Data.Contains(StartSignal) Then
-                    FoundStartSignal = True
-                    RaiseEvent UpdateConsole(Appid, ProcOp.FoundSignal, "")
+                If FoundStartSignal = False Then
+                    If e.Data.Contains(StartSignal) Then
+                        FoundStartSignal = True
+                        RaiseEvent UpdateConsole(Appid, ProcOp.FoundSignal, "")
+                    End If
                 End If
                 RaiseEvent UpdateConsole(Appid, ProcOp.ConsoleErr, e.Data)
             End If

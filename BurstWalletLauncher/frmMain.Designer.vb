@@ -222,8 +222,8 @@ Partial Class frmMain
         'ExportDatabaseToolStripMenuItem
         '
         Me.ExportDatabaseToolStripMenuItem.Name = "ExportDatabaseToolStripMenuItem"
-        Me.ExportDatabaseToolStripMenuItem.Size = New System.Drawing.Size(199, 22)
-        Me.ExportDatabaseToolStripMenuItem.Text = "Export/Import Database"
+        Me.ExportDatabaseToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.ExportDatabaseToolStripMenuItem.Text = "Export Database"
         '
         'AboutToolStripMenuItem2
         '

@@ -406,6 +406,7 @@ Public Class clsApp
         Return result
     End Function
     Public Function GetAppNameFromId(ByVal AppId As Integer) As String
+        'Used when AppId needs resolves to human readable names
         Select Case AppId
             Case AppNames.NRS
                 Return "NRS"
@@ -417,6 +418,7 @@ Public Class clsApp
                 Return "Portable MariaDB"
             Case AppNames.Launcher
                 Return "Burst wallet launcher"
+
         End Select
         Return ""
     End Function

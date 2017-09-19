@@ -11,18 +11,24 @@
         MariaDB = 3
     End Enum
 
+    'Used for Appnames to AppId for diffrent process and repo managements
     Public Enum AppNames As Integer
         Launcher = 0
         NRS = 1
         JavaInstalled = 2
         JavaPortable = 3
-        MariaPortable = 4
+        MariaPortable = 4 'Maria DB Portable
+        ExportImport = 5 'Export import db
     End Enum
+
+
     Public Enum States
-        Stopped
-        Running
-        Abort
+        Stopped = 0
+        Running = 1
+        Abort = 2
     End Enum
+
+    'Process operation signals
     Public Enum ProcOp As Integer
         Running = 1
         FoundSignal = 2
