@@ -1,4 +1,6 @@
-﻿Public Class frmMain
+﻿Imports System.Management
+
+Public Class frmMain
     Private Delegate Sub DUpdate(ByVal [AppId] As Integer, ByVal [Operation] As Integer, ByVal [data] As String)
     Private Delegate Sub DStarting(ByVal [AppId] As Integer)
     Private Delegate Sub DStoped(ByVal [AppId] As Integer)
@@ -429,4 +431,41 @@
     End Sub
 #End Region
 
+    Private Function SanityCheck() As Boolean
+
+
+        'Check if Java is running another burst.jar
+        Dim searcher As New ManagementObjectSearcher("root\CIMV2", "SELECT * FROM Win32_Process WHERE Name='java.exe'")
+        Dim cmdline As String = ""
+        Dim Msg As String = ""
+        For Each p As ManagementObject In searcher.[Get]()
+            cmdline = p("CommandLine")
+            If cmdline.ToLower.Contains("burst.jar") Then
+                Msg = "The launcher has detected that another burst wallet is running." & vbCrLf
+                Msg &= "If the other wallet use the same setting as this one. it will not work." & vbCrLf
+                Msg &= "Would you like to stop the other wallet?" & vbCrLf & vbCrLf
+                Msg &= "Yes = Stop the other wallet and start this one." & vbCrLf
+                Msg &= "No = Start this wallet despite the other wallet." & vbCrLf
+                Msg &= "Cancel = Do not start this one." & vbCrLf
+                Dim res As MsgBoxResult = MsgBox(Msg, MsgBoxStyle.Information Or MsgBoxStyle.YesNoCancel, "Another wallet is running")
+                If res = MsgBoxResult.Yes Then
+                    'kill wallet
+                    'p.GetPropertyValue("ProcessId")
+                ElseIf res = MsgBoxResult.No Then
+                    'do nothing 
+                Else
+                    Return False
+                End If
+            End If
+
+        Next
+
+
+
+
+
+
+
+        Return True
+    End Function
 End Class

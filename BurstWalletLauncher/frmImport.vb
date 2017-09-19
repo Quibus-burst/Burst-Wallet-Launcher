@@ -16,6 +16,11 @@
         Running = False
     End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+        If Not MsgBox("Warning!" & vbCrLf & vbCrLf & "All existing data in your database will be erased." & vbCrLf & "Do you want to continue?", MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNoCancel, "All existing data removed") = MsgBoxResult.Yes Then
+            Exit Sub
+
+        End If
+
         r1.Checked = False
         r2.Checked = False
         r3.Checked = False
@@ -24,6 +29,8 @@
         txtFile.Enabled = False
         btnBrowse.Enabled = False
         btnStart.Enabled = False
+
+
 
         'PreCheck
         'Repo is ok!
@@ -96,7 +103,7 @@
             Pset.AppPath = Basedir & "Java\bin\java.exe"
         End If
         Pset.Cores = My.Settings.Cpulimit
-        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.LoadBinDump " & FileName
+        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.LoadBinDump " & FileName & " -y"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
         Pset.WorkingDirectory = Basedir
@@ -164,7 +171,9 @@
         RemoveHandler App.Progress, AddressOf Progress
         RemoveHandler App.DownloadDone, AddressOf DownloadDone
         'start import
-        ImportFromFile(IO.Path.GetFileName(App.GetRemoteUrl(AppNames.DownloadFile)))
+        Dim Basedir As String = Application.StartupPath
+        If Not Basedir.EndsWith("\") Then Basedir &= "\"
+        ImportFromFile(Basedir & IO.Path.GetFileName(App.GetRemoteUrl(AppNames.DownloadFile)))
     End Sub
     Private Sub Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percent As Integer, ByVal Speed As Integer)
         If Me.InvokeRequired Then
@@ -271,7 +280,7 @@
                                 Else
                                     percent = 100
                                 End If
-                                lblStatus.Text = "Exporting " & darray(5).Replace(":", "") & " " & darray(6) & " of " & darray(8)
+                                lblStatus.Text = "Importing " & darray(5).Replace(":", "") & " " & darray(6) & " of " & darray(8)
                                 pb1.Value = percent
                             End If
                             If darray(5) = "Dump" And darray(6) = "loaded" Then
@@ -284,9 +293,11 @@
                             'Compacting database - this may take a while
 
                         End If
-                        If darray(5) = "Compacting" And darray(6) = "database" Then
-                            lblStatus.Text = "Compacting database. Please wait."
-                            pb1.Value = 0
+                        If UBound(darray) > 5 Then
+                            If darray(5) = "Compacting" And darray(6) = "database" Then
+                                lblStatus.Text = "Compacting database. Please wait."
+                                pb1.Value = 0
+                            End If
                         End If
                     Catch ex As Exception
                         lblStatus.Text = "Error parsing data. Job still continues."
