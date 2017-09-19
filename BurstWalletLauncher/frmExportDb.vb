@@ -5,6 +5,7 @@
     Private Delegate Sub DStarting(ByVal [AppId] As Integer)
     Private Delegate Sub DStoped(ByVal [AppId] As Integer)
     Private Delegate Sub DAborted(ByVal [AppId] As Integer, ByVal [data] As String)
+    Private StartTime As Date
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
         Dim sfd As New SaveFileDialog
         sfd.Filter = "Burst Binary Database (*.bbd)|*.bbd|All Files (*.*)|*.*"
@@ -61,6 +62,7 @@
         AddHandler ProcHandler.Stopped, AddressOf Stopped
         AddHandler ProcHandler.Update, AddressOf ProcEvents
 
+        StartTime = Now
         Dim Pset As New clsProcessHandler.pSettings
         Pset.AppId = AppNames.ExportImport
         If My.Settings.JavaType = AppNames.JavaInstalled Then
@@ -121,6 +123,8 @@
         End If
 
         If AppId = AppNames.ExportImport Then
+            Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
+            lblStatus.Text = "Done! Export completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
             btnBrowse.Enabled = True
             txtFilename.Enabled = True
             btnStart.Enabled = True
@@ -170,11 +174,6 @@
                                 End If
                                 lblStatus.Text = "Exporting " & darray(5).Replace(":", "") & " " & darray(6) & " of " & darray(8)
                                 pb1.Value = percent
-                            End If
-                                If darray(5) = "Dump" And darray(6) = "created" Then
-                                'we are done
-                                Dim ts As New TimeSpan(0, 0, Val(darray(8).Replace("seconds", "")))
-                                lblStatus.Text = "Done! Export completed in " & ts.Hours & ":" & ts.Minutes & ":" & ts.Seconds
                             End If
                         End If
                     Catch ex As Exception

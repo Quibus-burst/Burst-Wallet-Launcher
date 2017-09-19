@@ -4,9 +4,9 @@ Imports System.Net
 Imports System.Threading
 
 Public Class clsApp
-    Public Event DownloadDone()
-    Public Event Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percernt As Integer)
-    Public Event Aborted()
+    Public Event DownloadDone(ByVal AppId As Integer)
+    Public Event Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percernt As Integer, ByVal Speed As Integer)
+    Public Event Aborted(ByVal AppId As Integer)
     Public Event UpdateAvailable()
     Private Structure StrucApps
         Dim LocalFound As Boolean
@@ -192,66 +192,92 @@ Public Class clsApp
 #Region " Download and unpack "
     Public Sub DownloadApp(ByVal Appid As Integer)
         'ok we have an integer
-
         Dim trda As Thread
         trda = New Thread(AddressOf DownloadUnpack)
         trda.IsBackground = True
         trda.Start(Appid)
         trda = Nothing
     End Sub
+    Public Sub DownloadFile(ByVal Url As String)
+        _Apps(AppNames.DownloadFile).RemoteUrl = Url
+        Dim trda As Thread
+        trda = New Thread(AddressOf DownloadOnly)
+        trda.IsBackground = True
+        trda.Start(AppNames.DownloadFile)
+        trda = Nothing
+    End Sub
+    Private Sub DownloadOnly(ByVal obj As Object)
+        Dim appid As Integer = CType(obj, Integer)
+        If Not Download(appid, False) Then 'ok lets start download
+            RaiseEvent Aborted(appid)
+            Exit Sub
+        End If
+        RaiseEvent DownloadDone(appid)
+    End Sub
+
     Private Sub DownloadUnpack(ByVal obj As Object)
         Dim appid As Integer = CType(obj, Integer)
         'we are now in threaded environment
         'if we do not have remoteinfo lets get it.
         If _Apps(AppNames.NRS).RemoteUrl = "" Then
             If Not SetRemoteInfo() Then
-                RaiseEvent Aborted()
+                RaiseEvent Aborted(appid)
                 Exit Sub
             End If
         End If
 
         If Not Download(appid) Then 'ok lets start download
-            RaiseEvent Aborted()
+            RaiseEvent Aborted(appid)
             Exit Sub
         End If
         If Not Extract(appid) Then 'ok lets start download
-            RaiseEvent Aborted()
+            RaiseEvent Aborted(appid)
             Exit Sub
         End If
         DeleteFile(appid)
         _Apps(appid).Updated = True
-
-
+        RaiseEvent DownloadDone(appid)
     End Sub
-    Private Function Download(ByVal AppId As Integer) As Boolean
+
+
+
+
+    Private Function Download(ByVal AppId As Integer, Optional ByVal FromRepos As Boolean = True) As Boolean
 
         Dim DLOk As Integer = False
         Dim filename As String = _basedir & Path.GetFileName(_Apps(AppId).RemoteUrl)
         Dim File As FileStream = Nothing
         For x = 0 To UBound(_Repositories) 'try next repo if fail.
             Try
-                Dim bBuffer(262143) As Byte '256k chunks downloadread
+                Dim bBuffer(262143) As Byte '256k chunks downloadbuffer
                 Dim TotalRead As Long = 0
                 Dim iBytesRead As Integer = 0
                 Dim ContentLength As Long = 0
                 Dim percent As Integer = 0
-                Dim url As String = _Repositories(x) & _Apps(AppId).RemoteUrl
+                Dim url As String = ""
+                If FromRepos Then
+                    url = _Repositories(x) & _Apps(AppId).RemoteUrl
+                Else
+                    url = _Apps(AppId).RemoteUrl
+                End If
                 Dim http As HttpWebRequest = WebRequest.Create(url)
                 Dim WebResponse As HttpWebResponse = http.GetResponse
                 ContentLength = WebResponse.ContentLength
                 Dim sChunks As Stream = WebResponse.GetResponseStream
                 File = New FileStream(filename, FileMode.Create, FileAccess.Write)
                 TotalRead = 0
+                Dim SW As Stopwatch = Stopwatch.StartNew
+                Dim speed As Integer = 0
                 Do
                     iBytesRead = sChunks.Read(bBuffer, 0, 262144)
                     If iBytesRead = 0 Then Exit Do
                     TotalRead += iBytesRead
                     File.Write(bBuffer, 0, iBytesRead)
+                    If SW.ElapsedMilliseconds > 0 Then speed = CInt(TotalRead / SW.ElapsedMilliseconds)
                     percent = Math.Round((TotalRead / ContentLength) * 100, 0)
-                    RaiseEvent Progress(0, AppId, percent)
+                    RaiseEvent Progress(0, AppId, percent, speed)
                 Loop
                 File.Flush()
-
                 sChunks.Close()
                 DLOk = True
             Catch ex As Exception
@@ -286,7 +312,7 @@ Public Class clsApp
                 End If
                 counter += 1
                 percent = Math.Round((counter / totalfiles) * 100, 0)
-                RaiseEvent Progress(1, AppId, percent)
+                RaiseEvent Progress(1, AppId, percent, 0)
 
             Next
             AllOk = True
@@ -458,6 +484,9 @@ Public Class clsApp
     End Function
     Public Function isUpdated(ByVal AppId As Integer) As Boolean
         Return _Apps(AppId).Updated
+    End Function
+    Public Function GetRemoteUrl(ByVal AppId As Integer) As String
+        Return _Apps(AppId).RemoteUrl
     End Function
 #End Region
 

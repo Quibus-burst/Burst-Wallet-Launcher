@@ -57,6 +57,7 @@ Partial Class frmMain
         Me.lblShowUpdateNotification = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lblWallet = New System.Windows.Forms.Label()
+        Me.ImportDatabaseToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -214,7 +215,7 @@ Partial Class frmMain
         '
         'ToolsToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExportDatabaseToolStripMenuItem})
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExportDatabaseToolStripMenuItem, Me.ImportDatabaseToolStripMenuItem1})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
         Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
         Me.ToolsToolStripMenuItem.Text = "Tools"
@@ -222,7 +223,7 @@ Partial Class frmMain
         'ExportDatabaseToolStripMenuItem
         '
         Me.ExportDatabaseToolStripMenuItem.Name = "ExportDatabaseToolStripMenuItem"
-        Me.ExportDatabaseToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.ExportDatabaseToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
         Me.ExportDatabaseToolStripMenuItem.Text = "Export Database"
         '
         'AboutToolStripMenuItem2
@@ -320,6 +321,12 @@ Partial Class frmMain
         Me.lblWallet.TabIndex = 7
         Me.lblWallet.Text = "Burst wallet v1.3.6cg"
         '
+        'ImportDatabaseToolStripMenuItem1
+        '
+        Me.ImportDatabaseToolStripMenuItem1.Name = "ImportDatabaseToolStripMenuItem1"
+        Me.ImportDatabaseToolStripMenuItem1.Size = New System.Drawing.Size(161, 22)
+        Me.ImportDatabaseToolStripMenuItem1.Text = "Import Database"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -384,4 +391,5 @@ Partial Class frmMain
     Friend WithEvents ImportDatabaseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ExportDatabaseToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ChangeDatabaseToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ImportDatabaseToolStripMenuItem1 As ToolStripMenuItem
 End Class

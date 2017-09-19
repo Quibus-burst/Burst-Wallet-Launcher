@@ -1,8 +1,8 @@
 ﻿Public Class frmUpdate
 
-    Private Delegate Sub DDLDone()
-    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer)
-    Private Delegate Sub DDLError()
+    Private Delegate Sub DDLDone(ByVal [AppId] As Integer)
+    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer, ByVal [Speed] As Integer)
+    Private Delegate Sub DDLError(ByVal [AppId] As Integer)
     Private WithEvents tmr As New Timer
     Private Sub frmUpdate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -20,10 +20,10 @@
 
     End Sub
 
-    Private Sub DLDone()
+    Private Sub DLDone(ByVal AppId As Integer)
         If Me.InvokeRequired Then
             Dim d As New DDLDone(AddressOf DLDone)
-            Me.Invoke(d, New Object() {})
+            Me.Invoke(d, New Object() {AppId})
             Return
         End If
         CheckAndUpdateLW()
@@ -60,10 +60,10 @@
 
     End Sub
 
-    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, ByVal percent As Integer)
+    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, ByVal percent As Integer, ByVal Speed As Integer)
         If Me.InvokeRequired Then
             Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {Job, AppId, percent})
+            Me.Invoke(d, New Object() {Job, AppId, percent, Speed})
             Return
         End If
         'threadsafe
@@ -96,7 +96,7 @@
 
         AddHandler App.DownloadDone, AddressOf DLDone
         AddHandler App.Progress, AddressOf Progress
-        AddHandler App.Aborted, AddressOf DLerror
+        AddHandler App.Aborted, AddressOf DlError
 
 
         If frmMain.Running Then
@@ -115,7 +115,7 @@
             tmr.Start()
             tmr.Enabled = True
         Else
-            DLDone()
+            DLDone(0)
         End If
 
     End Sub
@@ -125,7 +125,7 @@
         If frmMain.Running = False Then
             tmr.Stop()
             tmr.Enabled = False
-            DLDone()
+            DLDone(0)
         End If
 
     End Sub
@@ -161,7 +161,7 @@
 
 
     End Function
-    Private Sub DlError()
+    Private Sub DlError(ByVal AppId As Integer)
         If Me.InvokeRequired Then
             Dim d As New DDLError(AddressOf DlError)
             Me.Invoke(d, New Object() {})

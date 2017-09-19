@@ -422,6 +422,11 @@
         frmExportDb.Show()
 
     End Sub
+
+    Private Sub ImportDatabaseToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ImportDatabaseToolStripMenuItem1.Click
+        frmImport.Show()
+
+    End Sub
 #End Region
 
 End Class

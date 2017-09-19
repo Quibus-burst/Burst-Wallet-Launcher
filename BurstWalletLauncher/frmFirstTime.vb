@@ -1,7 +1,7 @@
 ﻿Public Class frmFirstTime
-    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer)
-    Private Delegate Sub DDldone()
-    Private Delegate Sub DDlError()
+    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer, ByVal [Speed] As Integer)
+    Private Delegate Sub DDldone(ByVal [AppId] As Integer)
+    Private Delegate Sub DDlError(ByVal [AppId] As Integer)
     Private SelectedDBType As Integer = 0
     Private DbVerified As Boolean = False
 
@@ -192,14 +192,14 @@
         Catch ex As Exception
 
         End Try
-        DlDone() 'we can init from done sub that loops over all needed
+        DlDone(0) 'we can init from done sub that loops over all needed
 
     End Sub
 
-    Public Sub DlDone()
+    Public Sub DlDone(ByVal AppId As Integer)
         If Me.InvokeRequired Then
             Dim d As New DDldone(AddressOf DlDone)
-            Me.Invoke(d, New Object() {})
+            Me.Invoke(d, New Object() {AppId})
             Return
         End If
 
@@ -242,10 +242,10 @@
         End Try
     End Sub
 
-    Private Sub DlError()
+    Private Sub DlError(ByVal AppId As Integer)
         If Me.InvokeRequired Then
             Dim d As New DDlError(AddressOf DlError)
-            Me.Invoke(d, New Object() {})
+            Me.Invoke(d, New Object() {AppId})
             Return
         End If
         Try
@@ -258,10 +258,10 @@
         End Try
     End Sub
 
-    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer)
+    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer, ByVal Speed As Integer)
         If Me.InvokeRequired Then
             Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {Job, AppId, percent})
+            Me.Invoke(d, New Object() {Job, AppId, percent, Speed})
             Return
         End If
         '  Dim AppName = [Enum].GetName(GetType(AppNames), AppId)
