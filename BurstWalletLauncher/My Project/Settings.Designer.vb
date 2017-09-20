@@ -209,6 +209,18 @@ Namespace My
                 Me("Cpulimit") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property useOpenCL() As Boolean
+            Get
+                Return CType(Me("useOpenCL"),Boolean)
+            End Get
+            Set
+                Me("useOpenCL") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -48,16 +48,9 @@ Partial Class frmFirstTime
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.PnlWiz2 = New System.Windows.Forms.Panel()
-        Me.lblStatusInfo = New System.Windows.Forms.Label()
-        Me.Pb1 = New System.Windows.Forms.ProgressBar()
-        Me.lblStatus = New System.Windows.Forms.Label()
-        Me.btnBack = New System.Windows.Forms.Button()
-        Me.btnDownload = New System.Windows.Forms.Button()
         Me.pnlDb = New System.Windows.Forms.Panel()
         Me.pnlMariaSettings = New System.Windows.Forms.Panel()
-        Me.Button5 = New System.Windows.Forms.Button()
         Me.txtDbPass = New System.Windows.Forms.TextBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.txtDbUser = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -67,12 +60,18 @@ Partial Class frmFirstTime
         Me.Label13 = New System.Windows.Forms.Label()
         Me.lblDbHeader = New System.Windows.Forms.Label()
         Me.lblDBstatus = New System.Windows.Forms.Label()
+        Me.lblStatusInfo = New System.Windows.Forms.Label()
+        Me.Pb1 = New System.Windows.Forms.ProgressBar()
+        Me.lblStatus = New System.Windows.Forms.Label()
+        Me.btnBack = New System.Windows.Forms.Button()
+        Me.btnDownload = New System.Windows.Forms.Button()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.pnlJava = New System.Windows.Forms.Panel()
         Me.lblJavaStatus = New System.Windows.Forms.Label()
         Me.lblJavaHeader = New System.Windows.Forms.Label()
         Me.btnDone = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.pnlWiz1.SuspendLayout()
         Me.P1.SuspendLayout()
         Me.P3.SuspendLayout()
@@ -357,52 +356,6 @@ Partial Class frmFirstTime
         Me.PnlWiz2.Size = New System.Drawing.Size(420, 380)
         Me.PnlWiz2.TabIndex = 12
         '
-        'lblStatusInfo
-        '
-        Me.lblStatusInfo.AutoSize = True
-        Me.lblStatusInfo.Location = New System.Drawing.Point(63, 340)
-        Me.lblStatusInfo.Name = "lblStatusInfo"
-        Me.lblStatusInfo.Size = New System.Drawing.Size(116, 13)
-        Me.lblStatusInfo.TabIndex = 20
-        Me.lblStatusInfo.Text = "Extracting Java Portble"
-        Me.lblStatusInfo.Visible = False
-        '
-        'Pb1
-        '
-        Me.Pb1.Location = New System.Drawing.Point(20, 356)
-        Me.Pb1.Name = "Pb1"
-        Me.Pb1.Size = New System.Drawing.Size(205, 15)
-        Me.Pb1.TabIndex = 19
-        Me.Pb1.Visible = False
-        '
-        'lblStatus
-        '
-        Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(17, 340)
-        Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(40, 13)
-        Me.lblStatus.TabIndex = 18
-        Me.lblStatus.Text = "Status:"
-        Me.lblStatus.Visible = False
-        '
-        'btnBack
-        '
-        Me.btnBack.Location = New System.Drawing.Point(244, 340)
-        Me.btnBack.Name = "btnBack"
-        Me.btnBack.Size = New System.Drawing.Size(81, 31)
-        Me.btnBack.TabIndex = 17
-        Me.btnBack.Text = "<< Back"
-        Me.btnBack.UseVisualStyleBackColor = True
-        '
-        'btnDownload
-        '
-        Me.btnDownload.Location = New System.Drawing.Point(244, 303)
-        Me.btnDownload.Name = "btnDownload"
-        Me.btnDownload.Size = New System.Drawing.Size(168, 31)
-        Me.btnDownload.TabIndex = 16
-        Me.btnDownload.Text = "Download missing components"
-        Me.btnDownload.UseVisualStyleBackColor = True
-        '
         'pnlDb
         '
         Me.pnlDb.BackColor = System.Drawing.Color.LightCoral
@@ -419,9 +372,8 @@ Partial Class frmFirstTime
         'pnlMariaSettings
         '
         Me.pnlMariaSettings.BackColor = System.Drawing.Color.Transparent
-        Me.pnlMariaSettings.Controls.Add(Me.Button5)
+        Me.pnlMariaSettings.Controls.Add(Me.Label5)
         Me.pnlMariaSettings.Controls.Add(Me.txtDbPass)
-        Me.pnlMariaSettings.Controls.Add(Me.CheckBox2)
         Me.pnlMariaSettings.Controls.Add(Me.Label17)
         Me.pnlMariaSettings.Controls.Add(Me.txtDbUser)
         Me.pnlMariaSettings.Controls.Add(Me.Label16)
@@ -434,33 +386,12 @@ Partial Class frmFirstTime
         Me.pnlMariaSettings.Size = New System.Drawing.Size(387, 126)
         Me.pnlMariaSettings.TabIndex = 14
         '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(286, 93)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(86, 24)
-        Me.Button5.TabIndex = 4
-        Me.Button5.Text = "Validate"
-        Me.Button5.UseVisualStyleBackColor = True
-        '
         'txtDbPass
         '
         Me.txtDbPass.Location = New System.Drawing.Point(102, 67)
         Me.txtDbPass.Name = "txtDbPass"
         Me.txtDbPass.Size = New System.Drawing.Size(270, 20)
         Me.txtDbPass.TabIndex = 7
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = True
-        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox2.Location = New System.Drawing.Point(18, 98)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(239, 17)
-        Me.CheckBox2.TabIndex = 5
-        Me.CheckBox2.Text = "Create database and install schema if missing"
-        Me.CheckBox2.UseVisualStyleBackColor = True
         '
         'Label17
         '
@@ -540,6 +471,52 @@ Partial Class frmFirstTime
         Me.lblDBstatus.TabIndex = 4
         Me.lblDBstatus.Text = "MariaDB is not yet downloaded."
         '
+        'lblStatusInfo
+        '
+        Me.lblStatusInfo.AutoSize = True
+        Me.lblStatusInfo.Location = New System.Drawing.Point(63, 340)
+        Me.lblStatusInfo.Name = "lblStatusInfo"
+        Me.lblStatusInfo.Size = New System.Drawing.Size(116, 13)
+        Me.lblStatusInfo.TabIndex = 20
+        Me.lblStatusInfo.Text = "Extracting Java Portble"
+        Me.lblStatusInfo.Visible = False
+        '
+        'Pb1
+        '
+        Me.Pb1.Location = New System.Drawing.Point(20, 356)
+        Me.Pb1.Name = "Pb1"
+        Me.Pb1.Size = New System.Drawing.Size(205, 15)
+        Me.Pb1.TabIndex = 19
+        Me.Pb1.Visible = False
+        '
+        'lblStatus
+        '
+        Me.lblStatus.AutoSize = True
+        Me.lblStatus.Location = New System.Drawing.Point(17, 340)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(40, 13)
+        Me.lblStatus.TabIndex = 18
+        Me.lblStatus.Text = "Status:"
+        Me.lblStatus.Visible = False
+        '
+        'btnBack
+        '
+        Me.btnBack.Location = New System.Drawing.Point(244, 340)
+        Me.btnBack.Name = "btnBack"
+        Me.btnBack.Size = New System.Drawing.Size(81, 31)
+        Me.btnBack.TabIndex = 17
+        Me.btnBack.Text = "<< Back"
+        Me.btnBack.UseVisualStyleBackColor = True
+        '
+        'btnDownload
+        '
+        Me.btnDownload.Location = New System.Drawing.Point(244, 303)
+        Me.btnDownload.Name = "btnDownload"
+        Me.btnDownload.Size = New System.Drawing.Size(168, 31)
+        Me.btnDownload.TabIndex = 16
+        Me.btnDownload.Text = "Download missing components"
+        Me.btnDownload.UseVisualStyleBackColor = True
+        '
         'Label12
         '
         Me.Label12.AutoSize = True
@@ -600,6 +577,16 @@ Partial Class frmFirstTime
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 13
         Me.PictureBox2.TabStop = False
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(99, 90)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(193, 13)
+        Me.Label5.TabIndex = 9
+        Me.Label5.Text = "note: Database and schema must exist."
         '
         'frmFirstTime
         '
@@ -684,9 +671,7 @@ Partial Class frmFirstTime
     Friend WithEvents r1 As RadioButton
     Friend WithEvents lblH2Desc As Label
     Friend WithEvents pnlMariaSettings As Panel
-    Friend WithEvents Button5 As Button
     Friend WithEvents txtDbPass As TextBox
-    Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents Label17 As Label
     Friend WithEvents txtDbUser As TextBox
     Friend WithEvents Label16 As Label
@@ -694,4 +679,5 @@ Partial Class frmFirstTime
     Friend WithEvents Label15 As Label
     Friend WithEvents txtDbAddress As TextBox
     Friend WithEvents Label13 As Label
+    Friend WithEvents Label5 As Label
 End Class

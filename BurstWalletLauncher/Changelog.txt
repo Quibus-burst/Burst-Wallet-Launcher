@@ -3,34 +3,36 @@
 - Removed
 ~dev edition
 
+Needs more testing - 
+Convert database not tested and does not resave new config.
+Import Database need repos 
+
 To Be done:
-
-Add support for quicksyncing Feature
-Add Core limiting system
-Add option to use GPU
-Add firewall rules to Windows for NRS.
-Add support to install as a service. (Needs a system wrapper+named pipes or can we use servicecontroller?)
-
-If maria/mysql is running but not from wallet. offer to install sql template and use Credentials
 AutoIp Settings
-Implement better error handling.
-Change update system to Core and component update system
+Add firewall rules to Windows for NRS.
 Add a components download window where you can select to download a component.
 Setting to minimize to tray(?)
-Add system/environment sanity check at wallet start.
+
 Add ntp check from pool.org?
+limit ConsoleBuffer and save it as log
+Add support to install as a service. (Needs a system wrapper+named pipes or can we use servicecontroller?)
+Stuck detection. try to restart NRS (full output of every block. If no block is found within an hour a restart will occur.)
+Error detection. If console sends errors. restart wallet.
 
 
 ~V1.2
-* Corrected spelling error.
+* Corrected spelling errors.
 * Internal codeststructure changed to be more modular
-+Added gui for first time setup
-+Added support for multiple database types
-+Added individual components download at start.
-+Added Contributors window
-+Added Settings window.
-+Added Upgrade Scenarios Handler
++Gui for first time setup
++Support for multiple database types
++Individual components download at start.
++Contributors window
++Settings window.
++Upgrade Scenarios Handler
++Export / Import / Convert database
 +Limit CPU cores feature
++Option to use graphics card during sync instead of cpu
++Sanitycheck
 
 V1.1
 + Update Functions

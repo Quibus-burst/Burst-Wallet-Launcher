@@ -18,8 +18,9 @@
         JavaInstalled = 2
         JavaPortable = 3
         MariaPortable = 4 'Maria DB Portable
-        ExportImport = 5 'Export / import db
-        DownloadFile = 6 'Download whatever
+        Import = 5 'Export / import db
+        Export = 6
+        DownloadFile = 7 'Download whatever
     End Enum
 
 

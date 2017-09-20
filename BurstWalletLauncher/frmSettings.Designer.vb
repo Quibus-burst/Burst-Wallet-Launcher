@@ -26,6 +26,15 @@ Partial Class frmSettings
         Me.chkCheckForUpdates = New System.Windows.Forms.CheckBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblMaxCores = New System.Windows.Forms.Label()
+        Me.lblRecommendedCPU = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.nrCores = New System.Windows.Forms.NumericUpDown()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.chkAutoIP = New System.Windows.Forms.CheckBox()
@@ -38,8 +47,7 @@ Partial Class frmSettings
         Me.Button3 = New System.Windows.Forms.Button()
         Me.pnlMaria = New System.Windows.Forms.Panel()
         Me.pnlDbSettings = New System.Windows.Forms.Panel()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -57,25 +65,18 @@ Partial Class frmSettings
         Me.rJava1 = New System.Windows.Forms.RadioButton()
         Me.rJava0 = New System.Windows.Forms.RadioButton()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.nrCores = New System.Windows.Forms.NumericUpDown()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.lblRecommendedCPU = New System.Windows.Forms.Label()
-        Me.lblMaxCores = New System.Windows.Forms.Label()
+        Me.chkOpenCL = New System.Windows.Forms.CheckBox()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        CType(Me.nrCores, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.pnlMaria.SuspendLayout()
         Me.pnlDbSettings.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        CType(Me.nrCores, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button1
@@ -132,6 +133,99 @@ Partial Class frmSettings
         Me.TabPage1.Text = "Launcher"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label20)
+        Me.Panel1.Controls.Add(Me.chkOpenCL)
+        Me.Panel1.Controls.Add(Me.lblMaxCores)
+        Me.Panel1.Controls.Add(Me.lblRecommendedCPU)
+        Me.Panel1.Controls.Add(Me.Label18)
+        Me.Panel1.Controls.Add(Me.Label17)
+        Me.Panel1.Controls.Add(Me.nrCores)
+        Me.Panel1.Controls.Add(Me.Label16)
+        Me.Panel1.Controls.Add(Me.Label14)
+        Me.Panel1.Controls.Add(Me.Label15)
+        Me.Panel1.Location = New System.Drawing.Point(24, 156)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(417, 190)
+        Me.Panel1.TabIndex = 9
+        '
+        'lblMaxCores
+        '
+        Me.lblMaxCores.AutoSize = True
+        Me.lblMaxCores.Location = New System.Drawing.Point(143, 69)
+        Me.lblMaxCores.Name = "lblMaxCores"
+        Me.lblMaxCores.Size = New System.Drawing.Size(42, 13)
+        Me.lblMaxCores.TabIndex = 7
+        Me.lblMaxCores.Text = "6 cores"
+        '
+        'lblRecommendedCPU
+        '
+        Me.lblRecommendedCPU.AutoSize = True
+        Me.lblRecommendedCPU.Location = New System.Drawing.Point(220, 45)
+        Me.lblRecommendedCPU.Name = "lblRecommendedCPU"
+        Me.lblRecommendedCPU.Size = New System.Drawing.Size(42, 13)
+        Me.lblRecommendedCPU.TabIndex = 6
+        Me.lblRecommendedCPU.Text = "6 cores"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(29, 45)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(195, 13)
+        Me.Label18.TabIndex = 5
+        Me.Label18.Text = "Recomended value for your computer is" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(109, 69)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(41, 13)
+        Me.Label17.TabIndex = 4
+        Me.Label17.Text = "of max "
+        '
+        'nrCores
+        '
+        Me.nrCores.Location = New System.Drawing.Point(64, 67)
+        Me.nrCores.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
+        Me.nrCores.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nrCores.Name = "nrCores"
+        Me.nrCores.Size = New System.Drawing.Size(40, 20)
+        Me.nrCores.TabIndex = 3
+        Me.nrCores.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(29, 69)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(29, 13)
+        Me.Label16.TabIndex = 2
+        Me.Label16.Text = "Use:"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(29, 31)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(295, 13)
+        Me.Label14.TabIndex = 1
+        Me.Label14.Text = "Note: During sync of blockchain cpu usage can be massive. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(8, 11)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(100, 16)
+        Me.Label15.TabIndex = 0
+        Me.Label15.Text = "NRS Settings"
+        '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -183,9 +277,9 @@ Partial Class frmSettings
         Me.Label1.Font = New System.Drawing.Font("Rockwell", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.Location = New System.Drawing.Point(19, 16)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(260, 25)
+        Me.Label1.Size = New System.Drawing.Size(181, 25)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Wallet launcher settings"
+        Me.Label1.Text = "General settings"
         '
         'TabPage2
         '
@@ -253,8 +347,7 @@ Partial Class frmSettings
         '
         'pnlDbSettings
         '
-        Me.pnlDbSettings.Controls.Add(Me.CheckBox2)
-        Me.pnlDbSettings.Controls.Add(Me.Button2)
+        Me.pnlDbSettings.Controls.Add(Me.Label19)
         Me.pnlDbSettings.Controls.Add(Me.Label8)
         Me.pnlDbSettings.Controls.Add(Me.Label7)
         Me.pnlDbSettings.Controls.Add(Me.Label6)
@@ -269,26 +362,15 @@ Partial Class frmSettings
         Me.pnlDbSettings.Size = New System.Drawing.Size(411, 126)
         Me.pnlDbSettings.TabIndex = 10
         '
-        'CheckBox2
+        'Label19
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = True
-        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox2.Location = New System.Drawing.Point(8, 99)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(244, 17)
-        Me.CheckBox2.TabIndex = 9
-        Me.CheckBox2.Text = "Create database and import schema if missing."
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(321, 95)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(72, 23)
-        Me.Button2.TabIndex = 8
-        Me.Button2.Text = "Validate"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(87, 92)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(193, 13)
+        Me.Label19.TabIndex = 9
+        Me.Label19.Text = "note: Database and schema must exist."
         '
         'Label8
         '
@@ -450,96 +532,24 @@ Partial Class frmSettings
         Me.Label11.TabIndex = 3
         Me.Label11.Text = "Java settings"
         '
-        'Panel1
+        'chkOpenCL
         '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel1.Controls.Add(Me.lblMaxCores)
-        Me.Panel1.Controls.Add(Me.lblRecommendedCPU)
-        Me.Panel1.Controls.Add(Me.Label18)
-        Me.Panel1.Controls.Add(Me.Label17)
-        Me.Panel1.Controls.Add(Me.nrCores)
-        Me.Panel1.Controls.Add(Me.Label16)
-        Me.Panel1.Controls.Add(Me.Label14)
-        Me.Panel1.Controls.Add(Me.Label15)
-        Me.Panel1.Location = New System.Drawing.Point(24, 156)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(417, 106)
-        Me.Panel1.TabIndex = 9
+        Me.chkOpenCL.AutoSize = True
+        Me.chkOpenCL.Location = New System.Drawing.Point(32, 108)
+        Me.chkOpenCL.Name = "chkOpenCL"
+        Me.chkOpenCL.Size = New System.Drawing.Size(283, 17)
+        Me.chkOpenCL.TabIndex = 8
+        Me.chkOpenCL.Text = "Use Graphic card to verify blocks in chain during sync."
+        Me.chkOpenCL.UseVisualStyleBackColor = True
         '
-        'Label15
+        'Label20
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(8, 11)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(100, 16)
-        Me.Label15.TabIndex = 0
-        Me.Label15.Text = "NRS Settings"
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(29, 31)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(295, 13)
-        Me.Label14.TabIndex = 1
-        Me.Label14.Text = "Note: During sync of blockchain cpu usage can be massive. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(29, 69)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(29, 13)
-        Me.Label16.TabIndex = 2
-        Me.Label16.Text = "Use:"
-        '
-        'nrCores
-        '
-        Me.nrCores.Location = New System.Drawing.Point(64, 67)
-        Me.nrCores.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
-        Me.nrCores.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nrCores.Name = "nrCores"
-        Me.nrCores.Size = New System.Drawing.Size(40, 20)
-        Me.nrCores.TabIndex = 3
-        Me.nrCores.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(109, 69)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(41, 13)
-        Me.Label17.TabIndex = 4
-        Me.Label17.Text = "of max "
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(29, 45)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(195, 13)
-        Me.Label18.TabIndex = 5
-        Me.Label18.Text = "Recomended value for your computer is" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'lblRecommendedCPU
-        '
-        Me.lblRecommendedCPU.AutoSize = True
-        Me.lblRecommendedCPU.Location = New System.Drawing.Point(220, 45)
-        Me.lblRecommendedCPU.Name = "lblRecommendedCPU"
-        Me.lblRecommendedCPU.Size = New System.Drawing.Size(42, 13)
-        Me.lblRecommendedCPU.TabIndex = 6
-        Me.lblRecommendedCPU.Text = "6 cores"
-        '
-        'lblMaxCores
-        '
-        Me.lblMaxCores.AutoSize = True
-        Me.lblMaxCores.Location = New System.Drawing.Point(143, 69)
-        Me.lblMaxCores.Name = "lblMaxCores"
-        Me.lblMaxCores.Size = New System.Drawing.Size(42, 13)
-        Me.lblMaxCores.TabIndex = 7
-        Me.lblMaxCores.Text = "6 cores"
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(50, 128)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(275, 13)
+        Me.Label20.TabIndex = 9
+        Me.Label20.Text = "This will offload the cpu. (Requires opencl to be installed)"
         '
         'frmSettings
         '
@@ -556,6 +566,9 @@ Partial Class frmSettings
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        CType(Me.nrCores, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
@@ -568,9 +581,6 @@ Partial Class frmSettings
         Me.TabPage3.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        CType(Me.nrCores, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -586,7 +596,6 @@ Partial Class frmSettings
     Friend WithEvents pnlMaria As Panel
     Friend WithEvents Label4 As Label
     Friend WithEvents pnlDbSettings As Panel
-    Friend WithEvents Button2 As Button
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
@@ -606,7 +615,6 @@ Partial Class frmSettings
     Friend WithEvents rJava0 As RadioButton
     Friend WithEvents Label11 As Label
     Friend WithEvents Label12 As Label
-    Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents lblDb As Label
@@ -619,4 +627,7 @@ Partial Class frmSettings
     Friend WithEvents lblMaxCores As Label
     Friend WithEvents lblRecommendedCPU As Label
     Friend WithEvents Label18 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents Label20 As Label
+    Friend WithEvents chkOpenCL As CheckBox
 End Class

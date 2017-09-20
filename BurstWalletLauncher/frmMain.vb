@@ -91,12 +91,11 @@ Public Class frmMain
             '1 Mariap if needed
 
         Else
+            If Not SanityCheck() Then Exit Sub
+            WriteNRSConfig()
             StartWallet()
-
             Running = True
-
             btnStartStop.Enabled = False
-
             btnStartStop.Text = "Starting"
         End If
 
@@ -129,6 +128,9 @@ Public Class frmMain
     End Sub
     Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
         frmUpdate.Show()
+    End Sub
+    Private Sub ChangeDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangeDatabaseToolStripMenuItem.Click
+        frmChangeDatabase.Show()
     End Sub
 #End Region
 
@@ -358,23 +360,33 @@ Public Class frmMain
                 Data = "#Using Firebird" & vbCrLf
                 Data &= "nxt.dbUrl=jdbc:firebirdsql:embedded:./burst_db/burst.firebirxd.db" & vbCrLf
                 Data &= "nxt.dbUsername=" & vbCrLf
-                Data &= "nxt.dbPassword="
+                Data &= "nxt.dbPassword=" & vbCrLf
             Case DbType.pMariaDB
                 Data = "#Using MariaDb Portable" & vbCrLf
                 Data &= "nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet" & vbCrLf
                 Data &= "nxt.dbUsername=burstwallet" & vbCrLf
-                Data &= "nxt.dbPassword=burstwallet"
+                Data &= "nxt.dbPassword=burstwallet" & vbCrLf
             Case DbType.MariaDB
                 Data = "#Using installed MariaDb" & vbCrLf
                 Data &= "nxt.dbUrl=jdbc:mariadb://" & My.Settings.DbServer & "/" & My.Settings.DbName & vbCrLf
                 Data &= "nxt.dbUsername=" & My.Settings.DbUser & vbCrLf
-                Data &= "nxt.dbPassword=" & My.Settings.DbPass
+                Data &= "nxt.dbPassword=" & My.Settings.DbPass & vbCrLf
             Case DbType.H2
                 Data = "#Using H2" & vbCrLf
                 Data &= "nxt.dbUrl=jdbc:h2:./burst_db/burst;DB_CLOSE_ON_EXIT=False" & vbCrLf
                 Data &= "nxt.dbUsername=" & vbCrLf
-                Data &= "nxt.dbPassword="
+                Data &= "nxt.dbPassword=" & vbCrLf
         End Select
+
+        If My.Settings.useOpenCL Then
+            Data &= "burst.oclAuto = True" & vbCrLf
+            Data &= "burst.oclVerify = True" & vbCrLf
+        Else
+            Data &= "burst.oclAuto = True" & vbCrLf
+            Data &= "burst.oclVerify = False" & vbCrLf
+        End If
+
+
         Try
             Dim basedir As String = Application.StartupPath
             If Not basedir.EndsWith("\") Then basedir &= "\"
@@ -433,11 +445,13 @@ Public Class frmMain
 
     Private Function SanityCheck() As Boolean
 
-
-        'Check if Java is running another burst.jar
-        Dim searcher As New ManagementObjectSearcher("root\CIMV2", "SELECT * FROM Win32_Process WHERE Name='java.exe'")
+        Dim Ok As Boolean = True
+        Dim searcher As ManagementObjectSearcher
         Dim cmdline As String = ""
         Dim Msg As String = ""
+        Dim res As MsgBoxResult = Nothing
+        'Check if Java is running another burst.jar
+        searcher = New ManagementObjectSearcher("root\CIMV2", "SELECT * FROM Win32_Process WHERE Name='java.exe'")
         For Each p As ManagementObject In searcher.[Get]()
             cmdline = p("CommandLine")
             If cmdline.ToLower.Contains("burst.jar") Then
@@ -447,25 +461,54 @@ Public Class frmMain
                 Msg &= "Yes = Stop the other wallet and start this one." & vbCrLf
                 Msg &= "No = Start this wallet despite the other wallet." & vbCrLf
                 Msg &= "Cancel = Do not start this one." & vbCrLf
-                Dim res As MsgBoxResult = MsgBox(Msg, MsgBoxStyle.Information Or MsgBoxStyle.YesNoCancel, "Another wallet is running")
+                res = MsgBox(Msg, MsgBoxStyle.Information Or MsgBoxStyle.YesNoCancel, "Another wallet is running")
                 If res = MsgBoxResult.Yes Then
-                    'kill wallet
-                    'p.GetPropertyValue("ProcessId")
+                    Dim proc As Process = Process.GetProcessById(Integer.Parse(p("ProcessId").ToString))
+                    proc.Kill()
+
                 ElseIf res = MsgBoxResult.No Then
                     'do nothing 
                 Else
-                    Return False
+                    Ok = False
                 End If
             End If
-
         Next
 
 
 
+        If My.Settings.DbType = DbType.pMariaDB And Ok = True Then
+            cmdline = ""
+            Msg = ""
+            searcher = New ManagementObjectSearcher("root\CIMV2", "SELECT * FROM Win32_Process WHERE Name='mysqld.exe'")
+            For Each p As ManagementObject In searcher.[Get]()
+                ' cmdline = p("CommandLine")
+                Msg = "The launcher has detected that another Mysql/MariaDB is running." & vbCrLf
+                Msg &= "If the other database use the same setting as this one. it will not work." & vbCrLf
+                Msg &= "Would you like to stop the other database?" & vbCrLf & vbCrLf
+                Msg &= "Yes = Stop the other database and start this one." & vbCrLf
+                Msg &= "No = Start this database despite the other database." & vbCrLf
+                Msg &= "Cancel = Do not start this one." & vbCrLf
+                res = MsgBox(Msg, MsgBoxStyle.Information Or MsgBoxStyle.YesNoCancel, "Another database is running")
+                If res = MsgBoxResult.Yes Then
+                    Dim proc As Process = Process.GetProcessById(Integer.Parse(p("ProcessId").ToString))
+                    proc.Kill()
+                ElseIf res = MsgBoxResult.No Then
+                    'do nothing 
+                Else
+                    Ok = False
+                End If
+            Next
+        End If
 
 
 
 
-        Return True
+
+        Return Ok
     End Function
+
+
+
+
+
 End Class

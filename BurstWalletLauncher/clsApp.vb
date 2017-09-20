@@ -488,6 +488,19 @@ Public Class clsApp
     Public Function GetRemoteUrl(ByVal AppId As Integer) As String
         Return _Apps(AppId).RemoteUrl
     End Function
+
+
+
+    Public Function CheckOpenCL()
+        Try
+            If IO.File.Exists(Environment.SystemDirectory & "\OpenCL.dll") Then
+                Return True
+            End If
+        Catch ex As Exception
+
+        End Try
+        Return False
+    End Function
 #End Region
 
 End Class

@@ -113,6 +113,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -137,6 +138,12 @@
     <Compile Include="clsApp.vb" />
     <Compile Include="clsHttp.vb" />
     <Compile Include="clsProcessHandler.vb" />
+    <Compile Include="frmChangeDatabase.Designer.vb">
+      <DependentUpon>frmChangeDatabase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmChangeDatabase.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmConsole.Designer.vb" />
     <Compile Include="frmConsole.vb">
       <SubType>Form</SubType>
@@ -203,6 +210,9 @@
     <Compile Include="NewSettingsProvider.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmChangeDatabase.resx">
+      <DependentUpon>frmChangeDatabase.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmConsole.resx">
       <DependentUpon>frmConsole.vb</DependentUpon>
     </EmbeddedResource>

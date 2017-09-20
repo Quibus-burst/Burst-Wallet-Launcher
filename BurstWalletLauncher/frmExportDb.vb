@@ -64,7 +64,7 @@
 
         StartTime = Now
         Dim Pset As New clsProcessHandler.pSettings
-        Pset.AppId = AppNames.ExportImport
+        Pset.AppId = AppNames.Export
         If My.Settings.JavaType = AppNames.JavaInstalled Then
             Pset.AppPath = "java"
         Else
@@ -108,7 +108,7 @@
         End If
 
         Select Case AppId
-            Case AppNames.ExportImport
+            Case AppNames.Export
                 lblStatus.Text = "Starting to export"
                 pb1.Value = 0
         End Select
@@ -122,7 +122,7 @@
             Return
         End If
 
-        If AppId = AppNames.ExportImport Then
+        If AppId = AppNames.Export Then
             Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
             lblStatus.Text = "Done! Export completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
             btnBrowse.Enabled = True
@@ -149,7 +149,7 @@
         'threadsafe here
         Dim darray() As String = Nothing
         Dim percent As Integer = 0
-        If AppId = AppNames.ExportImport Then 'we need to filter messages
+        If AppId = AppNames.Export Then 'we need to filter messages
             Select Case Operation
                 Case ProcOp.Stopped
                 Case ProcOp.FoundSignal
@@ -192,7 +192,7 @@
             Return
         End If
 
-        If AppId = AppNames.ExportImport Then
+        If AppId = AppNames.Export Then
             MsgBox(Data)
         End If
 

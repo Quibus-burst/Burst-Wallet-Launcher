@@ -96,7 +96,7 @@
         AddHandler ProcHandler.Update, AddressOf ProcEvents
 
         Dim Pset As New clsProcessHandler.pSettings
-        Pset.AppId = AppNames.ExportImport
+        Pset.AppId = AppNames.Import
         If My.Settings.JavaType = AppNames.JavaInstalled Then
             Pset.AppPath = "java"
         Else
@@ -219,7 +219,7 @@
         End If
 
         Select Case AppId
-            Case AppNames.ExportImport
+            Case AppNames.Import
                 lblStatus.Text = "Starting to import."
                 pb1.Value = 0
         End Select
@@ -232,7 +232,7 @@
             Return
         End If
 
-        If AppId = AppNames.ExportImport Then
+        If AppId = AppNames.Import Then
             Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
             lblStatus.Text = "Done! Import completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
             SetSelect(SelectedType)
@@ -257,7 +257,7 @@
         'threadsafe here
         Dim darray() As String = Nothing
         Dim percent As Integer = 0
-        If AppId = AppNames.ExportImport Then 'we need to filter messages
+        If AppId = AppNames.Import Then 'we need to filter messages
             Select Case Operation
                 Case ProcOp.Stopped
                 Case ProcOp.FoundSignal
@@ -314,7 +314,7 @@
             Return
         End If
 
-        If AppId = AppNames.ExportImport Then
+        If AppId = AppNames.Import Then
             MsgBox(Data)
         End If
 

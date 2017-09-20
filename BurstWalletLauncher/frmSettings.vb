@@ -16,6 +16,13 @@
         txtDbUser.Text = My.Settings.DbUser
         txtDbPass.Text = My.Settings.DbPass
         ChangeJavaType(My.Settings.JavaType)
+        If App.CheckOpenCL() Then
+            chkOpenCL.Checked = My.Settings.useOpenCL
+        Else
+            chkOpenCL.Enabled = False
+            chkOpenCL.Checked = False
+        End If
+
 
         nrCores.Maximum = Environment.ProcessorCount
         nrCores.Value = My.Settings.Cpulimit
@@ -66,11 +73,8 @@
         My.Settings.DbUser = txtDbUser.Text
         My.Settings.DbPass = txtDbPass.Text
         My.Settings.JavaType = JavaType
+        My.Settings.useOpenCL = chkOpenCL.Checked
         My.Settings.Save()
-
-        Dim data As String = ""
-
-
 
         Me.Close()
 
