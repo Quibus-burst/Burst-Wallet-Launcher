@@ -26,9 +26,6 @@
     <Setting Name="JavaType" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="JavaLaunch" Type="System.String" Scope="User">
-      <Value Profile="(Default)">-d64</Value>
-    </Setting>
     <Setting Name="AutoIP" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -43,6 +40,21 @@
     </Setting>
     <Setting Name="useOpenCL" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ListenIf" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1;8125</Value>
+    </Setting>
+    <Setting Name="ConnectFrom" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1; localhost; [0:0:0:0:0:0:0:1];</Value>
+    </Setting>
+    <Setting Name="SetFireWall" Type="System.String" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DynPlatform" Type="System.String" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ListenPeer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.0.0.0;8123</Value>
     </Setting>
   </Settings>
 </SettingsFile>

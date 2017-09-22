@@ -50,6 +50,7 @@ Partial Class frmFirstTime
         Me.PnlWiz2 = New System.Windows.Forms.Panel()
         Me.pnlDb = New System.Windows.Forms.Panel()
         Me.pnlMariaSettings = New System.Windows.Forms.Panel()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.txtDbPass = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.txtDbUser = New System.Windows.Forms.TextBox()
@@ -71,7 +72,6 @@ Partial Class frmFirstTime
         Me.lblJavaHeader = New System.Windows.Forms.Label()
         Me.btnDone = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.pnlWiz1.SuspendLayout()
         Me.P1.SuspendLayout()
         Me.P3.SuspendLayout()
@@ -386,6 +386,16 @@ Partial Class frmFirstTime
         Me.pnlMariaSettings.Size = New System.Drawing.Size(387, 126)
         Me.pnlMariaSettings.TabIndex = 14
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(99, 90)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(193, 13)
+        Me.Label5.TabIndex = 9
+        Me.Label5.Text = "note: Database and schema must exist."
+        '
         'txtDbPass
         '
         Me.txtDbPass.Location = New System.Drawing.Point(102, 67)
@@ -474,7 +484,7 @@ Partial Class frmFirstTime
         'lblStatusInfo
         '
         Me.lblStatusInfo.AutoSize = True
-        Me.lblStatusInfo.Location = New System.Drawing.Point(63, 340)
+        Me.lblStatusInfo.Location = New System.Drawing.Point(53, 340)
         Me.lblStatusInfo.Name = "lblStatusInfo"
         Me.lblStatusInfo.Size = New System.Drawing.Size(116, 13)
         Me.lblStatusInfo.TabIndex = 20
@@ -578,22 +588,12 @@ Partial Class frmFirstTime
         Me.PictureBox2.TabIndex = 13
         Me.PictureBox2.TabStop = False
         '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(99, 90)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(193, 13)
-        Me.Label5.TabIndex = 9
-        Me.Label5.Text = "note: Database and schema must exist."
-        '
         'frmFirstTime
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(1083, 521)
+        Me.ClientSize = New System.Drawing.Size(1083, 403)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PnlWiz2)
         Me.Controls.Add(Me.pnlWiz1)

@@ -1,4 +1,6 @@
 ﻿Imports System.Management
+Imports System.Security.Permissions
+Imports System.Security.Principal
 
 Public Class frmMain
     Private Delegate Sub DUpdate(ByVal [AppId] As Integer, ByVal [Operation] As Integer, ByVal [data] As String)
@@ -19,6 +21,7 @@ Public Class frmMain
 
         BaseDir = Application.StartupPath
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
+        CheckCommandArgs()
 
         '################################
         'Start classes
@@ -107,7 +110,15 @@ Public Class frmMain
 
     'labels
     Private Sub lblGotoWallet_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblGotoWallet.LinkClicked
-        Process.Start("http://localhost:8125")
+
+        Dim s() As String = Split(My.Settings.ListenIf, ":")
+        Dim url As String = Nothing
+        If s(0) = "0.0.0.0" Then
+            url = "http://127.0.0.1:" & s(1)
+        Else
+            url = "http://" & s(0) & ":" & s(1)
+        End If
+        Process.Start(url)
     End Sub
     Private Sub lblShowUpdateNotification_Click_1(sender As Object, e As EventArgs) Handles lblShowUpdateNotification.Click
         frmUpdate.Show()
@@ -119,9 +130,7 @@ Public Class frmMain
     End Sub
     Private Sub SettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SettingsToolStripMenuItem.Click
         Dim s As New frmSettings
-
         s.ShowDialog()
-
     End Sub
     Private Sub ContributorsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContributorsToolStripMenuItem.Click
         frmContributors.Show()
@@ -131,6 +140,12 @@ Public Class frmMain
     End Sub
     Private Sub ChangeDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangeDatabaseToolStripMenuItem.Click
         frmChangeDatabase.Show()
+    End Sub
+    Private Sub ExportDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportDatabaseToolStripMenuItem.Click
+        frmExportDb.Show()
+    End Sub
+    Private Sub ImportDatabaseToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ImportDatabaseToolStripMenuItem1.Click
+        frmImport.Show()
     End Sub
 #End Region
 
@@ -431,17 +446,97 @@ Public Class frmMain
 
         End Try
     End Sub
+    Public Function IsAdmin() As Boolean
+        Try
+            AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal)
+            CheckAdministrator()
+            Dim principalPerm As New PrincipalPermission(Nothing, "Administrators")
+            principalPerm.Demand()
+        Catch ex As Exception
 
-    Private Sub ExportDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportDatabaseToolStripMenuItem.Click
-        frmExportDb.Show()
+            Return False
+        End Try
+        Return True
+    End Function
+    Public Function SetFirewall(ByVal fwName As String, ByVal ports As String, LocalNet As String, RemoteNet As String) As Boolean
+        Try
+            'first we try to remove old rule if any
+            Const NET_FW_IP_PROTOCOL_TCP = 6
+            Const NET_FW_RULE_DIR_IN = 1
+            Const NET_FW_ACTION_ALLOW = 1
+            Dim fwPolicy2 As Object = CreateObject("HNetCfg.FwPolicy2")
+            Dim RulesObject As Object = fwPolicy2.Rules
+            'remove old if exists
+            RulesObject.Remove(fwName)
+            'add new settings
+            Dim CurrentProfiles As Object = fwPolicy2.CurrentProfileTypes
+            Dim NewRule As Object = CreateObject("HNetCfg.FWRule")
+            NewRule.Name = fwName
+            NewRule.Description = "Allows incoming traffic to " & fwName
+            NewRule.Protocol = NET_FW_IP_PROTOCOL_TCP
+            NewRule.LocalPorts = ports
+            NewRule.Direction = NET_FW_RULE_DIR_IN
+            NewRule.Enabled = True
+            NewRule.LocalAddresses = LocalNet
+            NewRule.RemoteAddresses = RemoteNet '"127.0.0.1/255.255.255.255,192.168.0.0/255.255.255.0,192.168.1.0/255.255.0.0"
+            NewRule.Profiles = 7 'CurrentProfiles
+            NewRule.Action = NET_FW_ACTION_ALLOW
+            RulesObject.Add(NewRule)
+        Catch ex As Exception
+            Return False
+        End Try
 
+        Return True
+
+    End Function
+    Private Sub CheckCommandArgs()
+
+        '0 = appname
+        '1 = Type to do
+        Dim s() As String
+        Dim buffer As String
+        Dim clArgs() As String = Environment.GetCommandLineArgs()
+        If UBound(clArgs) > 0 Then
+            Select Case clArgs(1)
+                Case "ADDFW"
+
+                    'we are admin we presume
+                    Try
+                        s = Split(My.Settings.ListenPeer, ";")
+                        If s(0) = "0.0.0.0" Then s(0) = "*"
+                        If Not SetFirewall("Burst Peers", s(1), s(0), "") Then
+                            MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+                        End If
+
+                        s = Split(My.Settings.ListenIf, ";")
+                        If s(0) = "0.0.0.0" Then s(0) = "*"
+                        buffer = Trim(My.Settings.ConnectFrom)
+                        If buffer <> "" Then
+                            buffer = buffer.Replace(";", ",")
+                            buffer = buffer.Replace(" ", "")
+                            If buffer.EndsWith(",") Then buffer = buffer.Remove(buffer.Length - 1)
+                        End If
+                        If Not SetFirewall("Burst Api", s(1), s(0), buffer) Then
+                            MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+                        End If
+
+
+                        MsgBox("Windows firewall rules sucessfully applied.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
+                    Catch ex As Exception
+                        MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+                    End Try
+
+                    End
+            End Select
+
+        End If
     End Sub
+    <PrincipalPermission(SecurityAction.Demand, Role:="Administrators")>
+    Shared Function CheckAdministrator()
+        'If this sub can be called we have admin rights
+        Return True
+    End Function
 
-    Private Sub ImportDatabaseToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ImportDatabaseToolStripMenuItem1.Click
-        frmImport.Show()
-
-    End Sub
-#End Region
 
     Private Function SanityCheck() As Boolean
 
@@ -474,8 +569,6 @@ Public Class frmMain
             End If
         Next
 
-
-
         If My.Settings.DbType = DbType.pMariaDB And Ok = True Then
             cmdline = ""
             Msg = ""
@@ -501,11 +594,11 @@ Public Class frmMain
         End If
 
 
-
-
-
         Return Ok
     End Function
+#End Region
+
+
 
 
 

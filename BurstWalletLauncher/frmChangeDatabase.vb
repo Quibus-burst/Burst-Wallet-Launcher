@@ -56,8 +56,9 @@
         End If
 
         OP = 0
-        '
-        '
+
+        Me.Width = 501
+        Me.Height = 436
 
     End Sub
 

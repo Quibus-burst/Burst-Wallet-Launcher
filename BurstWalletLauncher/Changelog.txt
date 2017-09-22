@@ -6,13 +6,13 @@
 Needs more testing - 
 Convert database not tested and does not resave new config.
 Import Database need repos 
+Settings for nrs net done part from add/remove and write firewall
+
 
 To Be done:
 AutoIp Settings
-Add firewall rules to Windows for NRS.
 Add a components download window where you can select to download a component.
 Setting to minimize to tray(?)
-
 Add ntp check from pool.org?
 limit ConsoleBuffer and save it as log
 Add support to install as a service. (Needs a system wrapper+named pipes or can we use servicecontroller?)
@@ -22,7 +22,7 @@ Error detection. If console sends errors. restart wallet.
 
 ~V1.2
 * Corrected spelling errors.
-* Internal codeststructure changed to be more modular
+* Internal codestructure changed to be more modular
 +Gui for first time setup
 +Support for multiple database types
 +Individual components download at start.
@@ -33,6 +33,7 @@ Error detection. If console sends errors. restart wallet.
 +Limit CPU cores feature
 +Option to use graphics card during sync instead of cpu
 +Sanitycheck
++NRS network config + automatic firewall rules
 
 V1.1
 + Update Functions

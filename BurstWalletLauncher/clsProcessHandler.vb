@@ -64,7 +64,7 @@ Public Class clsProcessHandler
                 If P(Proc.AppId).IsRunning Then Exit Do
                 If P(Proc.AppId).State <> ProcOp.Running Then Exit Do
             Loop
-            If P(Proc.AppId).State <> ProcOp.Running Then Exit For 'abortion
+            If P(Proc.AppId).State <> ProcOp.Running Then Exit For 'abort
         Next
     End Sub
 

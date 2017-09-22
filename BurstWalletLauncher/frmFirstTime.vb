@@ -295,11 +295,46 @@
         My.Settings.Upgradev = CurVer
         My.Settings.Save()
         'writing nxt.properties
-        frmMain.WriteNRSConfig()
-
         Me.Close()
 
     End Sub
 
+    Private Sub txtDbAddress_TextChanged(sender As Object, e As EventArgs) Handles txtDbAddress.TextChanged
+        CheckMariaSettings()
+    End Sub
 
+    Private Sub txtDbName_TextChanged(sender As Object, e As EventArgs) Handles txtDbName.TextChanged
+        CheckMariaSettings()
+    End Sub
+
+    Private Sub txtDbUser_TextChanged(sender As Object, e As EventArgs) Handles txtDbUser.TextChanged
+        CheckMariaSettings()
+    End Sub
+
+    Private Sub txtDbPass_TextChanged(sender As Object, e As EventArgs) Handles txtDbPass.TextChanged
+        CheckMariaSettings()
+    End Sub
+    Private Sub CheckMariaSettings()
+        Dim Ok As Boolean = True
+        If Not txtDbAddress.Text <> "" Then Ok = False
+        If Not txtDbName.Text <> "" Then Ok = False
+        If Not txtDbUser.Text <> "" Then Ok = False
+        If Not txtDbPass.Text <> "" Then Ok = False
+
+        If Ok = False Then
+            pnlDb.BackColor = Color.LightCoral
+            DbVerified = False
+        Else
+            pnlDb.BackColor = Color.PaleGreen
+            DbVerified = True
+        End If
+        'also check that we have downloaded all
+        If DbVerified = True Then
+            If App.isInstalled(AppNames.JavaInstalled) Or App.isInstalled(AppNames.JavaPortable) Then
+                btnDone.Enabled = True
+            End If
+        Else
+            btnDone.Enabled = False
+        End If
+    End Sub
 End Class

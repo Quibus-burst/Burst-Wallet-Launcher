@@ -152,18 +152,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("-d64")>  _
-        Public Property JavaLaunch() As String
-            Get
-                Return CType(Me("JavaLaunch"),String)
-            End Get
-            Set
-                Me("JavaLaunch") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property AutoIP() As Boolean
             Get
@@ -219,6 +207,66 @@ Namespace My
             End Get
             Set
                 Me("useOpenCL") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("127.0.0.1;8125")>  _
+        Public Property ListenIf() As String
+            Get
+                Return CType(Me("ListenIf"),String)
+            End Get
+            Set
+                Me("ListenIf") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("127.0.0.1; localhost; [0:0:0:0:0:0:0:1];")>  _
+        Public Property ConnectFrom() As String
+            Get
+                Return CType(Me("ConnectFrom"),String)
+            End Get
+            Set
+                Me("ConnectFrom") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property SetFireWall() As String
+            Get
+                Return CType(Me("SetFireWall"),String)
+            End Get
+            Set
+                Me("SetFireWall") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property DynPlatform() As String
+            Get
+                Return CType(Me("DynPlatform"),String)
+            End Get
+            Set
+                Me("DynPlatform") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0.0.0.0;8123")>  _
+        Public Property ListenPeer() As String
+            Get
+                Return CType(Me("ListenPeer"),String)
+            End Get
+            Set
+                Me("ListenPeer") = value
             End Set
         End Property
     End Class

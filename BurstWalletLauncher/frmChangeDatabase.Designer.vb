@@ -480,7 +480,7 @@ Partial Class frmChangeDatabase
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(983, 408)
+        Me.ClientSize = New System.Drawing.Size(485, 396)
         Me.Controls.Add(Me.pnlWiz2)
         Me.Controls.Add(Me.pnlWiz1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
