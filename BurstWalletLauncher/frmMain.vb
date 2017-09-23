@@ -1,6 +1,5 @@
 ﻿Imports System.Management
-Imports System.Security.Permissions
-Imports System.Security.Principal
+
 
 Public Class frmMain
     Private Delegate Sub DUpdate(ByVal [AppId] As Integer, ByVal [Operation] As Integer, ByVal [data] As String)

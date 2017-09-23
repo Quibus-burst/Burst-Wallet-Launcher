@@ -30,8 +30,6 @@
         btnBrowse.Enabled = False
         btnStart.Enabled = False
 
-
-
         'PreCheck
         'Repo is ok!
         If SelectedType = 2 Then
@@ -53,8 +51,12 @@
                 MsgBox("The file you have selected does not exist. Please select a valid file.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "File not exist.")
             End Try
         End If
-
-
+        AddHandler ProcHandler.Aborting, AddressOf Aborted
+        AddHandler ProcHandler.Started, AddressOf Starting
+        AddHandler ProcHandler.Stopped, AddressOf Stopped
+        AddHandler ProcHandler.Update, AddressOf ProcEvents
+        StartTime = Now
+        Running = True
         'if wallet is running shut it down
         If frmMain.Running Then
             If MsgBox("The wallet must be stopped to export the database." & vbCrLf & " Would you like to stop it now?", MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNo, "Stop wallet?") Then
@@ -68,14 +70,16 @@
             End If
         End If
 
-        StartImport()
-        'start process
+        If My.Settings.DbType = DbType.pMariaDB Then
+            StartMaria()
+        Else
+            StartImport()
+
+        End If
+
 
     End Sub
     Sub StartImport()
-
-        StartTime = Now
-        Running = True
         Select Case SelectedType
             Case 1
              '    ImportFromUrl(txtUrl.Text) ???
@@ -87,13 +91,6 @@
 
     End Sub
     Private Sub ImportFromFile(ByVal FileName As String)
-        Dim Basedir As String = Application.StartupPath
-        If Not Basedir.EndsWith("\") Then Basedir &= "\"
-
-        AddHandler ProcHandler.Aborting, AddressOf Aborted
-        AddHandler ProcHandler.Started, AddressOf Starting
-        AddHandler ProcHandler.Stopped, AddressOf Stopped
-        AddHandler ProcHandler.Update, AddressOf ProcEvents
 
         Dim Pset As New clsProcessHandler.pSettings
         Pset.AppId = AppNames.Import
@@ -233,20 +230,28 @@
         End If
 
         If AppId = AppNames.Import Then
-            Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
-            lblStatus.Text = "Done! Import completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
-            SetSelect(SelectedType)
-            btnStart.Enabled = True
-            pb1.Value = 100
-            Running = False
-
-            RemoveHandler ProcHandler.Aborting, AddressOf Aborted
-            RemoveHandler ProcHandler.Started, AddressOf Starting
-            RemoveHandler ProcHandler.Stopped, AddressOf Stopped
-            RemoveHandler ProcHandler.Update, AddressOf ProcEvents
-
+            If My.Settings.DbType = DbType.pMariaDB Then
+                StopMaria()
+            Else
+                Complete()
+            End If
         End If
+        If AppId = AppNames.MariaPortable Then
+            Complete()
+        End If
+    End Sub
+    Private Sub Complete()
+        Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
+        lblStatus.Text = "Done! Import completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
+        SetSelect(SelectedType)
+        btnStart.Enabled = True
+        pb1.Value = 100
+        Running = False
 
+        RemoveHandler ProcHandler.Aborting, AddressOf Aborted
+        RemoveHandler ProcHandler.Started, AddressOf Starting
+        RemoveHandler ProcHandler.Stopped, AddressOf Stopped
+        RemoveHandler ProcHandler.Update, AddressOf ProcEvents
     End Sub
     Private Sub ProcEvents(ByVal AppId As Integer, ByVal Operation As Integer, ByVal data As String)
         If Me.InvokeRequired Then
@@ -306,6 +311,11 @@
                     Running = False
             End Select
         End If
+        If AppId = AppNames.MariaPortable Then
+            If Operation = ProcOp.FoundSignal Then
+                StartImport()
+            End If
+        End If
     End Sub
     Private Sub Aborted(ByVal AppId As Integer, ByVal Data As String)
         If Me.InvokeRequired Then
@@ -326,12 +336,36 @@
         If frmMain.Running = False Then
             WaitTimer.Stop()
             WaitTimer.Enabled = False
-            StartImport()
+            If My.Settings.DbType = DbType.pMariaDB Then
+                StartMaria()
+            Else
+                StartImport()
+            End If
         End If
     End Sub
 
 
+    Private Sub StartMaria()
+        Try
+            lblStatus.Text = "Starting MariaDB"
+            Dim pr As New clsProcessHandler.pSettings
+            pr.AppId = AppNames.MariaPortable
+            pr.AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
+            pr.Cores = 0
+            pr.Params = "--console"
+            pr.WorkingDirectory = BaseDir & "MariaDb\bin\"
+            pr.StartSignal = "ready for connections"
+            pr.StartsignalMaxTime = 60
+            ProcHandler.StartProcess(pr)
+        Catch ex As Exception
+            MsgBox("Unable to start Maria Portable.")
+        End Try
 
+    End Sub
+    Private Sub StopMaria()
+        lblStatus.Text = "Stopping MariaDB"
+        ProcHandler.StopProcess(AppNames.MariaPortable)
+    End Sub
 
 
 

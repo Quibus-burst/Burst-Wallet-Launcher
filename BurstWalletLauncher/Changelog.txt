@@ -3,24 +3,24 @@
 - Removed
 ~dev edition
 
-Needs more testing - 
+Known problems:
 Import Database need repos 
 
-
 To Be done:
-Add a components download window where you can select to download a component.
-Setting to minimize to tray(?)
-limit ConsoleBuffer and save it as log
-Add support to install as a service. (Partially done! Needs a system wrapper+named pipes or can we use servicecontroller?)
 Stuck detection. try to restart NRS (if no new block in 60min then try restart NRS)
 Error detection. If console sends errors. restart wallet.
+limit ConsoleBuffer and save it as log
+
+Add support to install as a service. (Partially done! PipeServer+Pipeclient complete needs implementation in wrapper and bwl?)
+Add a components download window where you can select to download a component.
+Setting to minimize to tray(?)
 More visuals when wallet is running. Like Mining info Network diff 
 
 
 ~V1.2
 * Corrected spelling errors.
 * Internal codestructure changed to be more modular
-+Auto Setup of PeerIp
++Autodetect and setup PeerIp
 +Gui for first time setup
 +Support for multiple database types
 +Individual components download at start.
