@@ -185,10 +185,10 @@ Public Class clsProcessHandler
             p.StartInfo.WorkingDirectory = WorkingDirectory
             p.StartInfo.Arguments = Arguments
             p.StartInfo.UseShellExecute = False
-            p.StartInfo.RedirectStandardOutput = True
+            '    p.StartInfo.RedirectStandardOutput = True
             p.StartInfo.RedirectStandardError = True
             p.StartInfo.CreateNoWindow = True
-            AddHandler p.OutputDataReceived, AddressOf OutputHandler
+            '    AddHandler p.OutputDataReceived, AddressOf OutputHandler
             AddHandler p.ErrorDataReceived, AddressOf ErroutHandler
             p.StartInfo.FileName = AppToStart
 
@@ -197,7 +197,8 @@ Public Class clsProcessHandler
                 p.Start()
                 If Cores <> 0 Then p.ProcessorAffinity = CType(Cores, IntPtr)
                 p.BeginErrorReadLine()
-                p.BeginOutputReadLine()
+
+                '     p.BeginOutputReadLine()
             Catch ex As Exception
                 'if we have error here exit right away.
                 RaiseEvent UpdateConsole(Appid, ProcOp.Err, ex.Message)
@@ -275,7 +276,9 @@ Public Class clsProcessHandler
                         FoundStartSignal = True
                         RaiseEvent UpdateConsole(Appid, ProcOp.FoundSignal, "")
                     End If
+
                 End If
+
                 RaiseEvent UpdateConsole(Appid, ProcOp.ConsoleOut, e.Data)
             End If
         End Sub
@@ -288,6 +291,7 @@ Public Class clsProcessHandler
                         RaiseEvent UpdateConsole(Appid, ProcOp.FoundSignal, "")
                     End If
                 End If
+
                 RaiseEvent UpdateConsole(Appid, ProcOp.ConsoleErr, e.Data)
             End If
         End Sub

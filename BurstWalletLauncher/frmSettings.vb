@@ -320,4 +320,5 @@ Public Class frmSettings
         If lstConnectFrom.SelectedIndex = -1 Then Exit Sub
         lstConnectFrom.Items.RemoveAt(lstConnectFrom.SelectedIndex)
     End Sub
+
 End Class

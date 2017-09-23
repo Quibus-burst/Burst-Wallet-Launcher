@@ -427,8 +427,8 @@ Public Class frmMain
 
         If My.Settings.useOpenCL Then
             Data &= "#CPU Offload" & vbCrLf
-            Data &= "burst.oclAuto = True" & vbCrLf
-            Data &= "burst.oclVerify = True" & vbCrLf & vbCrLf
+            Data &= "burst.oclAuto = true" & vbCrLf
+            Data &= "burst.oclVerify = true" & vbCrLf & vbCrLf
 
         End If
 

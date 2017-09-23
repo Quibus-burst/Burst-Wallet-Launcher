@@ -26,6 +26,16 @@ Partial Class frmSettings
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.nrPeerPort = New System.Windows.Forms.NumericUpDown()
+        Me.cmbPeerIP = New System.Windows.Forms.ComboBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.txtAddAllow = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.chkAutoIP = New System.Windows.Forms.CheckBox()
         Me.Label25 = New System.Windows.Forms.Label()
@@ -48,7 +58,6 @@ Partial Class frmSettings
         Me.lblRecommendedCPU = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.nrCores = New System.Windows.Forms.NumericUpDown()
-        Me.Label16 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
@@ -83,19 +92,10 @@ Partial Class frmSettings
         Me.Label9 = New System.Windows.Forms.Label()
         Me.chkCheckForUpdates = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtAddAllow = New System.Windows.Forms.TextBox()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.nrPeerPort = New System.Windows.Forms.NumericUpDown()
-        Me.cmbPeerIP = New System.Windows.Forms.ComboBox()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.Label34 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        CType(Me.nrPeerPort, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nrListenPort, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nrCores, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
@@ -105,7 +105,6 @@ Partial Class frmSettings
         Me.Panel3.SuspendLayout()
         Me.General.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        CType(Me.nrPeerPort, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button1
@@ -185,17 +184,104 @@ Partial Class frmSettings
         Me.Panel4.Controls.Add(Me.lblRecommendedCPU)
         Me.Panel4.Controls.Add(Me.Label17)
         Me.Panel4.Controls.Add(Me.nrCores)
-        Me.Panel4.Controls.Add(Me.Label16)
         Me.Panel4.Controls.Add(Me.Label14)
         Me.Panel4.Location = New System.Drawing.Point(24, 44)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(699, 286)
         Me.Panel4.TabIndex = 12
         '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(543, 213)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(99, 13)
+        Me.Label34.TabIndex = 44
+        Me.Label34.Text = "0.0.0.0/0 = Anyone"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(541, 52)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(29, 13)
+        Me.Label26.TabIndex = 43
+        Me.Label26.Text = "Port:"
+        '
+        'nrPeerPort
+        '
+        Me.nrPeerPort.Location = New System.Drawing.Point(571, 49)
+        Me.nrPeerPort.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
+        Me.nrPeerPort.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.nrPeerPort.Name = "nrPeerPort"
+        Me.nrPeerPort.Size = New System.Drawing.Size(67, 20)
+        Me.nrPeerPort.TabIndex = 42
+        Me.nrPeerPort.Value = New Decimal(New Integer() {8123, 0, 0, 0})
+        '
+        'cmbPeerIP
+        '
+        Me.cmbPeerIP.FormattingEnabled = True
+        Me.cmbPeerIP.Location = New System.Drawing.Point(372, 48)
+        Me.cmbPeerIP.Name = "cmbPeerIP"
+        Me.cmbPeerIP.Size = New System.Drawing.Size(164, 21)
+        Me.cmbPeerIP.TabIndex = 41
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(369, 32)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(135, 13)
+        Me.Label33.TabIndex = 40
+        Me.Label33.Text = "Listen for peer requests on:"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(541, 157)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(50, 13)
+        Me.Label22.TabIndex = 39
+        Me.Label22.Text = "Example:"
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(543, 199)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(114, 13)
+        Me.Label32.TabIndex = 38
+        Me.Label32.Text = "fe80:db8:abcd:ea::/64"
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(540, 186)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(81, 13)
+        Me.Label31.TabIndex = 37
+        Me.Label31.Text = "192.168.1.0/24"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(540, 172)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(64, 13)
+        Me.Label30.TabIndex = 36
+        Me.Label30.Text = "192.168.1.3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'txtAddAllow
+        '
+        Me.txtAddAllow.Location = New System.Drawing.Point(372, 134)
+        Me.txtAddAllow.Name = "txtAddAllow"
+        Me.txtAddAllow.Size = New System.Drawing.Size(164, 20)
+        Me.txtAddAllow.TabIndex = 35
+        '
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(10, 129)
+        Me.Label29.Location = New System.Drawing.Point(10, 130)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(29, 13)
         Me.Label29.TabIndex = 34
@@ -228,7 +314,7 @@ Partial Class frmSettings
         Me.chkFirewall.AutoSize = True
         Me.chkFirewall.Checked = True
         Me.chkFirewall.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkFirewall.Location = New System.Drawing.Point(375, 254)
+        Me.chkFirewall.Location = New System.Drawing.Point(372, 254)
         Me.chkFirewall.Name = "chkFirewall"
         Me.chkFirewall.Size = New System.Drawing.Size(247, 17)
         Me.chkFirewall.TabIndex = 31
@@ -237,7 +323,7 @@ Partial Class frmSettings
         '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(420, 224)
+        Me.Button5.Location = New System.Drawing.Point(417, 224)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(120, 22)
         Me.Button5.TabIndex = 30
@@ -246,7 +332,7 @@ Partial Class frmSettings
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(540, 133)
+        Me.Button2.Location = New System.Drawing.Point(537, 133)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(64, 22)
         Me.Button2.TabIndex = 29
@@ -256,7 +342,7 @@ Partial Class frmSettings
         'lstConnectFrom
         '
         Me.lstConnectFrom.FormattingEnabled = True
-        Me.lstConnectFrom.Location = New System.Drawing.Point(375, 155)
+        Me.lstConnectFrom.Location = New System.Drawing.Point(372, 155)
         Me.lstConnectFrom.Name = "lstConnectFrom"
         Me.lstConnectFrom.Size = New System.Drawing.Size(164, 69)
         Me.lstConnectFrom.TabIndex = 28
@@ -274,7 +360,7 @@ Partial Class frmSettings
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(373, 118)
+        Me.Label27.Location = New System.Drawing.Point(370, 118)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(107, 13)
         Me.Label27.TabIndex = 22
@@ -283,7 +369,7 @@ Partial Class frmSettings
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(544, 96)
+        Me.Label24.Location = New System.Drawing.Point(541, 96)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(29, 13)
         Me.Label24.TabIndex = 21
@@ -291,7 +377,7 @@ Partial Class frmSettings
         '
         'nrListenPort
         '
-        Me.nrListenPort.Location = New System.Drawing.Point(574, 93)
+        Me.nrListenPort.Location = New System.Drawing.Point(571, 93)
         Me.nrListenPort.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
         Me.nrListenPort.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nrListenPort.Name = "nrListenPort"
@@ -302,7 +388,7 @@ Partial Class frmSettings
         'cmbListen
         '
         Me.cmbListen.FormattingEnabled = True
-        Me.cmbListen.Location = New System.Drawing.Point(375, 93)
+        Me.cmbListen.Location = New System.Drawing.Point(372, 93)
         Me.cmbListen.Name = "cmbListen"
         Me.cmbListen.Size = New System.Drawing.Size(164, 21)
         Me.cmbListen.TabIndex = 18
@@ -322,7 +408,7 @@ Partial Class frmSettings
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(372, 77)
+        Me.Label21.Location = New System.Drawing.Point(369, 77)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(126, 13)
         Me.Label21.TabIndex = 16
@@ -331,17 +417,17 @@ Partial Class frmSettings
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(8, 194)
+        Me.Label20.Location = New System.Drawing.Point(9, 196)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(280, 26)
+        Me.Label20.Size = New System.Drawing.Size(277, 39)
         Me.Label20.TabIndex = 15
-        Me.Label20.Text = "The use of graphic card will offload cpu during sync times." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Using gpu requires o" &
-    "pencl to be installed." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label20.Text = "The use of graphic card will offload cpu during sync times" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "and most probably imp" &
+    "rove the speed of sync." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Using gpu requires opencl to be installed."
         '
         'chkOpenCL
         '
         Me.chkOpenCL.AutoSize = True
-        Me.chkOpenCL.Location = New System.Drawing.Point(11, 151)
+        Me.chkOpenCL.Location = New System.Drawing.Point(13, 152)
         Me.chkOpenCL.Name = "chkOpenCL"
         Me.chkOpenCL.Size = New System.Drawing.Size(282, 17)
         Me.chkOpenCL.TabIndex = 14
@@ -351,7 +437,7 @@ Partial Class frmSettings
         'lblMaxCores
         '
         Me.lblMaxCores.AutoSize = True
-        Me.lblMaxCores.Location = New System.Drawing.Point(124, 130)
+        Me.lblMaxCores.Location = New System.Drawing.Point(125, 130)
         Me.lblMaxCores.Name = "lblMaxCores"
         Me.lblMaxCores.Size = New System.Drawing.Size(42, 13)
         Me.lblMaxCores.TabIndex = 13
@@ -388,7 +474,7 @@ Partial Class frmSettings
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(90, 130)
+        Me.Label17.Location = New System.Drawing.Point(91, 130)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(41, 13)
         Me.Label17.TabIndex = 11
@@ -396,7 +482,7 @@ Partial Class frmSettings
         '
         'nrCores
         '
-        Me.nrCores.Location = New System.Drawing.Point(45, 126)
+        Me.nrCores.Location = New System.Drawing.Point(46, 126)
         Me.nrCores.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
         Me.nrCores.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nrCores.Name = "nrCores"
@@ -404,23 +490,14 @@ Partial Class frmSettings
         Me.nrCores.TabIndex = 10
         Me.nrCores.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(9, 152)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(29, 13)
-        Me.Label16.TabIndex = 9
-        Me.Label16.Text = "Use:"
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(8, 181)
+        Me.Label14.Location = New System.Drawing.Point(9, 181)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(266, 13)
+        Me.Label14.Size = New System.Drawing.Size(262, 13)
         Me.Label14.TabIndex = 8
-        Me.Label14.Text = "During sync of blockchain cpu usage can be massive. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label14.Text = "During sync of blockchain cpu usage can be intense. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Label23
         '
@@ -760,94 +837,6 @@ Partial Class frmSettings
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "General settings"
         '
-        'txtAddAllow
-        '
-        Me.txtAddAllow.Location = New System.Drawing.Point(375, 134)
-        Me.txtAddAllow.Name = "txtAddAllow"
-        Me.txtAddAllow.Size = New System.Drawing.Size(164, 20)
-        Me.txtAddAllow.TabIndex = 35
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(543, 172)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(64, 13)
-        Me.Label30.TabIndex = 36
-        Me.Label30.Text = "192.168.1.3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(543, 186)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(81, 13)
-        Me.Label31.TabIndex = 37
-        Me.Label31.Text = "192.168.1.0/24"
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(546, 199)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(114, 13)
-        Me.Label32.TabIndex = 38
-        Me.Label32.Text = "fe80:db8:abcd:ea::/64"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(544, 157)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(50, 13)
-        Me.Label22.TabIndex = 39
-        Me.Label22.Text = "Example:"
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(544, 52)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(29, 13)
-        Me.Label26.TabIndex = 43
-        Me.Label26.Text = "Port:"
-        '
-        'nrPeerPort
-        '
-        Me.nrPeerPort.Location = New System.Drawing.Point(574, 49)
-        Me.nrPeerPort.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
-        Me.nrPeerPort.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.nrPeerPort.Name = "nrPeerPort"
-        Me.nrPeerPort.Size = New System.Drawing.Size(67, 20)
-        Me.nrPeerPort.TabIndex = 42
-        Me.nrPeerPort.Value = New Decimal(New Integer() {8123, 0, 0, 0})
-        '
-        'cmbPeerIP
-        '
-        Me.cmbPeerIP.FormattingEnabled = True
-        Me.cmbPeerIP.Location = New System.Drawing.Point(375, 48)
-        Me.cmbPeerIP.Name = "cmbPeerIP"
-        Me.cmbPeerIP.Size = New System.Drawing.Size(164, 21)
-        Me.cmbPeerIP.TabIndex = 41
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(372, 32)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(135, 13)
-        Me.Label33.TabIndex = 40
-        Me.Label33.Text = "Listen for peer requests on:"
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(546, 213)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(99, 13)
-        Me.Label34.TabIndex = 44
-        Me.Label34.Text = "0.0.0.0/0 = Anyone"
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -865,6 +854,7 @@ Partial Class frmSettings
         Me.TabPage1.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
+        CType(Me.nrPeerPort, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nrListenPort, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.nrCores, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
@@ -881,7 +871,6 @@ Partial Class frmSettings
         Me.General.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        CType(Me.nrPeerPort, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -936,7 +925,6 @@ Partial Class frmSettings
     Friend WithEvents Label18 As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents nrCores As NumericUpDown
-    Friend WithEvents Label16 As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents Label23 As Label
     Friend WithEvents chkAutoIP As CheckBox

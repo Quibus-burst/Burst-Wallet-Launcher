@@ -10,18 +10,17 @@ Import Database need repos
 To Be done:
 Add a components download window where you can select to download a component.
 Setting to minimize to tray(?)
-Add ntp check from pool.org?
 limit ConsoleBuffer and save it as log
-Add support to install as a service. (Needs a system wrapper+named pipes or can we use servicecontroller?)
-Stuck detection. try to restart NRS (full output of every block. If no block is found within an hour a restart will occur.)
+Add support to install as a service. (Partially done! Needs a system wrapper+named pipes or can we use servicecontroller?)
+Stuck detection. try to restart NRS (if no new block in 60min then try restart NRS)
 Error detection. If console sends errors. restart wallet.
-More visuals when wallet i running. Like Mining info Network diff 
+More visuals when wallet is running. Like Mining info Network diff 
 
 
 ~V1.2
 * Corrected spelling errors.
 * Internal codestructure changed to be more modular
-+Automatically Setup peerip
++Auto Setup of PeerIp
 +Gui for first time setup
 +Support for multiple database types
 +Individual components download at start.
