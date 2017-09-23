@@ -13,7 +13,6 @@ Public Class frmMain
     Public Console(1) As String
     Public Running As Boolean
     Public Updateinfo As String
-    Public BaseDir As String
     Public Repositories() As String
 
 #Region " Form Events "
@@ -111,7 +110,7 @@ Public Class frmMain
     'labels
     Private Sub lblGotoWallet_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblGotoWallet.LinkClicked
 
-        Dim s() As String = Split(My.Settings.ListenIf, ":")
+        Dim s() As String = Split(My.Settings.ListenIf, ";")
         Dim url As String = Nothing
         If s(0) = "0.0.0.0" Then
             url = "http://127.0.0.1:" & s(1)
@@ -296,6 +295,7 @@ Public Class frmMain
             pset(0).StartSignal = "ready for connections"
             pset(0).StartsignalMaxTime = 60
 
+            pset(1) = New clsProcessHandler.pSettings
             pset(1).AppId = AppNames.NRS
             If My.Settings.JavaType = AppNames.JavaInstalled Then
                 pset(1).AppPath = "java"
@@ -367,38 +367,69 @@ Public Class frmMain
 
     End Sub
     Public Sub WriteNRSConfig()
-
-        'writing nxt.properties
         Dim Data As String = ""
+        Dim Buffer() As String = Nothing
+        'writing nxt.properties
+
+        'Peer settings
+        Data &= "#Peer network" & vbCrLf
+        Buffer = Split(My.Settings.ListenPeer, ";")
+        Data &= "nxt.peerServerPort = " & Buffer(1) & vbCrLf
+        Data &= "nxt.peerServerHost = " & Buffer(0) & vbCrLf & vbCrLf
+
+        'API settings
+        Data &= "#API network" & vbCrLf
+        Buffer = Split(My.Settings.ListenIf, ";")
+        Data &= "nxt.apiServerPort = " & Buffer(1) & vbCrLf
+        Data &= "nxt.apiServerHost = " & Buffer(0) & vbCrLf
+        Data &= "nxt.allowedBotHosts = " & My.Settings.ConnectFrom & vbCrLf & vbCrLf
+
+        'autoip
+        If My.Settings.AutoIP Then
+            Dim ip As String = GetMyIp()
+            If ip <> "" Then
+                Data &= "#Auto IP set" & vbCrLf
+                Data &= "nxt.myAddress = " & ip & vbCrLf & vbCrLf
+            End If
+        End If
+
+        'Dyn platform
+        If My.Settings.AutoIP Then
+            Dim ip As String = GetMyIp()
+            If ip <> "" Then
+                Data &= "#Dynamic platform" & vbCrLf
+                Data &= "nxt.myPlatform = WCB-" & App.GetDbNameFromType(My.Settings.DbType) & vbCrLf & vbCrLf
+            End If
+        End If
+
         Select Case My.Settings.DbType
             Case DbType.FireBird
-                Data = "#Using Firebird" & vbCrLf
-                Data &= "nxt.dbUrl=jdbc:firebirdsql:embedded:./burst_db/burst.firebirxd.db" & vbCrLf
-                Data &= "nxt.dbUsername=" & vbCrLf
-                Data &= "nxt.dbPassword=" & vbCrLf
+                Data &= "#Using Firebird" & vbCrLf
+                Data &= "nxt.dbUrl = jdbc:firebirdsql:embedded:./burst_db/burst.firebirxd.db" & vbCrLf
+                Data &= "nxt.dbUsername = " & vbCrLf
+                Data &= "nxt.dbPassword = " & vbCrLf & vbCrLf
             Case DbType.pMariaDB
-                Data = "#Using MariaDb Portable" & vbCrLf
-                Data &= "nxt.dbUrl=jdbc:mariadb://localhost:3306/burstwallet" & vbCrLf
-                Data &= "nxt.dbUsername=burstwallet" & vbCrLf
-                Data &= "nxt.dbPassword=burstwallet" & vbCrLf
+                Data &= "#Using MariaDb Portable" & vbCrLf
+                Data &= "nxt.dbUrl = jdbc:mariadb://localhost:3306/burstwallet" & vbCrLf
+                Data &= "nxt.dbUsername = burstwallet" & vbCrLf
+                Data &= "nxt.dbPassword = burstwallet" & vbCrLf & vbCrLf
             Case DbType.MariaDB
-                Data = "#Using installed MariaDb" & vbCrLf
+                Data &= "#Using installed MariaDb" & vbCrLf
                 Data &= "nxt.dbUrl=jdbc:mariadb://" & My.Settings.DbServer & "/" & My.Settings.DbName & vbCrLf
-                Data &= "nxt.dbUsername=" & My.Settings.DbUser & vbCrLf
-                Data &= "nxt.dbPassword=" & My.Settings.DbPass & vbCrLf
+                Data &= "nxt.dbUsername = " & My.Settings.DbUser & vbCrLf
+                Data &= "nxt.dbPassword = " & My.Settings.DbPass & vbCrLf & vbCrLf
             Case DbType.H2
-                Data = "#Using H2" & vbCrLf
+                Data &= "#Using H2" & vbCrLf
                 Data &= "nxt.dbUrl=jdbc:h2:./burst_db/burst;DB_CLOSE_ON_EXIT=False" & vbCrLf
-                Data &= "nxt.dbUsername=" & vbCrLf
-                Data &= "nxt.dbPassword=" & vbCrLf
+                Data &= "nxt.dbUsername = " & vbCrLf
+                Data &= "nxt.dbPassword = " & vbCrLf & vbCrLf
         End Select
 
         If My.Settings.useOpenCL Then
+            Data &= "#CPU Offload" & vbCrLf
             Data &= "burst.oclAuto = True" & vbCrLf
-            Data &= "burst.oclVerify = True" & vbCrLf
-        Else
-            Data &= "burst.oclAuto = True" & vbCrLf
-            Data &= "burst.oclVerify = False" & vbCrLf
+            Data &= "burst.oclVerify = True" & vbCrLf & vbCrLf
+
         End If
 
 
@@ -530,13 +561,6 @@ Public Class frmMain
 
         End If
     End Sub
-    <PrincipalPermission(SecurityAction.Demand, Role:="Administrators")>
-    Shared Function CheckAdministrator()
-        'If this sub can be called we have admin rights
-        Return True
-    End Function
-
-
     Private Function SanityCheck() As Boolean
 
         Dim Ok As Boolean = True
@@ -594,6 +618,15 @@ Public Class frmMain
 
 
         Return Ok
+    End Function
+    Public Function GetMyIp() As String
+        Try
+            Dim WC As Net.WebClient = New Net.WebClient()
+            Return WC.DownloadString("http://files.getburst.net/ip.php")
+        Catch ex As Exception
+
+        End Try
+        Return ""
     End Function
 #End Region
 

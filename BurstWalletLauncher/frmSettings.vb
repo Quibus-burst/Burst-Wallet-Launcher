@@ -123,9 +123,7 @@ Public Class frmSettings
                 Try
                     s = Split(My.Settings.ListenPeer, ";")
                     If s(0) = "0.0.0.0" Then s(0) = "*"
-
                     frmMain.SetFirewall("Burst Peers", s(1), s(0), "")
-
                     s = Split(My.Settings.ListenIf, ";")
                     If s(0) = "0.0.0.0" Then s(0) = "*"
                     buffer = Trim(My.Settings.ConnectFrom)
@@ -200,21 +198,6 @@ Public Class frmSettings
 
     End Sub
 
-    Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub General_Click(sender As Object, e As EventArgs) Handles General.Click
-
-    End Sub
-
-    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         SaveSettings()

@@ -178,6 +178,7 @@ Public Class clsProcessHandler
         End Function
 
         Public Sub Work()
+            _state = ProcOp.Running
             FoundStartSignal = False
             Abort = False
             p = New Process
@@ -190,6 +191,7 @@ Public Class clsProcessHandler
             AddHandler p.OutputDataReceived, AddressOf OutputHandler
             AddHandler p.ErrorDataReceived, AddressOf ErroutHandler
             p.StartInfo.FileName = AppToStart
+
             Try
 
                 p.Start()

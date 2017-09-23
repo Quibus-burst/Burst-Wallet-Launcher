@@ -369,10 +369,10 @@ Partial Class frmChangeDatabase
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(49, 138)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(247, 26)
+        Me.Label4.Size = New System.Drawing.Size(245, 39)
         Me.Label4.TabIndex = 5
-        Me.Label4.Text = "No data from the old database will be copied. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "You will have to sync the chain f" &
-    "rom the beginning."
+        Me.Label4.Text = "No data from the old database will be copied. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "If you do not have a database in " &
+    "place already" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "you will have to sync the chain from the beginning."
         '
         'Label3
         '
@@ -390,9 +390,9 @@ Partial Class frmChangeDatabase
         Me.rOP2.AutoSize = True
         Me.rOP2.Location = New System.Drawing.Point(32, 120)
         Me.rOP2.Name = "rOP2"
-        Me.rOP2.Size = New System.Drawing.Size(73, 17)
+        Me.rOP2.Size = New System.Drawing.Size(69, 17)
         Me.rOP2.TabIndex = 3
-        Me.rOP2.Text = "Start fresh"
+        Me.rOP2.Text = "No Copy."
         Me.rOP2.UseVisualStyleBackColor = True
         '
         'rOP1
@@ -480,7 +480,7 @@ Partial Class frmChangeDatabase
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(485, 396)
+        Me.ClientSize = New System.Drawing.Size(983, 396)
         Me.Controls.Add(Me.pnlWiz2)
         Me.Controls.Add(Me.pnlWiz1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow

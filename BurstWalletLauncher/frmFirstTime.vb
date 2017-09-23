@@ -290,9 +290,11 @@
         My.Settings.DbUser = txtDbUser.Text
         My.Settings.DbServer = txtDbAddress.Text
         My.Settings.FirstRun = False
+
         Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
         CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
         My.Settings.Upgradev = CurVer
+
         My.Settings.Save()
         'writing nxt.properties
         Me.Close()

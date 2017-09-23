@@ -195,7 +195,7 @@ Partial Class frmSettings
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(9, 148)
+        Me.Label29.Location = New System.Drawing.Point(10, 129)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(29, 13)
         Me.Label29.TabIndex = 34
@@ -331,26 +331,27 @@ Partial Class frmSettings
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(29, 193)
+        Me.Label20.Location = New System.Drawing.Point(8, 194)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(275, 13)
+        Me.Label20.Size = New System.Drawing.Size(280, 26)
         Me.Label20.TabIndex = 15
-        Me.Label20.Text = "This will offload the cpu. (Requires opencl to be installed)"
+        Me.Label20.Text = "The use of graphic card will offload cpu during sync times." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Using gpu requires o" &
+    "pencl to be installed." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'chkOpenCL
         '
         Me.chkOpenCL.AutoSize = True
-        Me.chkOpenCL.Location = New System.Drawing.Point(11, 173)
+        Me.chkOpenCL.Location = New System.Drawing.Point(11, 151)
         Me.chkOpenCL.Name = "chkOpenCL"
-        Me.chkOpenCL.Size = New System.Drawing.Size(283, 17)
+        Me.chkOpenCL.Size = New System.Drawing.Size(282, 17)
         Me.chkOpenCL.TabIndex = 14
-        Me.chkOpenCL.Text = "Use Graphic card to verify blocks in chain during sync."
+        Me.chkOpenCL.Text = "Use graphic card to to offload cpu during sync events."
         Me.chkOpenCL.UseVisualStyleBackColor = True
         '
         'lblMaxCores
         '
         Me.lblMaxCores.AutoSize = True
-        Me.lblMaxCores.Location = New System.Drawing.Point(123, 147)
+        Me.lblMaxCores.Location = New System.Drawing.Point(124, 130)
         Me.lblMaxCores.Name = "lblMaxCores"
         Me.lblMaxCores.Size = New System.Drawing.Size(42, 13)
         Me.lblMaxCores.TabIndex = 13
@@ -359,7 +360,7 @@ Partial Class frmSettings
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(9, 123)
+        Me.Label18.Location = New System.Drawing.Point(9, 110)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(195, 13)
         Me.Label18.TabIndex = 12
@@ -378,7 +379,7 @@ Partial Class frmSettings
         'lblRecommendedCPU
         '
         Me.lblRecommendedCPU.AutoSize = True
-        Me.lblRecommendedCPU.Location = New System.Drawing.Point(201, 123)
+        Me.lblRecommendedCPU.Location = New System.Drawing.Point(201, 110)
         Me.lblRecommendedCPU.Name = "lblRecommendedCPU"
         Me.lblRecommendedCPU.Size = New System.Drawing.Size(42, 13)
         Me.lblRecommendedCPU.TabIndex = 6
@@ -387,7 +388,7 @@ Partial Class frmSettings
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(89, 147)
+        Me.Label17.Location = New System.Drawing.Point(90, 130)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(41, 13)
         Me.Label17.TabIndex = 11
@@ -395,7 +396,7 @@ Partial Class frmSettings
         '
         'nrCores
         '
-        Me.nrCores.Location = New System.Drawing.Point(44, 145)
+        Me.nrCores.Location = New System.Drawing.Point(45, 126)
         Me.nrCores.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
         Me.nrCores.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nrCores.Name = "nrCores"
@@ -406,7 +407,7 @@ Partial Class frmSettings
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(9, 174)
+        Me.Label16.Location = New System.Drawing.Point(9, 152)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(29, 13)
         Me.Label16.TabIndex = 9
@@ -415,11 +416,11 @@ Partial Class frmSettings
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(9, 109)
+        Me.Label14.Location = New System.Drawing.Point(8, 181)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(295, 13)
+        Me.Label14.Size = New System.Drawing.Size(266, 13)
         Me.Label14.TabIndex = 8
-        Me.Label14.Text = "Note: During sync of blockchain cpu usage can be massive. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label14.Text = "During sync of blockchain cpu usage can be massive. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Label23
         '

@@ -6,8 +6,8 @@
     Private Delegate Sub DStoped(ByVal [AppId] As Integer)
     Private Delegate Sub DAborted(ByVal [AppId] As Integer, ByVal [data] As String)
     Private StartTime As Date
-
     Private SelDB As Integer
+    Private OldDB As Integer
     Private OP As Integer '0=copy 1=Fresh
 #Region " Setup and form Events "
 
@@ -23,7 +23,6 @@
         End Try
 
     End Sub
-
     Private Sub frmChangeDatabase_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         SelDB = My.Settings.DbType
@@ -61,7 +60,6 @@
         Me.Height = 436
 
     End Sub
-
     Private Sub setdb(ByVal id As Integer)
         rDB1.Checked = False
         rDB2.Checked = False
@@ -85,7 +83,6 @@
                 pnlMariaSettings.Enabled = True
         End Select
     End Sub
-
     Private Sub rDB1_Click(sender As Object, e As EventArgs) Handles rDB1.Click
         setdb(DbType.H2)
     End Sub
@@ -98,7 +95,6 @@
     Private Sub rDB4_Click(sender As Object, e As EventArgs) Handles rDB4.Click
         setdb(DbType.MariaDB)
     End Sub
-
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
         pnlWiz1.Hide()
         pnlWiz2.Show()
@@ -106,31 +102,41 @@
         pnlWiz2.Left = pnlWiz1.Left
 
     End Sub
-
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         pnlWiz2.Hide()
         pnlWiz1.Show()
     End Sub
-
     Private Sub rOP1_CheckedChanged(sender As Object, e As EventArgs) Handles rOP1.Click
         OP = 0
         btnStart.Text = "Start Copy"
     End Sub
-
     Private Sub rOP2_CheckedChanged(sender As Object, e As EventArgs) Handles rOP2.CheckedChanged
         OP = 1
         btnStart.Text = "Save and close"
     End Sub
-
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
 
         If btnStart.Text = "Close" Then
             Me.Close()
+            Exit Sub
         End If
         If OP = 0 Then
-            StartExport()
+            AddHandler ProcHandler.Aborting, AddressOf Aborted
+            AddHandler ProcHandler.Started, AddressOf Starting
+            AddHandler ProcHandler.Stopped, AddressOf Stopped
+            AddHandler ProcHandler.Update, AddressOf ProcEvents
+            OldDB = My.Settings.DbType
+            If SelDB = DbType.pMariaDB Or OldDB = DbType.pMariaDB Then
+                StartMaria()
+            Else
+                StartExport()
+            End If
         Else
             My.Settings.DbType = SelDB
+            My.Settings.DbName = txtDbName.Text
+            My.Settings.DbPass = txtDbPass.Text
+            My.Settings.DbUser = txtDbUser.Text
+            My.Settings.DbServer = txtDbAddress.Text
             My.Settings.Save()
             frmMain.WriteNRSConfig()
             frmMain.SetDbInfo()
@@ -147,13 +153,6 @@
         rOP1.Enabled = False
         rOP2.Enabled = False
 
-        Dim Basedir As String = Application.StartupPath
-        If Not Basedir.EndsWith("\") Then Basedir &= "\"
-
-        AddHandler ProcHandler.Aborting, AddressOf Aborted
-        AddHandler ProcHandler.Started, AddressOf Starting
-        AddHandler ProcHandler.Stopped, AddressOf Stopped
-        AddHandler ProcHandler.Update, AddressOf ProcEvents
 
         StartTime = Now
         Dim Pset As New clsProcessHandler.pSettings
@@ -183,7 +182,6 @@
             StartExport()
         End If
     End Sub
-
     Private Sub Starting(ByVal AppId As Integer)
         If Me.InvokeRequired Then
             Dim d As New DStarting(AddressOf Starting)
@@ -201,7 +199,6 @@
         End Select
 
     End Sub
-
     Private Sub Stopped(ByVal AppId As Integer)
         If Me.InvokeRequired Then
             Dim d As New DStoped(AddressOf Stopped)
@@ -209,30 +206,45 @@
             Return
         End If
         If AppId = AppNames.Export Then
+            My.Settings.DbType = SelDB
+            My.Settings.DbName = txtDbName.Text
+            My.Settings.DbPass = txtDbPass.Text
+            My.Settings.DbUser = txtDbUser.Text
+            My.Settings.DbServer = txtDbAddress.Text
+            My.Settings.Save()
+            frmMain.WriteNRSConfig()
             StartImport()
         End If
         If AppId = AppNames.Import Then
-            Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
-            lblStatus.Text = "Done! Convertion completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
-            btnStart.Text = "Close"
-            btnStart.Enabled = True
-            pb1.Value = 100
-            Running = False
-            RemoveHandler ProcHandler.Aborting, AddressOf Aborted
-            RemoveHandler ProcHandler.Started, AddressOf Starting
-            RemoveHandler ProcHandler.Stopped, AddressOf Stopped
-            RemoveHandler ProcHandler.Update, AddressOf ProcEvents
+            If SelDB = DbType.pMariaDB Or OldDB = DbType.pMariaDB Then
+                StopMaria() 'even if we dont use it we call it
+            Else
+                Complete()
+            End If
         End If
-
+        If AppId = AppNames.MariaPortable Then
+            Complete()
+        End If
     End Sub
-
+    Private Sub Complete()
+        frmMain.SetDbInfo() 'update frmmain as well
+        Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
+        lblStatus.Text = "Done, Conversion completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
+        btnStart.Text = "Close"
+        btnStart.Enabled = True
+        pb1.Value = 100
+        Running = False
+        RemoveHandler ProcHandler.Aborting, AddressOf Aborted
+        RemoveHandler ProcHandler.Started, AddressOf Starting
+        RemoveHandler ProcHandler.Stopped, AddressOf Stopped
+        RemoveHandler ProcHandler.Update, AddressOf ProcEvents
+    End Sub
     Private Sub ProcEvents(ByVal AppId As Integer, ByVal Operation As Integer, ByVal data As String)
         If Me.InvokeRequired Then
             Dim d As New DProcEvents(AddressOf ProcEvents)
             Me.Invoke(d, New Object() {AppId, Operation, data})
             Return
         End If
-
         Dim darray() As String = Nothing
         Dim percent As Integer = 0
         If AppId = AppNames.Export Then
@@ -259,7 +271,6 @@
                     Running = False
             End Select
         End If
-
         If AppId = AppNames.Import Then 'we need to filter messages
             Select Case Operation
                 Case ProcOp.ConsoleOut And ProcOp.ConsoleErr
@@ -289,8 +300,14 @@
                     Running = False
             End Select
         End If
-    End Sub
+        If AppId = AppNames.MariaPortable Then
+            Select Case Operation
+                Case ProcOp.FoundSignal
+                    StartExport()
+            End Select
+        End If
 
+    End Sub
     Private Sub Aborted(ByVal AppId As Integer, ByVal Data As String)
         If Me.InvokeRequired Then
             Dim d As New DAborted(AddressOf Aborted)
@@ -303,10 +320,7 @@
         End If
 
     End Sub
-
     Private Sub StartImport()
-        Dim Basedir As String = Application.StartupPath
-        If Not Basedir.EndsWith("\") Then Basedir &= "\"
         Dim Pset As New clsProcessHandler.pSettings
         Pset.AppId = AppNames.Import
         If My.Settings.JavaType = AppNames.JavaInstalled Then
@@ -320,6 +334,29 @@
         Pset.StartsignalMaxTime = 1
         Pset.WorkingDirectory = Basedir
         ProcHandler.StartProcess(Pset)
+    End Sub
+
+    Private Sub StartMaria()
+        Try
+            'we already have a handler
+            lblStatus.Text = "Starting MariaDB"
+            Dim pr As New clsProcessHandler.pSettings
+            pr.AppId = AppNames.MariaPortable
+            pr.AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
+            pr.Cores = 0
+            pr.Params = "--console"
+            pr.WorkingDirectory = BaseDir & "MariaDb\bin\"
+            pr.StartSignal = "ready for connections"
+            pr.StartsignalMaxTime = 60
+            ProcHandler.StartProcess(pr)
+        Catch ex As Exception
+            MsgBox("Unable to start Maria Portable.")
+        End Try
+
+    End Sub
+    Private Sub StopMaria()
+        lblStatus.Text = "Stopping MariaDB"
+        ProcHandler.StopProcess(AppNames.MariaPortable)
     End Sub
 
 End Class
