@@ -448,12 +448,11 @@ Public Class frmMain
     End Sub
     Public Function IsAdmin() As Boolean
         Try
-            AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal)
-            CheckAdministrator()
-            Dim principalPerm As New PrincipalPermission(Nothing, "Administrators")
-            principalPerm.Demand()
+            If My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator) Then
+            Else
+                Return False
+            End If
         Catch ex As Exception
-
             Return False
         End Try
         Return True
@@ -490,7 +489,6 @@ Public Class frmMain
 
     End Function
     Private Sub CheckCommandArgs()
-
         '0 = appname
         '1 = Type to do
         Dim s() As String
@@ -499,33 +497,34 @@ Public Class frmMain
         If UBound(clArgs) > 0 Then
             Select Case clArgs(1)
                 Case "ADDFW"
-
                     'we are admin we presume
                     Try
-                        s = Split(My.Settings.ListenPeer, ";")
-                        If s(0) = "0.0.0.0" Then s(0) = "*"
-                        If Not SetFirewall("Burst Peers", s(1), s(0), "") Then
-                            MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+                        If IsAdmin() Then
+                            s = Split(My.Settings.ListenPeer, ";")
+                            If s(0) = "0.0.0.0" Then s(0) = "*"
+                            If Not SetFirewall("Burst Peers", s(1), s(0), "") Then
+                                MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+                                End
+                            End If
+                            s = Split(My.Settings.ListenIf, ";")
+                            If s(0) = "0.0.0.0" Then s(0) = "*"
+                            buffer = Trim(My.Settings.ConnectFrom)
+                            If buffer <> "" Then
+                                buffer = buffer.Replace(";", ",")
+                                buffer = buffer.Replace(" ", "")
+                                If buffer.EndsWith(",") Then buffer = buffer.Remove(buffer.Length - 1)
+                            End If
+                            If Not SetFirewall("Burst Api", s(1), s(0), buffer) Then
+                                MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+                                End
+                            End If
+                            MsgBox("Windows firewall rules sucessfully applied.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
+                        Else
+                            MsgBox("Unable to get sufficient Administrative rights to apply firewall rules.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
                         End If
-
-                        s = Split(My.Settings.ListenIf, ";")
-                        If s(0) = "0.0.0.0" Then s(0) = "*"
-                        buffer = Trim(My.Settings.ConnectFrom)
-                        If buffer <> "" Then
-                            buffer = buffer.Replace(";", ",")
-                            buffer = buffer.Replace(" ", "")
-                            If buffer.EndsWith(",") Then buffer = buffer.Remove(buffer.Length - 1)
-                        End If
-                        If Not SetFirewall("Burst Api", s(1), s(0), buffer) Then
-                            MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
-                        End If
-
-
-                        MsgBox("Windows firewall rules sucessfully applied.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
                     Catch ex As Exception
                         MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
                     End Try
-
                     End
             End Select
 
