@@ -174,7 +174,7 @@
             Pset.AppPath = Basedir & "Java\bin\java.exe"
         End If
         Pset.Cores = My.Settings.Cpulimit
-        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.CreateBinDump " & BaseDir & "Convertion.bbd"
+        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.CreateBinDump " & Basedir & "Convertion.bbd"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
         Pset.WorkingDirectory = Basedir

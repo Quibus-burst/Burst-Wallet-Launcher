@@ -296,6 +296,7 @@
         My.Settings.Upgradev = CurVer
 
         My.Settings.Save()
+        'writing nxt.properties
         Me.Close()
 
     End Sub
