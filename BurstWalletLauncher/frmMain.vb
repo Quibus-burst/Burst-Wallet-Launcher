@@ -381,7 +381,12 @@ Public Class frmMain
         Buffer = Split(My.Settings.ListenIf, ";")
         Data &= "nxt.apiServerPort = " & Buffer(1) & vbCrLf
         Data &= "nxt.apiServerHost = " & Buffer(0) & vbCrLf
-        Data &= "nxt.allowedBotHosts = " & My.Settings.ConnectFrom & vbCrLf & vbCrLf
+        If My.Settings.ConnectFrom.Contains("0.0.0.0") Then
+            Data &= "nxt.allowedBotHosts = *" & vbCrLf & vbCrLf
+        Else
+            Data &= "nxt.allowedBotHosts = " & My.Settings.ConnectFrom & vbCrLf & vbCrLf
+        End If
+
 
         'autoip
         If My.Settings.AutoIP Then

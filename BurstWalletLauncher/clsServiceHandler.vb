@@ -1,9 +1,9 @@
-﻿Public Class clsServiceHandler
+﻿Imports System.ServiceProcess
+
+Public Class clsServiceHandler
     Public Event MonitorEvents(ByVal Operation As Integer, ByVal Data As String)
 
-#Region " Public Subs / Functions "
-
-
+#Region " Public Service Subs / Functions  "
     Public Function InstallService() As Boolean
         Try
             If frmMain.IsAdmin Then
@@ -50,18 +50,36 @@
         End Try
         Return False
     End Function
-
     Public Sub StartService()
-        'service
+        Dim service As ServiceController = New ServiceController("Burst Service")
+        If service.Status.Equals(ServiceControllerStatus.Stopped) Or service.Status.Equals(ServiceControllerStatus.StopPending) Then
+            service.Start()
+        End If
     End Sub
     Public Sub StopService()
-
+        Dim service As ServiceController = New ServiceController("Burst Service")
+        If service.Status.Equals(ServiceControllerStatus.Running) Or service.Status.Equals(ServiceControllerStatus.StartPending) Then
+            service.Stop()
+        End If
     End Sub
-
     Public Function IsInstalled() As Boolean
-
+        Dim service As ServiceController = New ServiceController("Burst Service")
+        If service.Status = Nothing Then
+            Return False
+        End If
         Return True
     End Function
+    Public Function IsServiceRunning() As Boolean
+        Dim service As ServiceController = New ServiceController("Burst Service")
+        If service.Status.Equals(ServiceControllerStatus.Running) Or service.Status.Equals(ServiceControllerStatus.StartPending) Then
+            Return True
+        End If
+        Return False
+    End Function
+#End Region
+
+#Region " Public Wallet Sub / Functions "
+
 
     Public Function IsConnected() As Boolean
 
@@ -76,13 +94,13 @@
     Public Sub GetConsoleLogs()
 
     End Sub
-    Public Sub SendCommands()
+    Public Sub SendCommands(ByVal data As String)
 
     End Sub
 
 #End Region
     Private Sub MonitorService()
-
+        '???
     End Sub
 
     Private Sub MonitorWallet()

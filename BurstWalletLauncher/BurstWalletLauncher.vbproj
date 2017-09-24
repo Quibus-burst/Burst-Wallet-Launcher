@@ -108,12 +108,14 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -138,6 +140,7 @@
     <Compile Include="clsApp.vb" />
     <Compile Include="clsHttp.vb" />
     <Compile Include="clsProcessHandler.vb" />
+    <Compile Include="clsServiceHandler.vb" />
     <Compile Include="frmChangeDatabase.Designer.vb">
       <DependentUpon>frmChangeDatabase.vb</DependentUpon>
     </Compile>
@@ -277,6 +280,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
