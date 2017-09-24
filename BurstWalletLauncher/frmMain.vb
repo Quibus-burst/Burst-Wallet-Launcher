@@ -527,7 +527,6 @@ Public Class frmMain
         If UBound(clArgs) > 0 Then
             Select Case clArgs(1)
                 Case "ADDFW"
-                    'we are admin we presume
                     Try
                         If IsAdmin() Then
                             s = Split(My.Settings.ListenPeer, ";")
@@ -556,6 +555,22 @@ Public Class frmMain
                         MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
                     End Try
                     End
+                Case "InstallService"
+                    Try
+                        Dim Srv As String = BaseDir & "BurstService.exe"
+                        Configuration.Install.ManagedInstallerClass.InstallHelper(New String() {Srv})
+                        MsgBox("Sucessfully installed burst wallet as a service.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Service")
+                    Catch ex As Exception
+                        MsgBox("Unable to install burstwallet as a service.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Service")
+                    End Try
+                Case "UnInstallService"
+                    Try
+                        Dim Srv As String = BaseDir & "BurstService.exe"
+                        Configuration.Install.ManagedInstallerClass.InstallHelper(New String() {"/u", Srv})
+                        MsgBox("Sucessfully removed burstwallet from services.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Service")
+                    Catch ex As Exception
+                        MsgBox("Unable to remove burstwallet from services.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Service")
+                    End Try
             End Select
 
         End If

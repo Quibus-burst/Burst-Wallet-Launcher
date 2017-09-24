@@ -144,7 +144,7 @@ Public Class frmSettings
                     p.StartInfo.WorkingDirectory = BaseDir
                     p.StartInfo.Arguments = "ADDFW"
                     p.StartInfo.UseShellExecute = True
-                    'p.StartInfo.CreateNoWindow = True
+                    'p.StartInfo.CreateNoWindow = True 'we need window for messages(?)
                     p.StartInfo.FileName = Application.ExecutablePath
                     p.StartInfo.Verb = "runas"
                     p.Start()
