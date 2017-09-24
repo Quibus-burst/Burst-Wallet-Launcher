@@ -204,6 +204,7 @@
         End If
 
         Pb1.Value = 0
+        App.SetLocalInfo() 'check all installed again.
 
         'download java if installed or portable is missing
         If Not App.isInstalled(AppNames.JavaInstalled) And Not App.isInstalled(AppNames.JavaPortable) Then

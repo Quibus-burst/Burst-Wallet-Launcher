@@ -596,9 +596,9 @@ Partial Class frmSettings
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label19.Location = New System.Drawing.Point(87, 92)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(193, 13)
+        Me.Label19.Size = New System.Drawing.Size(258, 13)
         Me.Label19.TabIndex = 9
-        Me.Label19.Text = "note: Database and schema must exist."
+        Me.Label19.Text = "note: Database must exist but schema will be created"
         '
         'Label8
         '

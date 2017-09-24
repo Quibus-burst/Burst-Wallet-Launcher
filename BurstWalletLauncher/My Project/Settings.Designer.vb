@@ -224,7 +224,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("127.0.0.1; localhost; [0:0:0:0:0:0:0:1];")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("127.0.0.1;")>  _
         Public Property ConnectFrom() As String
             Get
                 Return CType(Me("ConnectFrom"),String)
