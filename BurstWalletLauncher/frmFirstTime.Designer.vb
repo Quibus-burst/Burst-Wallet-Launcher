@@ -22,7 +22,6 @@ Partial Class frmFirstTime
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFirstTime))
         Me.pnlWiz1 = New System.Windows.Forms.Panel()
         Me.P1 = New System.Windows.Forms.Panel()
         Me.lblFireBirdDesc = New System.Windows.Forms.Label()
@@ -392,9 +391,9 @@ Partial Class frmFirstTime
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(99, 90)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(193, 13)
+        Me.Label5.Size = New System.Drawing.Size(258, 13)
         Me.Label5.TabIndex = 9
-        Me.Label5.Text = "note: Database and schema must exist."
+        Me.Label5.Text = "note: Database must exist but schema will be created"
         '
         'txtDbPass
         '
@@ -580,10 +579,10 @@ Partial Class frmFirstTime
         'PictureBox2
         '
         Me.PictureBox2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(40, 58)
+        Me.PictureBox2.Image = Global.BurstWalletLauncher.My.Resources.Resources.gb
+        Me.PictureBox2.Location = New System.Drawing.Point(19, 67)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(143, 202)
+        Me.PictureBox2.Size = New System.Drawing.Size(181, 183)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 13
         Me.PictureBox2.TabStop = False
@@ -593,7 +592,7 @@ Partial Class frmFirstTime
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(1083, 403)
+        Me.ClientSize = New System.Drawing.Size(1083, 382)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PnlWiz2)
         Me.Controls.Add(Me.pnlWiz1)

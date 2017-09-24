@@ -10,12 +10,17 @@ Public Class frmSettings
 
         If Not App.isInstalled(AppNames.JavaInstalled) Then rJava0.Enabled = False
         If Not App.isInstalled(AppNames.JavaPortable) Then rJava1.Enabled = False
-        If My.Settings.DbType = DbType.MariaDB Then pnlMaria.Enabled = True
+
+        If My.Settings.DbType = DbType.MariaDB Then
+            pnlDbSettings.Enabled = True
+        Else
+            pnlDbSettings.Enabled = False
+        End If
         lblDb.Text = App.GetDbNameFromType(My.Settings.DbType)
         chkCheckForUpdates.Checked = My.Settings.CheckForUpdates
         chkAutoIP.Checked = My.Settings.CheckForUpdates
         chkDynPlatform.Checked = My.Settings.DynPlatform
-        pnlDbSettings.Enabled = False
+
         txtDbServer.Text = My.Settings.DbServer
         txtDbName.Text = My.Settings.DbName
         txtDbUser.Text = My.Settings.DbUser

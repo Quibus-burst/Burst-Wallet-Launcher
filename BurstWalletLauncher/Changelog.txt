@@ -11,7 +11,7 @@ Stuck detection. try to restart NRS (if no new block in 60min then try restart N
 Error detection. If console sends errors. restart wallet. max once every 60min
 limit ConsoleBuffer and save it as log
 
-Add support to install as a service. (Partially done! PipeServer+Pipeclient complete needs implementation in wrapper and bwl?)
+Add support to install as a service. (Partially done! PipeServer+Pipeclient complete needs implementation in wrapper and bwl.)
 
 Add a components download window where you can select to download a component.
 Setting to minimize to tray(?)
