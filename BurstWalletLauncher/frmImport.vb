@@ -51,10 +51,7 @@
                 MsgBox("The file you have selected does not exist. Please select a valid file.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "File not exist.")
             End Try
         End If
-        AddHandler ProcHandler.Aborting, AddressOf Aborted
-        AddHandler ProcHandler.Started, AddressOf Starting
-        AddHandler ProcHandler.Stopped, AddressOf Stopped
-        AddHandler ProcHandler.Update, AddressOf ProcEvents
+
         StartTime = Now
         Running = True
         'if wallet is running shut it down
@@ -69,8 +66,12 @@
                 Exit Sub
             End If
         End If
-
+        AddHandler ProcHandler.Aborting, AddressOf Aborted
+        AddHandler ProcHandler.Started, AddressOf Starting
+        AddHandler ProcHandler.Stopped, AddressOf Stopped
+        AddHandler ProcHandler.Update, AddressOf ProcEvents
         If My.Settings.DbType = DbType.pMariaDB Then
+
             StartMaria()
         Else
             StartImport()
@@ -97,13 +98,13 @@
         If My.Settings.JavaType = AppNames.JavaInstalled Then
             Pset.AppPath = "java"
         Else
-            Pset.AppPath = Basedir & "Java\bin\java.exe"
+            Pset.AppPath = BaseDir & "Java\bin\java.exe"
         End If
         Pset.Cores = My.Settings.Cpulimit
         Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.LoadBinDump " & FileName & " -y"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
-        Pset.WorkingDirectory = Basedir
+        Pset.WorkingDirectory = BaseDir
         ProcHandler.StartProcess(Pset)
 
 
@@ -169,7 +170,7 @@
         RemoveHandler App.DownloadDone, AddressOf DownloadDone
         'start import
 
-        ImportFromFile(Basedir & IO.Path.GetFileName(App.GetRemoteUrl(AppNames.DownloadFile)))
+        ImportFromFile(BaseDir & IO.Path.GetFileName(App.GetRemoteUrl(AppNames.DownloadFile)))
     End Sub
     Private Sub Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percent As Integer, ByVal Speed As Integer)
         If Me.InvokeRequired Then
@@ -335,6 +336,10 @@
         If frmMain.Running = False Then
             WaitTimer.Stop()
             WaitTimer.Enabled = False
+            AddHandler ProcHandler.Aborting, AddressOf Aborted
+            AddHandler ProcHandler.Started, AddressOf Starting
+            AddHandler ProcHandler.Stopped, AddressOf Stopped
+            AddHandler ProcHandler.Update, AddressOf ProcEvents
             If My.Settings.DbType = DbType.pMariaDB Then
                 StartMaria()
             Else

@@ -121,10 +121,7 @@
             Exit Sub
         End If
         If OP = 0 Then
-            AddHandler ProcHandler.Aborting, AddressOf Aborted
-            AddHandler ProcHandler.Started, AddressOf Starting
-            AddHandler ProcHandler.Stopped, AddressOf Stopped
-            AddHandler ProcHandler.Update, AddressOf ProcEvents
+
             OldDB = My.Settings.DbType
             If frmMain.Running Then
                 If MsgBox("The wallet must be stopped to export the database." & vbCrLf & " Would you like to stop it now?", MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNo, "Stop wallet?") Then
@@ -137,6 +134,10 @@
                     Exit Sub
                 End If
             End If
+            AddHandler ProcHandler.Aborting, AddressOf Aborted
+            AddHandler ProcHandler.Started, AddressOf Starting
+            AddHandler ProcHandler.Stopped, AddressOf Stopped
+            AddHandler ProcHandler.Update, AddressOf ProcEvents
             If SelDB = DbType.pMariaDB Or OldDB = DbType.pMariaDB Then
                 StartMaria()
             Else
@@ -190,6 +191,10 @@
         If frmMain.Running = False Then
             WaitTimer.Stop()
             WaitTimer.Enabled = False
+            AddHandler ProcHandler.Aborting, AddressOf Aborted
+            AddHandler ProcHandler.Started, AddressOf Starting
+            AddHandler ProcHandler.Stopped, AddressOf Stopped
+            AddHandler ProcHandler.Update, AddressOf ProcEvents
             If SelDB = DbType.pMariaDB Or OldDB = DbType.pMariaDB Then
                 StartMaria()
             Else

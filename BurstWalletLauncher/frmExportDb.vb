@@ -33,10 +33,7 @@
             MsgBox("You do not have permission to write the database here." & vbCrLf & " Try another filename or location to store the database.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "No permissions")
             Exit Sub
         End Try
-        AddHandler ProcHandler.Aborting, AddressOf Aborted
-        AddHandler ProcHandler.Started, AddressOf Starting
-        AddHandler ProcHandler.Stopped, AddressOf Stopped
-        AddHandler ProcHandler.Update, AddressOf ProcEvents
+
 
         StartTime = Now
         'if wallet is running shut it down
@@ -51,7 +48,10 @@
                 Exit Sub
             End If
         End If
-
+        AddHandler ProcHandler.Aborting, AddressOf Aborted
+        AddHandler ProcHandler.Started, AddressOf Starting
+        AddHandler ProcHandler.Stopped, AddressOf Stopped
+        AddHandler ProcHandler.Update, AddressOf ProcEvents
         If My.Settings.DbType = DbType.pMariaDB Then
             StartMaria()
         Else
@@ -76,7 +76,7 @@
         Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.CreateBinDump " & txtFilename.Text
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
-        Pset.WorkingDirectory = Basedir
+        Pset.WorkingDirectory = BaseDir
         ProcHandler.StartProcess(Pset)
 
         Running = True
@@ -98,6 +98,10 @@
         If frmMain.Running = False Then
             WaitTimer.Stop()
             WaitTimer.Enabled = False
+            AddHandler ProcHandler.Aborting, AddressOf Aborted
+            AddHandler ProcHandler.Started, AddressOf Starting
+            AddHandler ProcHandler.Stopped, AddressOf Stopped
+            AddHandler ProcHandler.Update, AddressOf ProcEvents
             If My.Settings.DbType = DbType.pMariaDB Then
                 StartMaria()
             Else
