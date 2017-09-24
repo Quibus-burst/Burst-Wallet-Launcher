@@ -4,10 +4,9 @@ Imports System.Net.NetworkInformation
 Public Class frmSettings
 
     Private JavaType As Integer
-    Private BaseDir As String
+
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        BaseDir = Application.StartupPath
-        If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
+
 
         If Not App.isInstalled(AppNames.JavaInstalled) Then rJava0.Enabled = False
         If Not App.isInstalled(AppNames.JavaPortable) Then rJava1.Enabled = False

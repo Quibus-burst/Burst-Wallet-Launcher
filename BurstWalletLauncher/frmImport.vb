@@ -168,8 +168,7 @@
         RemoveHandler App.Progress, AddressOf Progress
         RemoveHandler App.DownloadDone, AddressOf DownloadDone
         'start import
-        Dim Basedir As String = Application.StartupPath
-        If Not Basedir.EndsWith("\") Then Basedir &= "\"
+
         ImportFromFile(Basedir & IO.Path.GetFileName(App.GetRemoteUrl(AppNames.DownloadFile)))
     End Sub
     Private Sub Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percent As Integer, ByVal Speed As Integer)

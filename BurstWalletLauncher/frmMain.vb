@@ -438,9 +438,8 @@ Public Class frmMain
 
 
         Try
-            Dim basedir As String = Application.StartupPath
-            If Not basedir.EndsWith("\") Then basedir &= "\"
-            IO.File.WriteAllText(basedir & "conf\nxt.properties", Data)
+
+            IO.File.WriteAllText(BaseDir & "conf\nxt.properties", Data)
         Catch ex As Exception
 
         End Try
