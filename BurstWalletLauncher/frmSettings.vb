@@ -123,11 +123,11 @@ Public Class frmSettings
         If chkFirewall.Checked Then
             Dim s() As String = Nothing
 
-            If frmMain.IsAdmin Then
+            If BWL.Generic.IsAdmin Then
                 Try
                     s = Split(My.Settings.ListenPeer, ";")
                     If s(0) = "0.0.0.0" Then s(0) = "*"
-                    frmMain.SetFirewall("Burst Peers", s(1), s(0), "")
+                    BWL.Generic.SetFirewall("Burst Peers", s(1), s(0), "")
                     s = Split(My.Settings.ListenIf, ";")
                     If s(0) = "0.0.0.0" Then s(0) = "*"
                     buffer = Trim(My.Settings.ConnectFrom)
@@ -136,7 +136,7 @@ Public Class frmSettings
                         buffer = buffer.Replace(" ", "")
                         If buffer.EndsWith(",") Then buffer = buffer.Remove(buffer.Length - 1)
                     End If
-                    frmMain.SetFirewall("Burst Api", s(1), s(0), buffer)
+                    BWL.Generic.SetFirewall("Burst Api", s(1), s(0), buffer)
                     MsgBox("Windows firewall rules sucessfully applied.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
                 Catch ex As Exception
                     MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
@@ -202,12 +202,9 @@ Public Class frmSettings
 
     End Sub
 
-
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
         SaveSettings()
     End Sub
-
-
 
     Private Sub SetIf()
         Dim adapters As NetworkInterface() = NetworkInterface.GetAllNetworkInterfaces()

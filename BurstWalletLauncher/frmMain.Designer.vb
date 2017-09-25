@@ -143,7 +143,7 @@ Partial Class frmMain
         Me.btnConsole.Name = "btnConsole"
         Me.btnConsole.Size = New System.Drawing.Size(123, 30)
         Me.btnConsole.TabIndex = 3
-        Me.btnConsole.Text = "View console log"
+        Me.btnConsole.Text = "View consoles"
         Me.btnConsole.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -331,7 +331,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Burstcoin wallet launcher v1.2 Beta1"
+        Me.Text = "Burstcoin wallet launcher v1.2 Beta3"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

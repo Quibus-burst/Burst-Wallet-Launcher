@@ -429,9 +429,9 @@ Partial Class frmSettings
         Me.chkOpenCL.AutoSize = True
         Me.chkOpenCL.Location = New System.Drawing.Point(13, 152)
         Me.chkOpenCL.Name = "chkOpenCL"
-        Me.chkOpenCL.Size = New System.Drawing.Size(282, 17)
+        Me.chkOpenCL.Size = New System.Drawing.Size(310, 17)
         Me.chkOpenCL.TabIndex = 14
-        Me.chkOpenCL.Text = "Use graphic card to to offload cpu during sync events."
+        Me.chkOpenCL.Text = "Try to use graphic card to to offload cpu during sync events."
         Me.chkOpenCL.UseVisualStyleBackColor = True
         '
         'lblMaxCores

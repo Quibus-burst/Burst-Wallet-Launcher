@@ -254,6 +254,9 @@
             RemoveHandler App.Progress, AddressOf Progress
             RemoveHandler App.DownloadDone, AddressOf DlDone
             RemoveHandler App.Aborted, AddressOf DlError
+            btnBack.Enabled = True
+            btnDownload.Enabled = True
+
         Catch ex As Exception
 
         End Try

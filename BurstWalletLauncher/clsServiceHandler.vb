@@ -6,7 +6,7 @@ Public Class clsServiceHandler
 #Region " Public Service Subs / Functions  "
     Public Function InstallService() As Boolean
         Try
-            If frmMain.IsAdmin Then
+            If BWL.Generic.IsAdmin Then
                 Dim Srv As String = BaseDir & "BurstService.exe"
                 Configuration.Install.ManagedInstallerClass.InstallHelper(New String() {Srv})
                 Return True
@@ -29,7 +29,7 @@ Public Class clsServiceHandler
     End Function
     Public Function UninstallService() As Boolean
         Try
-            If frmMain.IsAdmin Then
+            If BWL.Generic.IsAdmin Then
                 Dim Srv As String = BaseDir & "BurstService.exe"
                 Configuration.Install.ManagedInstallerClass.InstallHelper(New String() {"/u", Srv})
                 Return True

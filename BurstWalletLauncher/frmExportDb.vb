@@ -15,6 +15,10 @@
     End Sub
 
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+        If btnStart.Text = "Close" Then
+            Me.Close()
+            Exit Sub
+        End If
         btnBrowse.Enabled = False
         txtFilename.Enabled = False
         btnStart.Enabled = False
@@ -147,6 +151,7 @@
         lblStatus.Text = "Done! Export completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
         btnBrowse.Enabled = True
         txtFilename.Enabled = True
+        btnStart.Text = "Close"
         btnStart.Enabled = True
         pb1.Value = 100
         Running = False
@@ -226,16 +231,17 @@
     End Sub
     Private Sub StartMaria()
         Try
-            lblStatus.Text = "Starting MariaDB"
-            Dim pr As New clsProcessHandler.pSettings
-            pr.AppId = AppNames.MariaPortable
-            pr.AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
-            pr.Cores = 0
-            pr.Params = "--console"
-            pr.WorkingDirectory = BaseDir & "MariaDb\bin\"
-            pr.StartSignal = "ready for connections"
-            pr.StartsignalMaxTime = 60
-            ProcHandler.StartProcess(pr)
+            If BWL.Generic.SanityCheck Then
+                Dim pr As New clsProcessHandler.pSettings
+                pr.AppId = AppNames.MariaPortable
+                pr.AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
+                pr.Cores = 0
+                pr.Params = "--console"
+                pr.WorkingDirectory = BaseDir & "MariaDb\bin\"
+                pr.StartSignal = "ready for connections"
+                pr.StartsignalMaxTime = 60
+                ProcHandler.StartProcess(pr)
+            End If
         Catch ex As Exception
             MsgBox("Unable to start Maria Portable.")
         End Try

@@ -150,7 +150,7 @@
             My.Settings.DbUser = txtDbUser.Text
             My.Settings.DbServer = txtDbAddress.Text
             My.Settings.Save()
-            frmMain.WriteNRSConfig()
+            BWL.Generic.WriteNRSConfig()
             frmMain.SetDbInfo()
             Me.Close()
         End If
@@ -172,13 +172,13 @@
         If My.Settings.JavaType = AppNames.JavaInstalled Then
             Pset.AppPath = "java"
         Else
-            Pset.AppPath = Basedir & "Java\bin\java.exe"
+            Pset.AppPath = BaseDir & "Java\bin\java.exe"
         End If
         Pset.Cores = My.Settings.Cpulimit
-        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.CreateBinDump " & Basedir & "Convertion.bbd"
+        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.CreateBinDump " & BaseDir & "Convertion.bbd"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
-        Pset.WorkingDirectory = Basedir
+        Pset.WorkingDirectory = BaseDir
         ProcHandler.StartProcess(Pset)
 
         Running = True
@@ -232,7 +232,7 @@
             My.Settings.DbUser = txtDbUser.Text
             My.Settings.DbServer = txtDbAddress.Text
             My.Settings.Save()
-            frmMain.WriteNRSConfig()
+            BWL.Generic.WriteNRSConfig()
             StartImport()
         End If
         If AppId = AppNames.Import Then
@@ -346,29 +346,31 @@
         If My.Settings.JavaType = AppNames.JavaInstalled Then
             Pset.AppPath = "java"
         Else
-            Pset.AppPath = Basedir & "Java\bin\java.exe"
+            Pset.AppPath = BaseDir & "Java\bin\java.exe"
         End If
         Pset.Cores = My.Settings.Cpulimit
-        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.LoadBinDump " & Basedir & "Convertion.bbd -y"
+        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.LoadBinDump " & BaseDir & "Convertion.bbd -y"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
-        Pset.WorkingDirectory = Basedir
+        Pset.WorkingDirectory = BaseDir
         ProcHandler.StartProcess(Pset)
     End Sub
 
     Private Sub StartMaria()
         Try
             'we already have a handler
-            lblStatus.Text = "Starting MariaDB"
-            Dim pr As New clsProcessHandler.pSettings
-            pr.AppId = AppNames.MariaPortable
-            pr.AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
-            pr.Cores = 0
-            pr.Params = "--console"
-            pr.WorkingDirectory = BaseDir & "MariaDb\bin\"
-            pr.StartSignal = "ready for connections"
-            pr.StartsignalMaxTime = 60
-            ProcHandler.StartProcess(pr)
+            If BWL.Generic.SanityCheck Then
+                lblStatus.Text = "Starting MariaDB"
+                Dim pr As New clsProcessHandler.pSettings
+                pr.AppId = AppNames.MariaPortable
+                pr.AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
+                pr.Cores = 0
+                pr.Params = "--console"
+                pr.WorkingDirectory = BaseDir & "MariaDb\bin\"
+                pr.StartSignal = "ready for connections"
+                pr.StartsignalMaxTime = 60
+                ProcHandler.StartProcess(pr)
+            End If
         Catch ex As Exception
             MsgBox("Unable to start Maria Portable.")
         End Try

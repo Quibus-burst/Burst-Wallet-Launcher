@@ -151,7 +151,7 @@ Partial Class frmContributors
         '
         'PictureBox2
         '
-        Me.PictureBox2.Image = Global.BurstWalletLauncher.My.Resources.Resources.vps_168_57
+        Me.PictureBox2.Image = Global.BWL.My.Resources.Resources.vps_168_57
         Me.PictureBox2.Location = New System.Drawing.Point(4, 8)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(169, 52)
@@ -208,7 +208,7 @@ Partial Class frmContributors
         '
         'PictureBox3
         '
-        Me.PictureBox3.Image = Global.BurstWalletLauncher.My.Resources.Resources.gb
+        Me.PictureBox3.Image = Global.BWL.My.Resources.Resources.gb
         Me.PictureBox3.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(79, 79)

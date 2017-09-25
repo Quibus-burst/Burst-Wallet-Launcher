@@ -579,7 +579,7 @@ Partial Class frmFirstTime
         'PictureBox2
         '
         Me.PictureBox2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.PictureBox2.Image = Global.BurstWalletLauncher.My.Resources.Resources.gb
+        Me.PictureBox2.Image = Global.BWL.My.Resources.Resources.gb
         Me.PictureBox2.Location = New System.Drawing.Point(34, 73)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(161, 166)

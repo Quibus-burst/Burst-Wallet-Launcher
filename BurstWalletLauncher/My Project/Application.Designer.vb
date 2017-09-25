@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.BurstWalletLauncher.frmMain
+            Me.MainForm = Global.BWL.frmMain
         End Sub
     End Class
 End Namespace

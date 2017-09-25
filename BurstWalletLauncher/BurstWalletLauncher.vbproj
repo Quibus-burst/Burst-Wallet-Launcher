@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3F840955-CDF6-4836-8D5F-B8F27F6DF1EC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>BurstWalletLauncher.My.MyApplication</StartupObject>
-    <RootNamespace>BurstWalletLauncher</RootNamespace>
+    <StartupObject>BWL.My.MyApplication</StartupObject>
+    <RootNamespace>BWL</RootNamespace>
     <AssemblyName>BurstWalletLauncher</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
@@ -147,7 +147,9 @@
     <Compile Include="frmChangeDatabase.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmConsole.Designer.vb" />
+    <Compile Include="frmConsole.Designer.vb">
+      <DependentUpon>frmConsole.vb</DependentUpon>
+    </Compile>
     <Compile Include="frmConsole.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +196,7 @@
     <Compile Include="frmUpdate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Generic.vb" />
     <Compile Include="main.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -281,9 +284,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

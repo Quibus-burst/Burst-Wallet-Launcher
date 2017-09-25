@@ -1,36 +1,37 @@
 ﻿Public Class frmConsole
-
-
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbConsoleSelect.SelectedIndexChanged
-        ' 0 = Maria console
-        ' 1 = NRS Console
-
-        Try
-            txtConsole.Text = frmMain.Console(cmbConsoleSelect.SelectedIndex)
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
+    Private Delegate Sub DUpdate(ByVal [AppId] As Integer, ByVal [Operation] As Integer, ByVal [data] As String)
     Private Sub frmConsole_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cmbLog.SelectedIndex = 0
+        txtLog.Text = frmMain.Console(0)
+        AddHandler ProcHandler.Update, AddressOf ProcEvents
+    End Sub
+    Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Try
-            txtConsole.Text = frmMain.Console(0)
+            RemoveHandler ProcHandler.Update, AddressOf ProcEvents
         Catch ex As Exception
-
         End Try
     End Sub
-    Public Sub RefreshConsole()
-
-        Try
-            txtConsole.Text = frmMain.Console(cmbConsoleSelect.SelectedIndex)
-        Catch ex As Exception
-
-        End Try
-
-
+    Private Sub cmbLog_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLog.SelectedIndexChanged
+        txtLog.Text = frmMain.Console(cmbLog.SelectedIndex)
+    End Sub
+    Private Sub ProcEvents(ByVal AppId As Integer, ByVal Operation As Integer, ByVal data As String)
+        If Me.InvokeRequired Then
+            Dim d As New DUpdate(AddressOf ProcEvents)
+            Me.Invoke(d, New Object() {AppId, Operation, data})
+            Return
+        End If
+        'threadsafe here
+        Select Case Operation
+            Case ProcOp.ConsoleOut And ProcOp.ConsoleErr
+                If AppId = AppNames.MariaPortable And cmbLog.SelectedIndex = 1 Then
+                    txtLog.AppendText(data & vbCrLf)
+                End If
+                If AppId = AppNames.NRS And cmbLog.SelectedIndex = 0 Then
+                    txtLog.AppendText(data & vbCrLf)
+                End If
+            Case ProcOp.ConsoleErr
+        End Select
     End Sub
 
-    Private Sub txtConsole_TextChanged(sender As Object, e As EventArgs) Handles txtConsole.TextChanged
 
-    End Sub
 End Class

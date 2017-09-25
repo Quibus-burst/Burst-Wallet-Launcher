@@ -16,6 +16,11 @@
         Running = False
     End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+        If btnStart.Text = "Close" Then
+            Me.Close()
+            Exit Sub
+        End If
+
         If Not MsgBox("Warning!" & vbCrLf & vbCrLf & "All existing data in your database will be erased." & vbCrLf & "Do you want to continue?", MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNoCancel, "All existing data removed") = MsgBoxResult.Yes Then
             Exit Sub
 
@@ -56,7 +61,7 @@
         Running = True
         'if wallet is running shut it down
         If frmMain.Running Then
-            If MsgBox("The wallet must be stopped to export the database." & vbCrLf & " Would you like to stop it now?", MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNo, "Stop wallet?") Then
+            If MsgBox("The wallet must be stopped to import the database." & vbCrLf & " Would you like to stop it now?", MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNo, "Stop wallet?") Then
                 lblStatus.Text = "Waiting for wallet to stop."
                 frmMain.StopWallet()
                 WaitTimer = New Timer
@@ -244,6 +249,7 @@
         Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
         lblStatus.Text = "Done! Import completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
         SetSelect(SelectedType)
+        btnStart.Text = "Close"
         btnStart.Enabled = True
         pb1.Value = 100
         Running = False
@@ -351,16 +357,20 @@
 
     Private Sub StartMaria()
         Try
-            lblStatus.Text = "Starting MariaDB"
-            Dim pr As New clsProcessHandler.pSettings
-            pr.AppId = AppNames.MariaPortable
-            pr.AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
-            pr.Cores = 0
-            pr.Params = "--console"
-            pr.WorkingDirectory = BaseDir & "MariaDb\bin\"
-            pr.StartSignal = "ready for connections"
-            pr.StartsignalMaxTime = 60
-            ProcHandler.StartProcess(pr)
+            If BWL.Generic.SanityCheck Then
+                lblStatus.Text = "Starting MariaDB"
+                Dim pr As New clsProcessHandler.pSettings
+                pr.AppId = AppNames.MariaPortable
+                pr.AppPath = BaseDir & "MariaDb\bin\mysqld.exe"
+                pr.Cores = 0
+                pr.Params = "--console"
+                pr.WorkingDirectory = BaseDir & "MariaDb\bin\"
+                pr.StartSignal = "ready for connections"
+                pr.StartsignalMaxTime = 60
+                ProcHandler.StartProcess(pr)
+            Else
+
+            End If
         Catch ex As Exception
             MsgBox("Unable to start Maria Portable.")
         End Try
