@@ -9,6 +9,7 @@
 
     Private DownloadName As String 'set depending on dl type
     Private Result As DialogResult = Nothing
+    Private TimeElapsed As New Stopwatch
     Private Sub frmDownloadExtract_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         AddHandler App.Progress, AddressOf Progress
@@ -17,6 +18,10 @@
         lblSpeed.Text = "0 KB/sec"
         lblRead.Text = "0 / 0 bytes"
         lblProgress.Text = "0%"
+
+
+        TimeElapsed.Start()
+
         Pb1.Value = 0
         If Url <> "" Then
             App.DownloadFile(Url)
@@ -71,11 +76,13 @@
             Me.Invoke(d, New Object() {Job, AppId, percent, Speed, lRead, lLength})
             Return
         End If
+        Dim TimeLeft As TimeSpan = TimeSpan.FromMilliseconds((lLength - lRead) * TimeElapsed.ElapsedMilliseconds / lRead)
         Select Case Job
             Case 0
-                lblStatus.Text = "Downloading: " & DownloadName
+                lblStatus.Text = "Downloading " & DownloadName
                 lblSpeed.Text = CStr(Speed) & "KiB / sec"
                 lblRead.Text = CStr(lRead) & " / " & CStr(lLength) & " bytes"
+                lblTime.Text = TimeLeft.Hours & ":" & TimeLeft.Minutes & ":" & TimeLeft.Seconds
             Case 1
                 lblStatus.Text = "Extracting: " & DownloadName
                 lblSpeed.Visible = False
