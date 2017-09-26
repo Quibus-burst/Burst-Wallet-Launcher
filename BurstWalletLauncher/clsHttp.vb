@@ -28,28 +28,28 @@ Public Class clsHttp
             stbuffer = readStream.ReadToEnd()
         Catch ex As Exception
             Mystate = False 'we shall return false after we have tried to clean up
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
         Try
             readStream.Close()
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
         Try
             receiveStream.Close()
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
         Try
             WebResponse.Close()
             WebResponse.Dispose()
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
         Try
             Http = Nothing
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
 
         Return stbuffer

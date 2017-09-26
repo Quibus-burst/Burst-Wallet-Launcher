@@ -22,6 +22,7 @@ Partial Class frmFirstTime
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmFirstTime))
         Me.pnlWiz1 = New System.Windows.Forms.Panel()
         Me.P1 = New System.Windows.Forms.Panel()
         Me.lblFireBirdDesc = New System.Windows.Forms.Label()
@@ -579,6 +580,7 @@ Partial Class frmFirstTime
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.PictureBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmFirstTime"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

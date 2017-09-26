@@ -99,7 +99,7 @@ Public Class clsApp
             _Apps(AppNames.Launcher).LocalFound = True
             _Apps(AppNames.Launcher).LocalVersion = Major & "." & Minor
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
     End Sub
     Private Sub Nrs()
@@ -117,7 +117,7 @@ Public Class clsApp
                 End If
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
 
 
@@ -148,7 +148,7 @@ Public Class clsApp
             p.Dispose()
             p.Dispose()
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
         _Apps(AppNames.JavaInstalled).LocalFound = JavaFound
     End Sub
@@ -166,7 +166,7 @@ Public Class clsApp
                 End If
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
     End Sub
     Private Sub MariaDB()
@@ -184,7 +184,7 @@ Public Class clsApp
 
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
     End Sub
 #End Region
@@ -290,12 +290,12 @@ Public Class clsApp
                 sChunks.Close()
                 DLOk = True
             Catch ex As Exception
-                If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+                If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
             End Try
             Try
                 File.Close()
             Catch ex As Exception
-                If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+                If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
             End Try
             'we need to cleanup
             If DLOk Then Exit For
@@ -330,7 +330,7 @@ Public Class clsApp
             AllOk = True
             Archive.Dispose()
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
 
         Return AllOk
@@ -344,7 +344,7 @@ Public Class clsApp
                 File.Delete(filename)
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
     End Sub
 
@@ -519,7 +519,7 @@ Public Class clsApp
                 Return True
             End If
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
         Return False
     End Function

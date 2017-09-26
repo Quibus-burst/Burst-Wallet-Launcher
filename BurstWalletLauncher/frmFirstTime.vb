@@ -98,6 +98,9 @@
     Private Sub frmFirstTime_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Width = 674
         Me.Height = 418 ' 405
+        If BWL.Generic.DebugMe Then
+            Me.Text = Me.Text & " (DebugMode)"
+        End If
     End Sub
 
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
@@ -188,7 +191,7 @@
                 btnDownload.Enabled = True
                 btnBack.Enabled = True
                 S = Nothing
-                MsgBox(App.ErrMSg)
+
                 Exit Sub
             End If
             If res = DialogResult.Cancel Then
@@ -197,7 +200,7 @@
                 btnDownload.Enabled = True
                 btnBack.Enabled = True
                 S = Nothing
-                MsgBox(App.ErrMSg)
+
                 Exit Sub
             End If
             S = Nothing
@@ -217,7 +220,7 @@
                 btnDownload.Enabled = True
                 btnBack.Enabled = True
                 S = Nothing
-                MsgBox(App.ErrMSg)
+
                 Exit Sub
             End If
             If res = DialogResult.Cancel Then
@@ -226,7 +229,7 @@
                 btnDownload.Enabled = True
                 btnBack.Enabled = True
                 S = Nothing
-                MsgBox(App.ErrMSg)
+
                 Exit Sub
             End If
             S = Nothing

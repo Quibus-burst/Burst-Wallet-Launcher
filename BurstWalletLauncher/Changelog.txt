@@ -17,6 +17,7 @@ limit ConsoleBuffer and save it as log
 Add support to install as a service. (Partially done! PipeServer+Pipeclient but complete needs implementation in wrapper and bwl?)
 Add a components download window where you can select to download a component.
 More visuals when wallet is running. Like Mining info Network diff
+Implement better Debugmode
 
 ~V1.2
 + Gui for first time setup

@@ -48,7 +48,7 @@
             RemoveHandler App.DownloadDone, AddressOf Done
             RemoveHandler App.Aborted, AddressOf Aborting
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
 
         'we are done so close
@@ -89,7 +89,10 @@
                 lblStatus.Text = "Downloading " & DownloadName
                 lblSpeed.Text = CStr(Speed) & "KiB / sec"
                 lblRead.Text = CStr(lRead) & " / " & CStr(lLength) & " bytes"
-                lblTime.Text = TimeLeft.Hours & ":" & TimeLeft.Minutes & ":" & TimeLeft.Seconds
+                Try
+                    lblTime.Text = TimeLeft.Hours & ":" & TimeLeft.Minutes & ":" & TimeLeft.Seconds
+                Catch ex As Exception
+                End Try
             Case 1
                 lblStatus.Text = "Extracting: " & DownloadName
                 lblSpeed.Visible = False
