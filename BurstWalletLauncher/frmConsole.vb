@@ -1,9 +1,13 @@
 ﻿Public Class frmConsole
     Private Delegate Sub DUpdate(ByVal [AppId] As Integer, ByVal [Operation] As Integer, ByVal [data] As String)
     Private Sub frmConsole_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        cmbLog.SelectedIndex = 0
-        txtLog.Text = frmMain.Console(0)
-        AddHandler ProcHandler.Update, AddressOf ProcEvents
+        Try
+            cmbLog.SelectedIndex = 0
+            txtLog.Text = frmMain.Console(0)
+            AddHandler ProcHandler.Update, AddressOf ProcEvents
+        Catch ex As Exception
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+        End Try
     End Sub
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Try
@@ -13,7 +17,12 @@
         End Try
     End Sub
     Private Sub cmbLog_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLog.SelectedIndexChanged
-        txtLog.Text = frmMain.Console(cmbLog.SelectedIndex)
+        Try
+            txtLog.Text = frmMain.Console(cmbLog.SelectedIndex)
+        Catch ex As Exception
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+        End Try
+
     End Sub
     Private Sub ProcEvents(ByVal AppId As Integer, ByVal Operation As Integer, ByVal data As String)
         If Me.InvokeRequired Then
@@ -22,16 +31,21 @@
             Return
         End If
         'threadsafe here
-        Select Case Operation
-            Case ProcOp.ConsoleOut And ProcOp.ConsoleErr
-                If AppId = AppNames.MariaPortable And cmbLog.SelectedIndex = 1 Then
-                    txtLog.AppendText(data & vbCrLf)
-                End If
-                If AppId = AppNames.NRS And cmbLog.SelectedIndex = 0 Then
-                    txtLog.AppendText(data & vbCrLf)
-                End If
-            Case ProcOp.ConsoleErr
-        End Select
+        Try
+            Select Case Operation
+                Case ProcOp.ConsoleOut And ProcOp.ConsoleErr
+                    If AppId = AppNames.MariaPortable And cmbLog.SelectedIndex = 1 Then
+                        txtLog.AppendText(data & vbCrLf)
+                    End If
+                    If AppId = AppNames.NRS And cmbLog.SelectedIndex = 0 Then
+                        txtLog.AppendText(data & vbCrLf)
+                    End If
+                Case ProcOp.ConsoleErr
+            End Select
+        Catch ex As Exception
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+        End Try
+
     End Sub
 
 

@@ -262,10 +262,11 @@
         CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
         My.Settings.Upgradev = CurVer
 
-        My.Settings.Save()
-        'writing nxt.properties since we need it for tools.
-        BWL.Generic.WriteNRSConfig()
-        Me.Close()
+
+        PnlWiz2.Visible = False
+        PnlWiz3.Top = pnlWiz1.Top
+        PnlWiz3.Left = pnlWiz1.Left
+        PnlWiz3.Visible = True
 
     End Sub
 
@@ -306,5 +307,21 @@
         Else
             btnDone.Enabled = False
         End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        PnlWiz3.Visible = False
+        PnlWiz2.Visible = True
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If rYes.Checked Then
+            frmImport.Show()
+        End If
+        My.Settings.Save()
+        'writing nxt.properties since we need it for tools.
+        BWL.Generic.WriteNRSConfig()
+        Me.Close()
     End Sub
 End Class

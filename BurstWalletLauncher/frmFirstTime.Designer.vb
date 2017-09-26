@@ -70,6 +70,14 @@ Partial Class frmFirstTime
         Me.lblJavaHeader = New System.Windows.Forms.Label()
         Me.btnDone = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PnlWiz3 = New System.Windows.Forms.Panel()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.rYes = New System.Windows.Forms.RadioButton()
+        Me.rNo = New System.Windows.Forms.RadioButton()
         Me.pnlWiz1.SuspendLayout()
         Me.P1.SuspendLayout()
         Me.P3.SuspendLayout()
@@ -81,6 +89,8 @@ Partial Class frmFirstTime
         Me.pnlMariaSettings.SuspendLayout()
         Me.pnlJava.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PnlWiz3.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlWiz1
@@ -552,7 +562,7 @@ Partial Class frmFirstTime
         Me.btnDone.Name = "btnDone"
         Me.btnDone.Size = New System.Drawing.Size(81, 31)
         Me.btnDone.TabIndex = 12
-        Me.btnDone.Text = "Done"
+        Me.btnDone.Text = "Continue >>"
         Me.btnDone.UseVisualStyleBackColor = True
         '
         'PictureBox2
@@ -566,12 +576,96 @@ Partial Class frmFirstTime
         Me.PictureBox2.TabIndex = 13
         Me.PictureBox2.TabStop = False
         '
+        'PnlWiz3
+        '
+        Me.PnlWiz3.Controls.Add(Me.Button2)
+        Me.PnlWiz3.Controls.Add(Me.Button1)
+        Me.PnlWiz3.Controls.Add(Me.Panel2)
+        Me.PnlWiz3.Controls.Add(Me.Label1)
+        Me.PnlWiz3.Location = New System.Drawing.Point(238, 385)
+        Me.PnlWiz3.Name = "PnlWiz3"
+        Me.PnlWiz3.Size = New System.Drawing.Size(420, 380)
+        Me.PnlWiz3.TabIndex = 14
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.rNo)
+        Me.Panel2.Controls.Add(Me.rYes)
+        Me.Panel2.Controls.Add(Me.Label2)
+        Me.Panel2.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Panel2.Location = New System.Drawing.Point(9, 46)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(403, 272)
+        Me.Panel2.TabIndex = 16
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Rockwell", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(4, 11)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(252, 27)
+        Me.Label1.TabIndex = 15
+        Me.Label1.Text = "Getting quickstarted?"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(15, 13)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(361, 143)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = resources.GetString("Label2.Text")
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(331, 340)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(81, 31)
+        Me.Button1.TabIndex = 17
+        Me.Button1.Text = "Done"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(244, 340)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(81, 31)
+        Me.Button2.TabIndex = 18
+        Me.Button2.Text = "<< Back"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'rYes
+        '
+        Me.rYes.AutoSize = True
+        Me.rYes.Checked = True
+        Me.rYes.Location = New System.Drawing.Point(18, 185)
+        Me.rYes.Name = "rYes"
+        Me.rYes.Size = New System.Drawing.Size(364, 17)
+        Me.rYes.TabIndex = 1
+        Me.rYes.TabStop = True
+        Me.rYes.Text = "Yes, Take me to import where i can download and sync my chain quick."
+        Me.rYes.UseVisualStyleBackColor = True
+        '
+        'rNo
+        '
+        Me.rNo.AutoSize = True
+        Me.rNo.Location = New System.Drawing.Point(18, 212)
+        Me.rNo.Name = "rNo"
+        Me.rNo.Size = New System.Drawing.Size(175, 17)
+        Me.rNo.TabIndex = 2
+        Me.rNo.Text = "No, I want to sync from scratch."
+        Me.rNo.UseVisualStyleBackColor = True
+        '
         'frmFirstTime
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(1083, 403)
+        Me.ClientSize = New System.Drawing.Size(1083, 788)
+        Me.Controls.Add(Me.PnlWiz3)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PnlWiz2)
         Me.Controls.Add(Me.pnlWiz1)
@@ -605,6 +699,10 @@ Partial Class frmFirstTime
         Me.pnlJava.ResumeLayout(False)
         Me.pnlJava.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PnlWiz3.ResumeLayout(False)
+        Me.PnlWiz3.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -657,4 +755,12 @@ Partial Class frmFirstTime
     Friend WithEvents txtDbAddress As TextBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label5 As Label
+    Friend WithEvents PnlWiz3 As Panel
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents rNo As RadioButton
+    Friend WithEvents rYes As RadioButton
+    Friend WithEvents Label2 As Label
 End Class
