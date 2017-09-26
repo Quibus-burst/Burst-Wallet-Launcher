@@ -23,17 +23,17 @@ Partial Class frmDownloadExtract
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.lblProgress = New System.Windows.Forms.Label()
+        Me.lblRead = New System.Windows.Forms.Label()
+        Me.lblSpeed = New System.Windows.Forms.Label()
+        Me.lblStatus = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Pb1 = New System.Windows.Forms.ProgressBar()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.btnAbort = New System.Windows.Forms.Button()
-        Me.lblStatus = New System.Windows.Forms.Label()
-        Me.lblSpeed = New System.Windows.Forms.Label()
-        Me.lblRead = New System.Windows.Forms.Label()
-        Me.lblProgress = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -56,6 +56,61 @@ Partial Class frmDownloadExtract
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Information"
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.BWL.My.Resources.Resources.Download
+        Me.PictureBox1.Location = New System.Drawing.Point(10, 19)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(101, 65)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
+        '
+        'lblProgress
+        '
+        Me.lblProgress.AutoSize = True
+        Me.lblProgress.Location = New System.Drawing.Point(205, 68)
+        Me.lblProgress.Name = "lblProgress"
+        Me.lblProgress.Size = New System.Drawing.Size(21, 13)
+        Me.lblProgress.TabIndex = 12
+        Me.lblProgress.Text = "0%"
+        '
+        'lblRead
+        '
+        Me.lblRead.AutoSize = True
+        Me.lblRead.Location = New System.Drawing.Point(205, 51)
+        Me.lblRead.Name = "lblRead"
+        Me.lblRead.Size = New System.Drawing.Size(58, 13)
+        Me.lblRead.TabIndex = 11
+        Me.lblRead.Text = "0 / 0 bytes"
+        '
+        'lblSpeed
+        '
+        Me.lblSpeed.AutoSize = True
+        Me.lblSpeed.Location = New System.Drawing.Point(205, 33)
+        Me.lblSpeed.Name = "lblSpeed"
+        Me.lblSpeed.Size = New System.Drawing.Size(56, 13)
+        Me.lblSpeed.TabIndex = 10
+        Me.lblSpeed.Text = "0 KiB/Sec"
+        '
+        'lblStatus
+        '
+        Me.lblStatus.AutoSize = True
+        Me.lblStatus.Location = New System.Drawing.Point(205, 16)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(10, 13)
+        Me.lblStatus.TabIndex = 9
+        Me.lblStatus.Text = "-"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(117, 68)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(46, 13)
+        Me.Label4.TabIndex = 8
+        Me.Label4.Text = "Progres:"
         '
         'Label3
         '
@@ -91,15 +146,6 @@ Partial Class frmDownloadExtract
         Me.Pb1.Size = New System.Drawing.Size(414, 15)
         Me.Pb1.TabIndex = 4
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(117, 68)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(46, 13)
-        Me.Label4.TabIndex = 8
-        Me.Label4.Text = "Progres:"
-        '
         'btnAbort
         '
         Me.btnAbort.Location = New System.Drawing.Point(188, 131)
@@ -108,52 +154,6 @@ Partial Class frmDownloadExtract
         Me.btnAbort.TabIndex = 1
         Me.btnAbort.Text = "Abort"
         Me.btnAbort.UseVisualStyleBackColor = True
-        '
-        'lblStatus
-        '
-        Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(205, 16)
-        Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(116, 13)
-        Me.lblStatus.TabIndex = 9
-        Me.lblStatus.Text = "Downloading database"
-        '
-        'lblSpeed
-        '
-        Me.lblSpeed.AutoSize = True
-        Me.lblSpeed.Location = New System.Drawing.Point(205, 33)
-        Me.lblSpeed.Name = "lblSpeed"
-        Me.lblSpeed.Size = New System.Drawing.Size(70, 13)
-        Me.lblSpeed.TabIndex = 10
-        Me.lblSpeed.Text = "1,04MiB/Sec"
-        '
-        'lblRead
-        '
-        Me.lblRead.AutoSize = True
-        Me.lblRead.Location = New System.Drawing.Point(205, 51)
-        Me.lblRead.Name = "lblRead"
-        Me.lblRead.Size = New System.Drawing.Size(154, 13)
-        Me.lblRead.TabIndex = 11
-        Me.lblRead.Text = "133652135 / 133652135 bytes"
-        '
-        'lblProgress
-        '
-        Me.lblProgress.AutoSize = True
-        Me.lblProgress.Location = New System.Drawing.Point(205, 68)
-        Me.lblProgress.Name = "lblProgress"
-        Me.lblProgress.Size = New System.Drawing.Size(27, 13)
-        Me.lblProgress.TabIndex = 12
-        Me.lblProgress.Text = "35%"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.BWL.My.Resources.Resources.Download
-        Me.PictureBox1.Location = New System.Drawing.Point(10, 19)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(101, 65)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
         '
         'frmDownloadExtract
         '

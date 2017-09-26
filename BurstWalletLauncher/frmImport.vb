@@ -8,12 +8,16 @@
     Private Delegate Sub DDownloadDone(ByVal [AppId] As Integer)
     Private Delegate Sub DProgress(ByVal [JobType] As Integer, ByVal [AppId] As Integer, ByVal [Percernt] As Integer, ByVal [Speed] As Integer, ByVal [lRead] As Long, ByVal [lLength] As Long)
     Private Delegate Sub DDLAborted(ByVal [AppId] As Integer)
-
-
+    Private RepoDBUrls() As String
     Private SelectedType As Integer
     Private StartTime As Date
     Private Sub frmImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Running = False
+        cmbRepo.Items.Clear()
+        ReDim RepoDBUrls(0)
+        RepoDBUrls(0) = "http://files.getburst.net/mini.bbd"
+        cmbRepo.Items.Add("Getburst.net repository (mini.bbd)")
+        cmbRepo.SelectedIndex = 0
     End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
         If btnStart.Text = "Close" Then
@@ -23,7 +27,6 @@
 
         If Not MsgBox("Warning!" & vbCrLf & vbCrLf & "All existing data in your database will be erased." & vbCrLf & "Do you want to continue?", MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNoCancel, "All existing data removed") = MsgBoxResult.Yes Then
             Exit Sub
-
         End If
 
         r1.Checked = False
@@ -76,11 +79,9 @@
         AddHandler ProcHandler.Stopped, AddressOf Stopped
         AddHandler ProcHandler.Update, AddressOf ProcEvents
         If My.Settings.DbType = DbType.pMariaDB Then
-
             StartMaria()
         Else
             StartImport()
-
         End If
 
 
@@ -88,7 +89,7 @@
     Sub StartImport()
         Select Case SelectedType
             Case 1
-             '    ImportFromUrl(txtUrl.Text) ???
+                ImportFromUrl(RepoDBUrls(cmbRepo.SelectedIndex))
             Case 2
                 ImportFromUrl(txtUrl.Text)
             Case 3
@@ -115,15 +116,26 @@
 
     End Sub
     Private Sub ImportFromUrl(ByVal Url As String)
-        AddHandler App.Aborted, AddressOf DLAborted
-        AddHandler App.Progress, AddressOf Progress
-        AddHandler App.DownloadDone, AddressOf DownloadDone
-        lblRead.Visible = True
-        lblSpeed.Visible = True
-        App.DownloadFile(Url)
-
+        Dim S As frmDownloadExtract
+        S = New frmDownloadExtract
+        S.Url = Url
+        If S.ShowDialog = DialogResult.OK Then
+            ImportFromFile(BaseDir & IO.Path.GetFileName(Url))
+            Exit Sub
+        End If
+        'we have aborted return to download again
+        Running = False
+        r1.Checked = True
+        r2.Checked = True
+        r3.Checked = True
+        cmbRepo.Enabled = True
+        txtUrl.Enabled = True
+        txtFile.Enabled = True
+        btnBrowse.Enabled = True
+        btnStart.Enabled = True
+        SetSelect(SelectedType)
+        lblStatus.Text = "Aborted"
     End Sub
-
 
     Private Sub SetSelect(ByVal id As Integer)
         r1.Checked = False
@@ -163,54 +175,6 @@
             txtFile.Text = ofd.FileName
         End If
     End Sub
-
-#Region " Download Events "
-
-    Private Sub DownloadDone(ByVal AppId As Integer)
-        If Me.InvokeRequired Then
-            Dim d As New DDownloadDone(AddressOf DownloadDone)
-            Me.Invoke(d, New Object() {AppId})
-            Return
-        End If
-        RemoveHandler App.Aborted, AddressOf DLAborted
-        RemoveHandler App.Progress, AddressOf Progress
-        RemoveHandler App.DownloadDone, AddressOf DownloadDone
-        'start import
-
-        ImportFromFile(BaseDir & IO.Path.GetFileName(App.GetRemoteUrl(AppNames.DownloadFile)))
-    End Sub
-    Private Sub Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percent As Integer, ByVal Speed As Integer, ByVal lRead As Long, ByVal lLength As Long)
-        If Me.InvokeRequired Then
-            Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {JobType, AppId, Percent, Speed, lRead, lLength})
-            Return
-        End If
-        pb1.Value = Percent
-
-        If AppId = AppNames.DownloadFile Then
-            lblSpeed.Text = "Speed: " & BWL.Generic.CalculateBytes(Speed, 2, 1) & "/sec"
-            lblRead.Text = "Read: " & BWL.Generic.CalculateBytes(lRead, 2, 0) & " / " & BWL.Generic.CalculateBytes(lLength, 2, 0) & " (" & CStr(Percent) & "%)"
-            lblStatus.Text = "Downloading database."
-            pb1.Value = Percent
-        End If
-
-    End Sub
-    Private Sub DLAborted(ByVal AppId As Integer)
-        If Me.InvokeRequired Then
-            Dim d As New DDLAborted(AddressOf DLAborted)
-            Me.Invoke(d, New Object() {AppId})
-            Return
-        End If
-        RemoveHandler App.Aborted, AddressOf DLAborted
-        RemoveHandler App.Progress, AddressOf Progress
-        RemoveHandler App.DownloadDone, AddressOf DownloadDone
-        lblStatus.Text = "Could not download file :("
-        pb1.Value = 0
-        btnStart.Enabled = True
-        SetSelect(SelectedType)
-    End Sub
-
-#End Region
 
 
 #Region " Proc Events "

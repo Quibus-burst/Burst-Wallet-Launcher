@@ -17,7 +17,7 @@ Public Class clsApp
         Dim Updated As Boolean
     End Structure
     Private _Apps() As StrucApps
-
+    Private _Aborted As Boolean
     Private _Repositories() As String
     Private _UpdateNotifyState As Integer
 
@@ -188,8 +188,12 @@ Public Class clsApp
 #End Region
 
 #Region " Download and unpack "
+    Public Sub AbortDownload()
+        _Aborted = True
+    End Sub
     Public Sub DownloadApp(ByVal Appid As Integer)
         'ok we have an integer
+        _Aborted = False
         Dim trda As Thread
         trda = New Thread(AddressOf DownloadUnpack)
         trda.IsBackground = True
@@ -197,6 +201,7 @@ Public Class clsApp
         trda = Nothing
     End Sub
     Public Sub DownloadFile(ByVal Url As String)
+        _Aborted = False
         _Apps(AppNames.DownloadFile).RemoteUrl = Url
         Dim trda As Thread
         trda = New Thread(AddressOf DownloadOnly)
@@ -205,12 +210,13 @@ Public Class clsApp
         trda = Nothing
     End Sub
     Private Sub DownloadOnly(ByVal obj As Object)
+
         Dim appid As Integer = CType(obj, Integer)
         If Not Download(appid, False) Then 'ok lets start download
             RaiseEvent Aborted(appid)
             Exit Sub
         End If
-        RaiseEvent DownloadDone(appid)
+        If Not _Aborted Then RaiseEvent DownloadDone(appid)
     End Sub
 
     Private Sub DownloadUnpack(ByVal obj As Object)
@@ -228,11 +234,13 @@ Public Class clsApp
             RaiseEvent Aborted(appid)
             Exit Sub
         End If
+        If _Aborted Then Exit Sub
         If Not Extract(appid) Then 'ok lets start download
             RaiseEvent Aborted(appid)
             Exit Sub
         End If
         DeleteFile(appid)
+        If _Aborted Then Exit Sub
         _Apps(appid).Updated = True
         RaiseEvent DownloadDone(appid)
     End Sub
@@ -264,6 +272,10 @@ Public Class clsApp
                 Dim SW As Stopwatch = Stopwatch.StartNew
                 Dim speed As Integer = 0
                 Do
+                    If _Aborted Then
+                        RaiseEvent Aborted(AppId)
+                        Exit Do
+                    End If
                     iBytesRead = sChunks.Read(bBuffer, 0, 262144)
                     If iBytesRead = 0 Then Exit Do
                     TotalRead += iBytesRead
@@ -298,6 +310,10 @@ Public Class clsApp
             Dim counter As Integer = 0
             Dim percent As Integer = 0
             For Each entry As ZipArchiveEntry In Archive.Entries
+                If _Aborted Then
+                    RaiseEvent Aborted(AppId)
+                    Exit For
+                End If
                 If entry.FullName.EndsWith("/") Then
                     If Not Directory.Exists(Path.Combine(target, entry.FullName)) Then
                         Directory.CreateDirectory(Path.Combine(target, entry.FullName))
@@ -308,7 +324,6 @@ Public Class clsApp
                 counter += 1
                 percent = Math.Round((counter / totalfiles) * 100, 0)
                 RaiseEvent Progress(1, AppId, percent, 0, 0, 0)
-
             Next
             AllOk = True
             Archive.Dispose()

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmImport
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmImport
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -43,8 +43,6 @@ Partial Class frmImport
         Me.pb1 = New System.Windows.Forms.ProgressBar()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnStart = New System.Windows.Forms.Button()
-        Me.lblRead = New System.Windows.Forms.Label()
-        Me.lblSpeed = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -233,7 +231,7 @@ Partial Class frmImport
         '
         Me.pb1.Location = New System.Drawing.Point(8, 372)
         Me.pb1.Name = "pb1"
-        Me.pb1.Size = New System.Drawing.Size(315, 17)
+        Me.pb1.Size = New System.Drawing.Size(368, 17)
         Me.pb1.TabIndex = 17
         '
         'Label6
@@ -247,41 +245,19 @@ Partial Class frmImport
         '
         'btnStart
         '
-        Me.btnStart.Location = New System.Drawing.Point(334, 372)
+        Me.btnStart.Location = New System.Drawing.Point(382, 360)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(146, 33)
+        Me.btnStart.Size = New System.Drawing.Size(98, 30)
         Me.btnStart.TabIndex = 15
         Me.btnStart.Text = "Start Import"
         Me.btnStart.UseVisualStyleBackColor = True
-        '
-        'lblRead
-        '
-        Me.lblRead.AutoSize = True
-        Me.lblRead.Location = New System.Drawing.Point(106, 392)
-        Me.lblRead.Name = "lblRead"
-        Me.lblRead.Size = New System.Drawing.Size(61, 13)
-        Me.lblRead.TabIndex = 26
-        Me.lblRead.Text = "Read: 0KiB"
-        Me.lblRead.Visible = False
-        '
-        'lblSpeed
-        '
-        Me.lblSpeed.AutoSize = True
-        Me.lblSpeed.Location = New System.Drawing.Point(7, 392)
-        Me.lblSpeed.Name = "lblSpeed"
-        Me.lblSpeed.Size = New System.Drawing.Size(66, 13)
-        Me.lblSpeed.TabIndex = 25
-        Me.lblSpeed.Text = "Speed: 0KiB"
-        Me.lblSpeed.Visible = False
         '
         'frmImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(489, 409)
-        Me.Controls.Add(Me.lblRead)
-        Me.Controls.Add(Me.lblSpeed)
+        Me.ClientSize = New System.Drawing.Size(489, 396)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.pb1)
         Me.Controls.Add(Me.Label6)
@@ -322,6 +298,4 @@ Partial Class frmImport
     Friend WithEvents pb1 As ProgressBar
     Friend WithEvents Label6 As Label
     Friend WithEvents btnStart As Button
-    Friend WithEvents lblRead As Label
-    Friend WithEvents lblSpeed As Label
 End Class

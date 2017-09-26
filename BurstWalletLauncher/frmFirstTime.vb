@@ -1,7 +1,4 @@
 ﻿Public Class frmFirstTime
-    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer, ByVal [Speed] As Integer, ByVal [lRead] As Long, ByVal [lLength] As Long)
-    Private Delegate Sub DDldone(ByVal [AppId] As Integer)
-    Private Delegate Sub DDlError(ByVal [AppId] As Integer)
     Private SelectedDBType As Integer = 0
     Private DbVerified As Boolean = False
 
@@ -123,7 +120,7 @@
             lblJavaStatus.Text = "Java was found in a portable version."
         Else
             pnlJava.BackColor = Color.LightCoral
-            lblJavaStatus.Text = "Java is not found. Use download components to download a portable version."
+            lblJavaStatus.Text = "Java is not found." & vbCrLf & "Use download components to download a portable version."
             'offer the download
             btnDone.Enabled = False
             btnDownload.Enabled = True
@@ -148,7 +145,7 @@
                 Else
                     pnlDb.BackColor = Color.LightCoral
                     lblDbHeader.Text = "MariaDB"
-                    lblDBstatus.Text = "MariaDB was not found. Use download components to download a portable version."
+                    lblDBstatus.Text = "MariaDB was not found." & vbCrLf & "Use download components to download a portable version."
                     btnDone.Enabled = False
                     btnDownload.Enabled = True
                 End If
@@ -176,12 +173,17 @@
     Private Sub btnDownload_Click(sender As Object, e As EventArgs) Handles btnDownload.Click
 
         Dim S As frmDownloadExtract
-
+        btnBack.Enabled = False
+        btnDownload.Enabled = False
+        btnDone.Enabled = False
+        App.SetLocalInfo()
         If Not App.isInstalled(AppNames.JavaInstalled) And Not App.isInstalled(AppNames.JavaPortable) Then
             S = New frmDownloadExtract
-
             S.Appid = AppNames.JavaPortable
             If S.ShowDialog() <> DialogResult.OK Then
+                btnDownload.Enabled = True
+                btnBack.Enabled = True
+                S = Nothing
                 Exit Sub
             End If
             S = Nothing
@@ -189,142 +191,28 @@
             pnlJava.BackColor = Color.PaleGreen
             lblJavaStatus.Text = "Java was found in a portable version."
         End If
-
+        App.SetLocalInfo()
         If SelectedDBType = DbType.pMariaDB And Not App.isInstalled(AppNames.MariaPortable) Then
             S = New frmDownloadExtract
             S.Appid = AppNames.MariaPortable
             If S.ShowDialog() <> DialogResult.OK Then
+                btnDownload.Enabled = True
+                btnBack.Enabled = True
+                S = Nothing
                 Exit Sub
             End If
             S = Nothing
+            pnlDb.BackColor = Color.PaleGreen
+            lblDBstatus.Text = "MariaDB was found as a portable version."
         End If
-
+        App.SetLocalInfo()
         If SelectedDBType = DbType.MariaDB And DbVerified Then
-            btnDone.Visible = True
+            btnDone.Enabled = True
         ElseIf SelectedDBType <> DbType.MariaDB Then
-            btnDone.Visible = True
+            btnDone.Enabled = True
         End If
 
     End Sub
-    Private Sub old_btnDownload()
-        lblStatusInfo.Text = ""
-        Pb1.Minimum = 0
-        Pb1.Maximum = 100
-        Pb1.Value = 0
-
-        lblStatus.Visible = True
-        lblStatusInfo.Visible = True
-        lblRead.Visible = True
-        lblSpeed.Visible = True
-        Pb1.Visible = True
-        btnDownload.Enabled = False
-        btnBack.Enabled = False
-        Try
-            AddHandler App.Progress, AddressOf Progress
-            AddHandler App.DownloadDone, AddressOf DlDone
-            AddHandler App.Aborted, AddressOf DlError
-        Catch ex As Exception
-
-        End Try
-        DlDone(0) 'we can init from done sub that loops over all needed
-    End Sub
-
-    Public Sub DlDone(ByVal AppId As Integer)
-        If Me.InvokeRequired Then
-            Dim d As New DDldone(AddressOf DlDone)
-            Me.Invoke(d, New Object() {AppId})
-            Return
-        End If
-
-        Pb1.Value = 0
-        App.SetLocalInfo() 'check all installed again.
-
-        'download java if installed or portable is missing
-        If Not App.isInstalled(AppNames.JavaInstalled) And Not App.isInstalled(AppNames.JavaPortable) Then
-            App.DownloadApp(AppNames.JavaPortable)
-            Exit Sub
-        Else 'if we have downloaded we can update screen
-            pnlJava.BackColor = Color.PaleGreen
-            lblJavaStatus.Text = "Java was found in a portable version."
-        End If
-
-        If SelectedDBType = DbType.pMariaDB Then
-            If Not App.isInstalled(AppNames.MariaPortable) Then
-                App.DownloadApp(AppNames.MariaPortable)
-                Exit Sub
-            Else
-                pnlDb.BackColor = Color.PaleGreen
-                lblDBstatus.Text = "MariaDB was found as a portable version."
-            End If
-        End If
-
-        If SelectedDBType = DbType.MariaDB And DbVerified Then
-            btnDone.Visible = True
-        ElseIf SelectedDBType <> DbType.MariaDB Then
-            btnDone.Visible = True
-        End If
-
-        Pb1.Visible = False
-        lblRead.Visible = False
-        lblSpeed.Visible = False
-        lblStatusInfo.Text = "All components are downloaded."
-        btnBack.Enabled = True
-        'cleanup
-        Try
-            RemoveHandler App.Progress, AddressOf Progress
-            RemoveHandler App.DownloadDone, AddressOf DlDone
-            RemoveHandler App.Aborted, AddressOf DlError
-        Catch ex As Exception
-        End Try
-    End Sub
-
-    Private Sub DlError(ByVal AppId As Integer)
-        If Me.InvokeRequired Then
-            Dim d As New DDlError(AddressOf DlError)
-            Me.Invoke(d, New Object() {AppId})
-            Return
-        End If
-        Try
-            MsgBox("Something went wrong. Burst wallet launcher needs internet connection to download components. Please check internet connection and your firewalls.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Error")
-            RemoveHandler App.Progress, AddressOf Progress
-            RemoveHandler App.DownloadDone, AddressOf DlDone
-            RemoveHandler App.Aborted, AddressOf DlError
-            btnBack.Enabled = True
-            btnDownload.Enabled = True
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer, ByVal Speed As Integer, ByVal lRead As Long, ByVal lLength As Long)
-        If Me.InvokeRequired Then
-            Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {Job, AppId, percent, Speed, lRead, lLength})
-            Return
-        End If
-        '  Dim AppName = [Enum].GetName(GetType(AppNames), AppId)
-        Dim dspeed As Double
-        If Speed > 1024 Then
-            dspeed = Math.Round(CDbl(Speed) / 1024, 2)
-            Dim Showspeed As String = CStr(dspeed) & "MiB/sec"
-        Else
-            Dim Showspeed As String = CStr(Speed) & "KiB/sec"
-        End If
-
-        Select Case Job
-            Case 0
-                lblStatusInfo.Text = "Downloading: " & App.GetAppNameFromId(AppId)
-                lblSpeed.Text = "Speed: " & BWL.Generic.CalculateBytes(Speed, 2, 1) & "/sec"
-                lblRead.Text = "Read: " & BWL.Generic.CalculateBytes(lRead, 2, 0) & " / " & BWL.Generic.CalculateBytes(lLength, 2, 0) & " (" & CStr(percent) & "%)"
-            Case 1
-                lblStatusInfo.Text = "Extracting: " & App.GetAppNameFromId(AppId)
-        End Select
-
-        Pb1.Value = percent
-
-    End Sub
-
     Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
         My.Settings.DbType = SelectedDBType
         If App.isInstalled(AppNames.JavaInstalled) Then

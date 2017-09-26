@@ -4,12 +4,11 @@
 ~dev edition
 
 Known problems:
-Import Database need repos 
 
-Fixed problems to Beta 3
-Firstime Setup now has more then one try to download.
-Close will show after import/export
-sanitycheck on dboperations
+
+Beta 4
+Changed download system to be consistent over everything
+
 
 To Be done:
 Download information should include total % and bytes (maybe do this as an inheritable form/component)

@@ -22,7 +22,7 @@
             App.DownloadFile(Url)
             DownloadName = IO.Path.GetFileName(Url) 'just download
         Else
-            App.DownloadApp(AppNames.JavaPortable) 'download and extract
+            App.DownloadApp(Appid) 'download and extract
             DownloadName = App.GetAppNameFromId(Appid)
         End If
         If OverideFilename <> "" Then
@@ -61,7 +61,8 @@
             Me.Invoke(d, New Object() {AppId})
             Return
         End If
-        Result = DialogResult.Cancel
+        If Result = Nothing Then Result = DialogResult.Abort
+        Me.Close()
     End Sub
 
     Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer, ByVal Speed As Integer, ByVal lRead As Long, ByVal lLength As Long)
@@ -74,7 +75,7 @@
             Case 0
                 lblStatus.Text = "Downloading: " & DownloadName
                 lblSpeed.Text = CStr(Speed) & "KiB / sec"
-                lblRead.Text = "Read: " & CStr(lRead) & " / " & CStr(lLength) & " bytes"
+                lblRead.Text = CStr(lRead) & " / " & CStr(lLength) & " bytes"
             Case 1
                 lblStatus.Text = "Extracting: " & DownloadName
                 lblSpeed.Visible = False
@@ -84,5 +85,8 @@
         Pb1.Value = percent
     End Sub
 
-
+    Private Sub btnAbort_Click(sender As Object, e As EventArgs) Handles btnAbort.Click
+        Me.DialogResult = DialogResult.Cancel
+        App.AbortDownload()
+    End Sub
 End Class
