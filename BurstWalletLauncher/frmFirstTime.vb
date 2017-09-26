@@ -318,6 +318,7 @@
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If rYes.Checked Then
             frmImport.Show()
+
         End If
         My.Settings.Save()
         'writing nxt.properties since we need it for tools.
