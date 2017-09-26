@@ -232,7 +232,8 @@
         My.Settings.Upgradev = CurVer
 
         My.Settings.Save()
-        'writing nxt.properties
+        'writing nxt.properties since we need it for tools.
+        BWL.Generic.WriteNRSConfig()
         Me.Close()
 
     End Sub

@@ -396,6 +396,21 @@ Public Class clsApp
     Private Function FilterVersionNr(ByVal data As String) As String
         Dim acceptedChars() As Char = "01234567890._".ToCharArray
         data = (From ch As Char In data Select ch Where acceptedChars.Contains(ch)).ToArray
+        'remove all preceeding or trailing _ or .
+        Do
+            If data.StartsWith("_") Or data.StartsWith(".") Then
+                data = data.Substring(1)
+            Else
+                Exit Do
+            End If
+        Loop
+        Do
+            If data.EndsWith("_") Or data.EndsWith(".") Then
+                data = data.Substring(0, Len(data) - 1)
+            Else
+                Exit Do
+            End If
+        Loop
         Return data
     End Function
     Public Function CheckVersion(ByVal MinVersion As String, ByVal NewVersion As String, ByVal OnlyNew As Boolean) As Boolean

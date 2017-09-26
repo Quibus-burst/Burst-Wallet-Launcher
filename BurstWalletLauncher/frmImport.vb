@@ -11,6 +11,7 @@
     Private RepoDBUrls() As String
     Private SelectedType As Integer
     Private StartTime As Date
+    Private IsAborted As Boolean
     Private Sub frmImport_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Running = False
         cmbRepo.Items.Clear()
@@ -87,6 +88,7 @@
 
     End Sub
     Sub StartImport()
+        IsAborted = False
         Select Case SelectedType
             Case 1
                 ImportFromUrl(RepoDBUrls(cmbRepo.SelectedIndex))
@@ -124,6 +126,9 @@
             Exit Sub
         End If
         'we have aborted return to download again
+        IsAborted = True
+        If DbType.pMariaDB Then StopMaria()
+
         Running = False
         r1.Checked = True
         r2.Checked = True
@@ -211,13 +216,22 @@
         End If
     End Sub
     Private Sub Complete()
-        Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
-        lblStatus.Text = "Done! Import completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
-        SetSelect(SelectedType)
-        btnStart.Text = "Close"
-        btnStart.Enabled = True
-        pb1.Value = 100
-        Running = False
+        If IsAborted = False Then
+            Dim ElapsedTime As TimeSpan = Now.Subtract(StartTime)
+            lblStatus.Text = "Done! Import completed in " & ElapsedTime.Hours & ":" & ElapsedTime.Minutes & ":" & ElapsedTime.Seconds
+            SetSelect(SelectedType)
+            btnStart.Text = "Close"
+            btnStart.Enabled = True
+            pb1.Value = 100
+            Running = False
+        Else
+            SetSelect(SelectedType)
+            '            btnStart.Text = "Close"
+            btnStart.Enabled = True
+            pb1.Value = 100
+            Running = False
+        End If
+
 
         RemoveHandler ProcHandler.Aborting, AddressOf Aborted
         RemoveHandler ProcHandler.Started, AddressOf Starting

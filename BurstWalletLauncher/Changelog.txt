@@ -11,15 +11,12 @@ Changed download system to be consistent over everything
 
 
 To Be done:
-Download information should include total % and bytes (maybe do this as an inheritable form/component)
 Stuck detection. try to restart NRS (if no new block in 60min then try restart NRS)
 Error detection. If console sends errors. restart wallet. max once every 60min
 limit ConsoleBuffer and save it as log
-
-Add support to install as a service. (Partially done! PipeServer+Pipeclient complete needs implementation in wrapper and bwl?)
+Add support to install as a service. (Partially done! PipeServer+Pipeclient but complete needs implementation in wrapper and bwl?)
 Add a components download window where you can select to download a component.
-More visuals when wallet is running. Like Mining info Network diff 
-
+More visuals when wallet is running. Like Mining info Network diff
 
 ~V1.2
 + Gui for first time setup
@@ -36,6 +33,7 @@ More visuals when wallet is running. Like Mining info Network diff
 + Automatic firewall rules for NRS network config
 * Corrected spelling errors.
 * Internal codestructure changed to be more modular
+* Download system changed
 * Console log is now realtime.
 
 V1.1
