@@ -5,7 +5,7 @@ Imports System.Threading
 
 Public Class clsApp
     Public Event DownloadDone(ByVal AppId As Integer)
-    Public Event Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percernt As Integer, ByVal Speed As Integer)
+    Public Event Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percernt As Integer, ByVal Speed As Integer, ByVal lRead As Long, ByVal lLength As Long)
     Public Event Aborted(ByVal AppId As Integer)
     Public Event UpdateAvailable()
     Private Structure StrucApps
@@ -237,9 +237,6 @@ Public Class clsApp
         RaiseEvent DownloadDone(appid)
     End Sub
 
-
-
-
     Private Function Download(ByVal AppId As Integer, Optional ByVal FromRepos As Boolean = True) As Boolean
 
         Dim DLOk As Integer = False
@@ -273,7 +270,7 @@ Public Class clsApp
                     File.Write(bBuffer, 0, iBytesRead)
                     If SW.ElapsedMilliseconds > 0 Then speed = CInt(TotalRead / SW.ElapsedMilliseconds)
                     percent = Math.Round((TotalRead / ContentLength) * 100, 0)
-                    RaiseEvent Progress(0, AppId, percent, speed)
+                    RaiseEvent Progress(0, AppId, percent, speed, TotalRead, ContentLength)
                 Loop
                 File.Flush()
                 sChunks.Close()
@@ -310,7 +307,7 @@ Public Class clsApp
                 End If
                 counter += 1
                 percent = Math.Round((counter / totalfiles) * 100, 0)
-                RaiseEvent Progress(1, AppId, percent, 0)
+                RaiseEvent Progress(1, AppId, percent, 0, 0, 0)
 
             Next
             AllOk = True
@@ -324,7 +321,6 @@ Public Class clsApp
 
     End Function
     Private Sub DeleteFile(ByVal appid As Integer)
-
         Try
             Dim filename As String = BaseDir & Path.GetFileName(_Apps(appid).RemoteUrl)
             If File.Exists(filename) Then
@@ -333,10 +329,6 @@ Public Class clsApp
         Catch ex As Exception
 
         End Try
-
-
-
-
     End Sub
 
 #End Region

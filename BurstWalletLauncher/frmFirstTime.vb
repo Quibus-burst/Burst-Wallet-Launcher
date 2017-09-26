@@ -1,5 +1,5 @@
 ﻿Public Class frmFirstTime
-    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer, ByVal [Speed] As Integer)
+    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer, ByVal [Speed] As Integer, ByVal [lRead] As Long, ByVal [lLength] As Long)
     Private Delegate Sub DDldone(ByVal [AppId] As Integer)
     Private Delegate Sub DDlError(ByVal [AppId] As Integer)
     Private SelectedDBType As Integer = 0
@@ -175,6 +175,38 @@
 
     Private Sub btnDownload_Click(sender As Object, e As EventArgs) Handles btnDownload.Click
 
+        Dim S As frmDownloadExtract
+
+        If Not App.isInstalled(AppNames.JavaInstalled) And Not App.isInstalled(AppNames.JavaPortable) Then
+            S = New frmDownloadExtract
+
+            S.Appid = AppNames.JavaPortable
+            If S.ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+            S = Nothing
+            'now java is installed
+            pnlJava.BackColor = Color.PaleGreen
+            lblJavaStatus.Text = "Java was found in a portable version."
+        End If
+
+        If SelectedDBType = DbType.pMariaDB And Not App.isInstalled(AppNames.MariaPortable) Then
+            S = New frmDownloadExtract
+            S.Appid = AppNames.MariaPortable
+            If S.ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+            S = Nothing
+        End If
+
+        If SelectedDBType = DbType.MariaDB And DbVerified Then
+            btnDone.Visible = True
+        ElseIf SelectedDBType <> DbType.MariaDB Then
+            btnDone.Visible = True
+        End If
+
+    End Sub
+    Private Sub old_btnDownload()
         lblStatusInfo.Text = ""
         Pb1.Minimum = 0
         Pb1.Maximum = 100
@@ -182,6 +214,8 @@
 
         lblStatus.Visible = True
         lblStatusInfo.Visible = True
+        lblRead.Visible = True
+        lblSpeed.Visible = True
         Pb1.Visible = True
         btnDownload.Enabled = False
         btnBack.Enabled = False
@@ -193,7 +227,6 @@
 
         End Try
         DlDone(0) 'we can init from done sub that loops over all needed
-
     End Sub
 
     Public Sub DlDone(ByVal AppId As Integer)
@@ -232,6 +265,8 @@
         End If
 
         Pb1.Visible = False
+        lblRead.Visible = False
+        lblSpeed.Visible = False
         lblStatusInfo.Text = "All components are downloaded."
         btnBack.Enabled = True
         'cleanup
@@ -262,17 +297,26 @@
         End Try
     End Sub
 
-    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer, ByVal Speed As Integer)
+    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, percent As Integer, ByVal Speed As Integer, ByVal lRead As Long, ByVal lLength As Long)
         If Me.InvokeRequired Then
             Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {Job, AppId, percent, Speed})
+            Me.Invoke(d, New Object() {Job, AppId, percent, Speed, lRead, lLength})
             Return
         End If
         '  Dim AppName = [Enum].GetName(GetType(AppNames), AppId)
+        Dim dspeed As Double
+        If Speed > 1024 Then
+            dspeed = Math.Round(CDbl(Speed) / 1024, 2)
+            Dim Showspeed As String = CStr(dspeed) & "MiB/sec"
+        Else
+            Dim Showspeed As String = CStr(Speed) & "KiB/sec"
+        End If
 
         Select Case Job
             Case 0
                 lblStatusInfo.Text = "Downloading: " & App.GetAppNameFromId(AppId)
+                lblSpeed.Text = "Speed: " & BWL.Generic.CalculateBytes(Speed, 2, 1) & "/sec"
+                lblRead.Text = "Read: " & BWL.Generic.CalculateBytes(lRead, 2, 0) & " / " & BWL.Generic.CalculateBytes(lLength, 2, 0) & " (" & CStr(percent) & "%)"
             Case 1
                 lblStatusInfo.Text = "Extracting: " & App.GetAppNameFromId(AppId)
         End Select

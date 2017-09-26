@@ -43,6 +43,8 @@ Partial Class frmImport
         Me.pb1 = New System.Windows.Forms.ProgressBar()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnStart = New System.Windows.Forms.Button()
+        Me.lblRead = New System.Windows.Forms.Label()
+        Me.lblSpeed = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -142,7 +144,7 @@ Partial Class frmImport
         Me.Panel2.Controls.Add(Me.Label12)
         Me.Panel2.Location = New System.Drawing.Point(8, 158)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(472, 223)
+        Me.Panel2.Size = New System.Drawing.Size(472, 195)
         Me.Panel2.TabIndex = 12
         '
         'btnBrowse
@@ -221,7 +223,7 @@ Partial Class frmImport
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(41, 384)
+        Me.lblStatus.Location = New System.Drawing.Point(43, 356)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(24, 13)
         Me.lblStatus.TabIndex = 18
@@ -229,15 +231,15 @@ Partial Class frmImport
         '
         'pb1
         '
-        Me.pb1.Location = New System.Drawing.Point(8, 400)
+        Me.pb1.Location = New System.Drawing.Point(8, 372)
         Me.pb1.Name = "pb1"
-        Me.pb1.Size = New System.Drawing.Size(320, 17)
+        Me.pb1.Size = New System.Drawing.Size(315, 17)
         Me.pb1.TabIndex = 17
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(5, 384)
+        Me.Label6.Location = New System.Drawing.Point(7, 356)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(40, 13)
         Me.Label6.TabIndex = 16
@@ -245,19 +247,41 @@ Partial Class frmImport
         '
         'btnStart
         '
-        Me.btnStart.Location = New System.Drawing.Point(334, 392)
+        Me.btnStart.Location = New System.Drawing.Point(334, 372)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(146, 26)
+        Me.btnStart.Size = New System.Drawing.Size(146, 33)
         Me.btnStart.TabIndex = 15
         Me.btnStart.Text = "Start Import"
         Me.btnStart.UseVisualStyleBackColor = True
+        '
+        'lblRead
+        '
+        Me.lblRead.AutoSize = True
+        Me.lblRead.Location = New System.Drawing.Point(106, 392)
+        Me.lblRead.Name = "lblRead"
+        Me.lblRead.Size = New System.Drawing.Size(61, 13)
+        Me.lblRead.TabIndex = 26
+        Me.lblRead.Text = "Read: 0KiB"
+        Me.lblRead.Visible = False
+        '
+        'lblSpeed
+        '
+        Me.lblSpeed.AutoSize = True
+        Me.lblSpeed.Location = New System.Drawing.Point(7, 392)
+        Me.lblSpeed.Name = "lblSpeed"
+        Me.lblSpeed.Size = New System.Drawing.Size(66, 13)
+        Me.lblSpeed.TabIndex = 25
+        Me.lblSpeed.Text = "Speed: 0KiB"
+        Me.lblSpeed.Visible = False
         '
         'frmImport
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(489, 425)
+        Me.ClientSize = New System.Drawing.Size(489, 409)
+        Me.Controls.Add(Me.lblRead)
+        Me.Controls.Add(Me.lblSpeed)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.pb1)
         Me.Controls.Add(Me.Label6)
@@ -298,4 +322,6 @@ Partial Class frmImport
     Friend WithEvents pb1 As ProgressBar
     Friend WithEvents Label6 As Label
     Friend WithEvents btnStart As Button
+    Friend WithEvents lblRead As Label
+    Friend WithEvents lblSpeed As Label
 End Class

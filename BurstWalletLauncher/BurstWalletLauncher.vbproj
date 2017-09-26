@@ -159,6 +159,12 @@
     <Compile Include="frmContributors.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmDownloadExtract.Designer.vb">
+      <DependentUpon>frmDownloadExtract.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDownloadExtract.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmExportDb.Designer.vb">
       <DependentUpon>frmExportDb.vb</DependentUpon>
     </Compile>
@@ -225,6 +231,9 @@
     <EmbeddedResource Include="frmContributors.resx">
       <DependentUpon>frmContributors.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDownloadExtract.resx">
+      <DependentUpon>frmDownloadExtract.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmExportDb.resx">
       <DependentUpon>frmExportDb.vb</DependentUpon>
     </EmbeddedResource>
@@ -267,6 +276,7 @@
     <Content Include="burstlogo.ico" />
     <Content Include="burstnewlogo.ico" />
     <Content Include="Changelog.txt" />
+    <None Include="Resources\Download.png" />
     <None Include="Resources\vps_168_57.jpg" />
     <None Include="Resources\gb.png" />
     <None Include="Resources\vps.png" />

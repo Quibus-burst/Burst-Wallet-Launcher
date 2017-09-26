@@ -1,7 +1,7 @@
 ﻿Public Class frmUpdate
 
     Private Delegate Sub DDLDone(ByVal [AppId] As Integer)
-    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer, ByVal [Speed] As Integer)
+    Private Delegate Sub DProgress(ByVal [Job] As Integer, ByVal [AppId] As Integer, ByVal [percent] As Integer, ByVal [Speed] As Integer, ByVal [lRead] As Long, ByVal [lLength] As Long)
     Private Delegate Sub DDLError(ByVal [AppId] As Integer)
     Private WithEvents tmr As New Timer
     Private Sub frmUpdate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -50,7 +50,6 @@
             End If
         End If
 
-
         RemoveHandler App.DownloadDone, AddressOf DLDone
         RemoveHandler App.Progress, AddressOf Progress
         RemoveHandler App.Aborted, AddressOf DlError
@@ -60,10 +59,10 @@
 
     End Sub
 
-    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, ByVal percent As Integer, ByVal Speed As Integer)
+    Private Sub Progress(ByVal Job As Integer, ByVal AppId As Integer, ByVal percent As Integer, ByVal Speed As Integer, ByVal lRead As Long, ByVal lLength As Long)
         If Me.InvokeRequired Then
             Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {Job, AppId, percent, Speed})
+            Me.Invoke(d, New Object() {Job, AppId, percent, Speed, lRead, lLength})
             Return
         End If
         'threadsafe
@@ -71,7 +70,8 @@
         pb1.Value = percent
         Select Case Job
             Case 0
-                lblStatus.Text = "Downloading: " & App.GetAppNameFromId(AppId)
+
+                lblStatus.Text = "Downloading: " & App.GetAppNameFromId(AppId) & " " & "Speed: " & BWL.Generic.CalculateBytes(Speed, 2, 1) & " " & "Read: " & BWL.Generic.CalculateBytes(lRead, 2, 0) & " / " & BWL.Generic.CalculateBytes(lLength, 2, 0) & " (" & CStr(percent) & "%)"
             Case 1
                 lblStatus.Text = "Extracting: " & App.GetAppNameFromId(AppId)
         End Select

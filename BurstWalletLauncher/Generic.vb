@@ -96,7 +96,6 @@ Friend Class Generic
 
         End If
 
-
         Try
 
             IO.File.WriteAllText(BaseDir & "conf\nxt.properties", Data)
@@ -107,7 +106,37 @@ Friend Class Generic
 
 
     End Sub
+    Friend Shared Function CalculateBytes(ByVal value As Long, ByVal decimals As Integer, Optional ByVal startat As Integer = 0) As String
+        Dim t As Integer
+        Dim res As Double = CDbl(value)
+        For t = startat To 10
+            If res > 1024 Then
+                res /= 1024
+            Else
+                Exit For
+            End If
+        Next
+        If startat = 11 Then
+            Return Math.Round(res, decimals).ToString("0.00")
+        End If
+        If t = 0 Then
+            Return Math.Round(res, decimals).ToString("0.00") & "bytes"
+        End If
+        If t = 1 Then
+            Return Math.Round(res, decimals).ToString("0.00") & "KiB"
+        End If
+        If t = 2 Then
+            Return Math.Round(res, decimals).ToString("0.00") & "MiB"
+        End If
+        If t = 3 Then
+            Return Math.Round(res, decimals).ToString("0.00") & "GiB"
+        End If
+        If t = 4 Then
+            Return Math.Round(res, decimals).ToString("0.00") & "TiB"
+        End If
+        Return "??"
 
+    End Function
     Friend Shared Function IsAdmin() As Boolean
         Try
             If My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator) Then

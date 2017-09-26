@@ -6,7 +6,7 @@
     Private Delegate Sub DStoped(ByVal [AppId] As Integer)
     Private Delegate Sub DAborted(ByVal [AppId] As Integer, ByVal [data] As String)
     Private Delegate Sub DDownloadDone(ByVal [AppId] As Integer)
-    Private Delegate Sub DProgress(ByVal [JobType] As Integer, ByVal [AppId] As Integer, ByVal [Percernt] As Integer, ByVal [Speed] As Integer)
+    Private Delegate Sub DProgress(ByVal [JobType] As Integer, ByVal [AppId] As Integer, ByVal [Percernt] As Integer, ByVal [Speed] As Integer, ByVal [lRead] As Long, ByVal [lLength] As Long)
     Private Delegate Sub DDLAborted(ByVal [AppId] As Integer)
 
 
@@ -118,6 +118,8 @@
         AddHandler App.Aborted, AddressOf DLAborted
         AddHandler App.Progress, AddressOf Progress
         AddHandler App.DownloadDone, AddressOf DownloadDone
+        lblRead.Visible = True
+        lblSpeed.Visible = True
         App.DownloadFile(Url)
 
     End Sub
@@ -177,19 +179,18 @@
 
         ImportFromFile(BaseDir & IO.Path.GetFileName(App.GetRemoteUrl(AppNames.DownloadFile)))
     End Sub
-    Private Sub Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percent As Integer, ByVal Speed As Integer)
+    Private Sub Progress(ByVal JobType As Integer, ByVal AppId As Integer, ByVal Percent As Integer, ByVal Speed As Integer, ByVal lRead As Long, ByVal lLength As Long)
         If Me.InvokeRequired Then
             Dim d As New DProgress(AddressOf Progress)
-            Me.Invoke(d, New Object() {JobType, AppId, Percent, Speed})
+            Me.Invoke(d, New Object() {JobType, AppId, Percent, Speed, lRead, lLength})
             Return
         End If
         pb1.Value = Percent
-        Dim Showspeed As String = CStr(Speed) & "Kb/sec"
+
         If AppId = AppNames.DownloadFile Then
-            If Speed > 1024 Then
-                Showspeed = CInt(Speed / 1024).ToString & "Mb/sec"
-            End If
-            lblStatus.Text = "downloading database at " & Showspeed
+            lblSpeed.Text = "Speed: " & BWL.Generic.CalculateBytes(Speed, 2, 1) & "/sec"
+            lblRead.Text = "Read: " & BWL.Generic.CalculateBytes(lRead, 2, 0) & " / " & BWL.Generic.CalculateBytes(lLength, 2, 0) & " (" & CStr(Percent) & "%)"
+            lblStatus.Text = "Downloading database."
             pb1.Value = Percent
         End If
 

@@ -71,6 +71,8 @@ Partial Class frmFirstTime
         Me.lblJavaHeader = New System.Windows.Forms.Label()
         Me.btnDone = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.lblSpeed = New System.Windows.Forms.Label()
+        Me.lblRead = New System.Windows.Forms.Label()
         Me.pnlWiz1.SuspendLayout()
         Me.P1.SuspendLayout()
         Me.P3.SuspendLayout()
@@ -341,6 +343,8 @@ Partial Class frmFirstTime
         '
         'PnlWiz2
         '
+        Me.PnlWiz2.Controls.Add(Me.lblRead)
+        Me.PnlWiz2.Controls.Add(Me.lblSpeed)
         Me.PnlWiz2.Controls.Add(Me.pnlDb)
         Me.PnlWiz2.Controls.Add(Me.lblStatusInfo)
         Me.PnlWiz2.Controls.Add(Me.Pb1)
@@ -483,7 +487,7 @@ Partial Class frmFirstTime
         'lblStatusInfo
         '
         Me.lblStatusInfo.AutoSize = True
-        Me.lblStatusInfo.Location = New System.Drawing.Point(53, 340)
+        Me.lblStatusInfo.Location = New System.Drawing.Point(53, 303)
         Me.lblStatusInfo.Name = "lblStatusInfo"
         Me.lblStatusInfo.Size = New System.Drawing.Size(116, 13)
         Me.lblStatusInfo.TabIndex = 20
@@ -492,7 +496,7 @@ Partial Class frmFirstTime
         '
         'Pb1
         '
-        Me.Pb1.Location = New System.Drawing.Point(20, 356)
+        Me.Pb1.Location = New System.Drawing.Point(20, 319)
         Me.Pb1.Name = "Pb1"
         Me.Pb1.Size = New System.Drawing.Size(205, 15)
         Me.Pb1.TabIndex = 19
@@ -501,7 +505,7 @@ Partial Class frmFirstTime
         'lblStatus
         '
         Me.lblStatus.AutoSize = True
-        Me.lblStatus.Location = New System.Drawing.Point(17, 340)
+        Me.lblStatus.Location = New System.Drawing.Point(17, 303)
         Me.lblStatus.Name = "lblStatus"
         Me.lblStatus.Size = New System.Drawing.Size(40, 13)
         Me.lblStatus.TabIndex = 18
@@ -586,6 +590,26 @@ Partial Class frmFirstTime
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 13
         Me.PictureBox2.TabStop = False
+        '
+        'lblSpeed
+        '
+        Me.lblSpeed.AutoSize = True
+        Me.lblSpeed.Location = New System.Drawing.Point(17, 353)
+        Me.lblSpeed.Name = "lblSpeed"
+        Me.lblSpeed.Size = New System.Drawing.Size(10, 13)
+        Me.lblSpeed.TabIndex = 22
+        Me.lblSpeed.Text = "-"
+        Me.lblSpeed.Visible = False
+        '
+        'lblRead
+        '
+        Me.lblRead.AutoSize = True
+        Me.lblRead.Location = New System.Drawing.Point(17, 337)
+        Me.lblRead.Name = "lblRead"
+        Me.lblRead.Size = New System.Drawing.Size(10, 13)
+        Me.lblRead.TabIndex = 24
+        Me.lblRead.Text = "-"
+        Me.lblRead.Visible = False
         '
         'frmFirstTime
         '
@@ -679,4 +703,6 @@ Partial Class frmFirstTime
     Friend WithEvents txtDbAddress As TextBox
     Friend WithEvents Label13 As Label
     Friend WithEvents Label5 As Label
+    Friend WithEvents lblRead As Label
+    Friend WithEvents lblSpeed As Label
 End Class
