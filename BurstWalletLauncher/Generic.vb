@@ -1,6 +1,7 @@
 ﻿Imports System.Management
 
 Friend Class Generic
+    Public Shared DebugMe As Boolean
     Friend Shared Sub CheckUpgrade()
 
         Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
@@ -100,7 +101,7 @@ Friend Class Generic
 
             IO.File.WriteAllText(BaseDir & "conf\nxt.properties", Data)
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
         End Try
 
 
@@ -232,6 +233,8 @@ Friend Class Generic
                     Catch ex As Exception
                         MsgBox("Unable to remove burstwallet from services.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Service")
                     End Try
+                Case "Debug"
+                    BWL.Generic.DebugMe = True
             End Select
 
         End If
@@ -300,8 +303,17 @@ Friend Class Generic
             Dim WC As Net.WebClient = New Net.WebClient()
             Return WC.DownloadString("http://files.getburst.net/ip.php")
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
         End Try
         Return ""
+    End Function
+    Friend Shared Function CheckWritePermission() As Boolean
+        Try
+            IO.File.WriteAllText(BaseDir & "testfile", "test")
+            IO.File.Delete(BaseDir & "testfile")
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
     End Function
 End Class

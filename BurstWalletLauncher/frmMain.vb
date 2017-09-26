@@ -20,7 +20,10 @@ Public Class frmMain
         BaseDir = Application.StartupPath
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
         BWL.Generic.CheckCommandArgs()
-
+        If Not BWL.Generic.CheckWritePermission Then
+            MsgBox("Burst Wallet launcher do not have writepermission to it's own folder. Please move to another location or change the permissions.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Permissions")
+            End
+        End If
         '################################
         'Start classes
         '################################
@@ -72,7 +75,7 @@ Public Class frmMain
                 Exit Sub
             End If
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
         End Try
 
     End Sub
@@ -370,7 +373,7 @@ Public Class frmMain
 
             lblShowUpdateNotification.Visible = True
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
         End Try
     End Sub
 #End Region

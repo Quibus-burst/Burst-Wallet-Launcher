@@ -9,6 +9,7 @@
         Try
             RemoveHandler ProcHandler.Update, AddressOf ProcEvents
         Catch ex As Exception
+            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
         End Try
     End Sub
     Private Sub cmbLog_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLog.SelectedIndexChanged

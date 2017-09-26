@@ -48,6 +48,7 @@
             RemoveHandler App.DownloadDone, AddressOf Done
             RemoveHandler App.Aborted, AddressOf Aborting
         Catch ex As Exception
+            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
         End Try
 
         'we are done so close
@@ -67,6 +68,7 @@
             Return
         End If
         If Result = Nothing Then Result = DialogResult.Abort
+        Me.DialogResult = Result
         Me.Close()
     End Sub
 
@@ -76,9 +78,14 @@
             Me.Invoke(d, New Object() {Job, AppId, percent, Speed, lRead, lLength})
             Return
         End If
-        Dim TimeLeft As TimeSpan = TimeSpan.FromMilliseconds((lLength - lRead) * TimeElapsed.ElapsedMilliseconds / lRead)
+        Dim TimeLeft As TimeSpan
         Select Case Job
             Case 0
+                Try
+                    TimeLeft = TimeSpan.FromMilliseconds((lLength - lRead) * TimeElapsed.ElapsedMilliseconds / lRead)
+                Catch ex As Exception
+                End Try
+
                 lblStatus.Text = "Downloading " & DownloadName
                 lblSpeed.Text = CStr(Speed) & "KiB / sec"
                 lblRead.Text = CStr(lRead) & " / " & CStr(lLength) & " bytes"

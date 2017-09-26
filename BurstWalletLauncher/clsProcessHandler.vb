@@ -170,7 +170,7 @@ Public Class clsProcessHandler
                 End If
                 FreeConsole()
             Catch ex As Exception
-
+                If BWL.Generic.DebugMe Then MsgBox(ex.Message)
             End Try
         End Sub
         Private Function OnExit(CtrlType As CtrlTypes)
@@ -236,6 +236,7 @@ Public Class clsProcessHandler
                     Return False
                 End If
             Catch ex As Exception
+
             End Try
             If FoundStartSignal Then Return True
             Return False

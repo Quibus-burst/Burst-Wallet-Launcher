@@ -173,6 +173,7 @@
     Private Sub btnDownload_Click(sender As Object, e As EventArgs) Handles btnDownload.Click
 
         Dim S As frmDownloadExtract
+        Dim res As DialogResult
         btnBack.Enabled = False
         btnDownload.Enabled = False
         btnDone.Enabled = False
@@ -180,10 +181,23 @@
         If Not App.isInstalled(AppNames.JavaInstalled) And Not App.isInstalled(AppNames.JavaPortable) Then
             S = New frmDownloadExtract
             S.Appid = AppNames.JavaPortable
-            If S.ShowDialog() <> DialogResult.OK Then
+            res = S.ShowDialog()
+            If res = DialogResult.Abort Then
+                lblStatusInfo.Text = "Error: Internet is unreachable or repository offline."
+                lblStatusInfo.Visible = True
                 btnDownload.Enabled = True
                 btnBack.Enabled = True
                 S = Nothing
+                MsgBox(App.ErrMSg)
+                Exit Sub
+            End If
+            If res = DialogResult.Cancel Then
+                lblStatusInfo.Text = "Error: You have aborted the download."
+                lblStatusInfo.Visible = True
+                btnDownload.Enabled = True
+                btnBack.Enabled = True
+                S = Nothing
+                MsgBox(App.ErrMSg)
                 Exit Sub
             End If
             S = Nothing
@@ -195,10 +209,24 @@
         If SelectedDBType = DbType.pMariaDB And Not App.isInstalled(AppNames.MariaPortable) Then
             S = New frmDownloadExtract
             S.Appid = AppNames.MariaPortable
-            If S.ShowDialog() <> DialogResult.OK Then
+            S.DialogResult = Nothing
+            res = S.ShowDialog()
+            If res = DialogResult.Abort Then
+                lblStatusInfo.Text = "Error: Internet is unreachable or repository offline."
+                lblStatusInfo.Visible = True
                 btnDownload.Enabled = True
                 btnBack.Enabled = True
                 S = Nothing
+                MsgBox(App.ErrMSg)
+                Exit Sub
+            End If
+            If res = DialogResult.Cancel Then
+                lblStatusInfo.Text = "Error: You have canceled the download."
+                lblStatusInfo.Visible = True
+                btnDownload.Enabled = True
+                btnBack.Enabled = True
+                S = Nothing
+                MsgBox(App.ErrMSg)
                 Exit Sub
             End If
             S = Nothing

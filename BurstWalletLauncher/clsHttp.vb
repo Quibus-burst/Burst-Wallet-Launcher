@@ -10,9 +10,10 @@ Public Class clsHttp
     Private readStream As StreamReader
     Private Mystate As Boolean = True
     Private stbuffer As String
-
+    Friend Errmsg As String = ""
     Public Function GetUrl(ByVal url As String) As String
         stbuffer = ""
+        Errmsg = ""
         Try
             Http = CType(WebRequest.Create(url), HttpWebRequest)
             Http.ReadWriteTimeout = 60 * 1000 'give it a minute
@@ -27,19 +28,23 @@ Public Class clsHttp
             stbuffer = readStream.ReadToEnd()
         Catch ex As Exception
             Mystate = False 'we shall return false after we have tried to clean up
+            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
         End Try
         Try
             readStream.Close()
         Catch ex As Exception
+
         End Try
         Try
             receiveStream.Close()
         Catch ex As Exception
+
         End Try
         Try
             WebResponse.Close()
             WebResponse.Dispose()
         Catch ex As Exception
+
         End Try
         Try
             Http = Nothing

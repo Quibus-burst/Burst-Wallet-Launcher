@@ -156,7 +156,7 @@ Partial Class frmDownloadExtract
         Me.btnAbort.Name = "btnAbort"
         Me.btnAbort.Size = New System.Drawing.Size(76, 26)
         Me.btnAbort.TabIndex = 1
-        Me.btnAbort.Text = "Abort"
+        Me.btnAbort.Text = "Cancel"
         Me.btnAbort.UseVisualStyleBackColor = True
         '
         'lblTime

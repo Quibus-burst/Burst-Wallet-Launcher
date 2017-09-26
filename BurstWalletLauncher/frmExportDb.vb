@@ -93,7 +93,7 @@
                 Exit Sub
             End If
         Catch ex As Exception
-
+            If BWL.Generic.DebugMe Then MsgBox(ex.Message)
         End Try
 
     End Sub
