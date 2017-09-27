@@ -1,7 +1,4 @@
-﻿
-
-
-Public Class frmMain
+﻿Public Class frmMain
     Private Delegate Sub DUpdate(ByVal [AppId] As Integer, ByVal [Operation] As Integer, ByVal [data] As String)
     Private Delegate Sub DStarting(ByVal [AppId] As Integer)
     Private Delegate Sub DStoped(ByVal [AppId] As Integer)
@@ -255,6 +252,10 @@ Public Class frmMain
                 End If
                 If AppId = AppNames.NRS Then
                     Console(0).Add(data)
+                    'here we can do error detection
+                    If data.StartsWith("Exception in") Then
+                        'we have an exeption error
+                    End If
                     If Console(0).Count = 3001 Then Console(0).RemoveAt(0)
                 End If
             Case ProcOp.ConsoleErr
@@ -264,6 +265,10 @@ Public Class frmMain
                 End If
                 If AppId = AppNames.NRS Then
                     Console(0).Add(data)
+                    'here we can do error detection
+                    If data.StartsWith("Exception in") Then
+                        'we have an exeption error
+                    End If
                     If Console(0).Count = 3001 Then Console(0).RemoveAt(0)
                 End If
             Case ProcOp.Err  'Error
