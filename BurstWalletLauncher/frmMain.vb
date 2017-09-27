@@ -27,6 +27,11 @@ Public Class frmMain
         For i As Integer = 0 To UBound(Console)
             Console(i) = New List(Of String)
         Next
+        If My.Settings.AlwaysAdmin And Not BWL.Generic.IsAdmin Then
+            'restartme as admin
+            BWL.Generic.RestartAsAdmin()
+            End
+        End If
 
 
         If Not BWL.Generic.CheckWritePermission Then

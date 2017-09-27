@@ -29,6 +29,7 @@ More visuals when wallet is running. Like Mining info Network diff
 + Sanitycheck
 + Upgrade Scenarios Handler
 + Automatic firewall rules for NRS network config
++ Option to always run under Administrative privieleges.
 * Corrected spelling errors.
 * Internal codestructure changed to be more modular
 * Download system changed

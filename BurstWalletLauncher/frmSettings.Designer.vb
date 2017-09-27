@@ -92,6 +92,7 @@ Partial Class frmSettings
         Me.Label9 = New System.Windows.Forms.Label()
         Me.chkCheckForUpdates = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.chkAlwaysAdmin = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -786,6 +787,7 @@ Partial Class frmSettings
         '
         Me.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.chkAlwaysAdmin)
         Me.Panel2.Controls.Add(Me.Label10)
         Me.Panel2.Controls.Add(Me.Label9)
         Me.Panel2.Controls.Add(Me.chkCheckForUpdates)
@@ -810,9 +812,9 @@ Partial Class frmSettings
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label9.Location = New System.Drawing.Point(8, 11)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(190, 16)
+        Me.Label9.Size = New System.Drawing.Size(99, 16)
         Me.Label9.TabIndex = 0
-        Me.Label9.Text = "Updates and configuration"
+        Me.Label9.Text = "Configuration"
         '
         'chkCheckForUpdates
         '
@@ -836,6 +838,16 @@ Partial Class frmSettings
         Me.Label1.Size = New System.Drawing.Size(181, 25)
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "General settings"
+        '
+        'chkAlwaysAdmin
+        '
+        Me.chkAlwaysAdmin.AutoSize = True
+        Me.chkAlwaysAdmin.Location = New System.Drawing.Point(12, 70)
+        Me.chkAlwaysAdmin.Name = "chkAlwaysAdmin"
+        Me.chkAlwaysAdmin.Size = New System.Drawing.Size(290, 17)
+        Me.chkAlwaysAdmin.TabIndex = 4
+        Me.chkAlwaysAdmin.Text = "Always start launcher to run with administrator privileges."
+        Me.chkAlwaysAdmin.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -945,4 +957,5 @@ Partial Class frmSettings
     Friend WithEvents cmbPeerIP As ComboBox
     Friend WithEvents Label33 As Label
     Friend WithEvents Label34 As Label
+    Friend WithEvents chkAlwaysAdmin As CheckBox
 End Class

@@ -235,6 +235,7 @@ Friend Class Generic
                     End Try
                 Case "Debug"
                     BWL.Generic.DebugMe = True
+
             End Select
 
         End If
@@ -323,6 +324,22 @@ Friend Class Generic
 
         Catch ex As Exception
             MsgBox(msg)
+        End Try
+
+
+    End Sub
+    Friend Shared Sub RestartAsAdmin()
+
+        Try
+            Dim p As Process = New Process
+            p.StartInfo.WorkingDirectory = BaseDir
+            p.StartInfo.UseShellExecute = True
+            If BWL.Generic.DebugMe Then p.StartInfo.Arguments = "Debug"
+            p.StartInfo.FileName = Application.ExecutablePath
+            p.StartInfo.Verb = "runas"
+            p.Start()
+        Catch ex As Exception
+            MsgBox("Failed to start burst wallet launcher as administrator.", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Admin")
         End Try
 
 

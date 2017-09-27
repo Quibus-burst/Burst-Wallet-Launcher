@@ -18,7 +18,10 @@ Public Class frmSettings
             pnlDbSettings.Enabled = False
         End If
         lblDb.Text = App.GetDbNameFromType(My.Settings.DbType)
+
         chkCheckForUpdates.Checked = My.Settings.CheckForUpdates
+        chkAlwaysAdmin.Checked = My.Settings.AlwaysAdmin
+
         chkAutoIP.Checked = My.Settings.CheckForUpdates
         chkDynPlatform.Checked = My.Settings.DynPlatform
         txtDbServer.Text = My.Settings.DbServer
@@ -83,8 +86,12 @@ Public Class frmSettings
 
         Dim buffer As String = ""
 
-        'nrs
+        'generic
         My.Settings.CheckForUpdates = chkCheckForUpdates.Checked
+        My.Settings.AlwaysAdmin = chkAlwaysAdmin.Checked
+
+        'nrs
+
         My.Settings.AutoIP = chkAutoIP.Checked
         My.Settings.DynPlatform = chkDynPlatform.Checked
         'nrs advanced

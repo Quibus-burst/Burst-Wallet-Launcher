@@ -56,5 +56,8 @@
     <Setting Name="ListenPeer" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.0.0.0;8123</Value>
     </Setting>
+    <Setting Name="AlwaysAdmin" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
