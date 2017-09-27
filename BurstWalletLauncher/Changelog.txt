@@ -6,14 +6,13 @@
 Known problems:
 
 Beta 4
-Changed download system to be consistent over everything
 
 To Be done:
-Stuck detection. try to restart NRS (if no new block in 60min then try restart NRS)
 Add support to install as a service. (Partially done! PipeServer+Pipeclient but complete needs implementation in wrapper and bwl?)
 Add a components download window where you can select to download a component.
+'hand in hand
 More visuals when wallet is running. Like Mining info Network diff
-
+Stuck detection. try to restart NRS (if no new block in 60min then try restart NRS)
 
 ~V1.2
 + Gui for first time setup
