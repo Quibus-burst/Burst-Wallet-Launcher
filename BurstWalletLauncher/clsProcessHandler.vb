@@ -32,6 +32,32 @@ Public Class clsProcessHandler
 
 
     End Sub
+    Friend Sub ReStartProcess(ByVal AppId As Object)
+        Dim trda As Thread
+        trda = New Thread(AddressOf RestartWorker)
+        trda.IsBackground = True
+        trda.Start(AppId)
+        trda = Nothing
+    End Sub
+    Private Sub RestartWorker(ByVal AppId As Object)
+        If Not IsNothing(P(AppId)) Then
+            If P(AppId).IsRunning Then
+                P(AppId).StopProc()
+                Do
+                    If P(AppId).State = ProcOp.Stopped Then Exit Do
+                    Thread.Sleep(500)
+                Loop
+            End If
+            'we have stopped
+            Dim trda As Thread
+            trda = New Thread(AddressOf P(AppId).Work)
+            trda.IsBackground = True
+            trda.Start()
+            trda = Nothing
+        End If
+    End Sub
+
+
     Public Sub StartProcessSquence(ByVal Pcls() As pSettings)
         'this is needed if working with mariadb portable. maybe for otherthings later aswell.
         Dim trda As Thread

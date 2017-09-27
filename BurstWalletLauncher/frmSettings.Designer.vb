@@ -88,11 +88,12 @@ Partial Class frmSettings
         Me.General = New System.Windows.Forms.TabPage()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.chkAlwaysAdmin = New System.Windows.Forms.CheckBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.chkCheckForUpdates = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.chkAlwaysAdmin = New System.Windows.Forms.CheckBox()
+        Me.chkWalletException = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -153,6 +154,7 @@ Partial Class frmSettings
         '
         Me.Panel4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel4.Controls.Add(Me.chkWalletException)
         Me.Panel4.Controls.Add(Me.Label34)
         Me.Panel4.Controls.Add(Me.Label26)
         Me.Panel4.Controls.Add(Me.nrPeerPort)
@@ -282,7 +284,7 @@ Partial Class frmSettings
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(10, 130)
+        Me.Label29.Location = New System.Drawing.Point(10, 163)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(29, 13)
         Me.Label29.TabIndex = 34
@@ -352,7 +354,7 @@ Partial Class frmSettings
         '
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(9, 88)
+        Me.Label28.Location = New System.Drawing.Point(9, 121)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(140, 16)
         Me.Label28.TabIndex = 27
@@ -418,7 +420,7 @@ Partial Class frmSettings
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(9, 196)
+        Me.Label20.Location = New System.Drawing.Point(9, 229)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(277, 39)
         Me.Label20.TabIndex = 15
@@ -428,7 +430,7 @@ Partial Class frmSettings
         'chkOpenCL
         '
         Me.chkOpenCL.AutoSize = True
-        Me.chkOpenCL.Location = New System.Drawing.Point(13, 152)
+        Me.chkOpenCL.Location = New System.Drawing.Point(13, 185)
         Me.chkOpenCL.Name = "chkOpenCL"
         Me.chkOpenCL.Size = New System.Drawing.Size(310, 17)
         Me.chkOpenCL.TabIndex = 14
@@ -438,7 +440,7 @@ Partial Class frmSettings
         'lblMaxCores
         '
         Me.lblMaxCores.AutoSize = True
-        Me.lblMaxCores.Location = New System.Drawing.Point(125, 130)
+        Me.lblMaxCores.Location = New System.Drawing.Point(125, 163)
         Me.lblMaxCores.Name = "lblMaxCores"
         Me.lblMaxCores.Size = New System.Drawing.Size(42, 13)
         Me.lblMaxCores.TabIndex = 13
@@ -447,7 +449,7 @@ Partial Class frmSettings
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(9, 110)
+        Me.Label18.Location = New System.Drawing.Point(9, 143)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(195, 13)
         Me.Label18.TabIndex = 12
@@ -466,7 +468,7 @@ Partial Class frmSettings
         'lblRecommendedCPU
         '
         Me.lblRecommendedCPU.AutoSize = True
-        Me.lblRecommendedCPU.Location = New System.Drawing.Point(201, 110)
+        Me.lblRecommendedCPU.Location = New System.Drawing.Point(201, 143)
         Me.lblRecommendedCPU.Name = "lblRecommendedCPU"
         Me.lblRecommendedCPU.Size = New System.Drawing.Size(42, 13)
         Me.lblRecommendedCPU.TabIndex = 6
@@ -475,7 +477,7 @@ Partial Class frmSettings
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(91, 130)
+        Me.Label17.Location = New System.Drawing.Point(91, 163)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(41, 13)
         Me.Label17.TabIndex = 11
@@ -483,7 +485,7 @@ Partial Class frmSettings
         '
         'nrCores
         '
-        Me.nrCores.Location = New System.Drawing.Point(46, 126)
+        Me.nrCores.Location = New System.Drawing.Point(46, 159)
         Me.nrCores.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
         Me.nrCores.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nrCores.Name = "nrCores"
@@ -494,7 +496,7 @@ Partial Class frmSettings
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(9, 181)
+        Me.Label14.Location = New System.Drawing.Point(9, 214)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(262, 13)
         Me.Label14.TabIndex = 8
@@ -796,6 +798,16 @@ Partial Class frmSettings
         Me.Panel2.Size = New System.Drawing.Size(699, 106)
         Me.Panel2.TabIndex = 10
         '
+        'chkAlwaysAdmin
+        '
+        Me.chkAlwaysAdmin.AutoSize = True
+        Me.chkAlwaysAdmin.Location = New System.Drawing.Point(12, 70)
+        Me.chkAlwaysAdmin.Name = "chkAlwaysAdmin"
+        Me.chkAlwaysAdmin.Size = New System.Drawing.Size(290, 17)
+        Me.chkAlwaysAdmin.TabIndex = 4
+        Me.chkAlwaysAdmin.Text = "Always start launcher to run with administrator privileges."
+        Me.chkAlwaysAdmin.UseVisualStyleBackColor = True
+        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -839,15 +851,17 @@ Partial Class frmSettings
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "General settings"
         '
-        'chkAlwaysAdmin
+        'chkWalletException
         '
-        Me.chkAlwaysAdmin.AutoSize = True
-        Me.chkAlwaysAdmin.Location = New System.Drawing.Point(12, 70)
-        Me.chkAlwaysAdmin.Name = "chkAlwaysAdmin"
-        Me.chkAlwaysAdmin.Size = New System.Drawing.Size(290, 17)
-        Me.chkAlwaysAdmin.TabIndex = 4
-        Me.chkAlwaysAdmin.Text = "Always start launcher to run with administrator privileges."
-        Me.chkAlwaysAdmin.UseVisualStyleBackColor = True
+        Me.chkWalletException.AutoSize = True
+        Me.chkWalletException.Checked = True
+        Me.chkWalletException.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWalletException.Location = New System.Drawing.Point(12, 72)
+        Me.chkWalletException.Name = "chkWalletException"
+        Me.chkWalletException.Size = New System.Drawing.Size(295, 17)
+        Me.chkWalletException.TabIndex = 45
+        Me.chkWalletException.Text = "Restart wallet if exception occur (max once every 60min)."
+        Me.chkWalletException.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -958,4 +972,5 @@ Partial Class frmSettings
     Friend WithEvents Label33 As Label
     Friend WithEvents Label34 As Label
     Friend WithEvents chkAlwaysAdmin As CheckBox
+    Friend WithEvents chkWalletException As CheckBox
 End Class

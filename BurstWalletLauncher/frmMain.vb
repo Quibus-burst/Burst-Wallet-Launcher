@@ -10,7 +10,7 @@
     Public Running As Boolean
     Public Updateinfo As String
     Public Repositories() As String
-
+    Private LastException As Date
 #Region " Form Events "
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -29,7 +29,7 @@
             BWL.Generic.RestartAsAdmin()
             End
         End If
-
+        LastException = Now
 
         If Not BWL.Generic.CheckWritePermission Then
             MsgBox("Burst Wallet launcher do not have writepermission to it's own folder. Please move to another location or change the permissions.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Permissions")
@@ -253,9 +253,13 @@
                 If AppId = AppNames.NRS Then
                     Console(0).Add(data)
                     'here we can do error detection
-                    If data.StartsWith("Exception in") Then
-                        'we have an exeption error
+                    If My.Settings.WalletException And LastException.AddHours(1) < Now Then
+                        If data.StartsWith("Exception in") Then
+                            LastException = Now
+                            ProcHandler.ReStartProcess(AppNames.NRS)
+                        End If
                     End If
+
                     If Console(0).Count = 3001 Then Console(0).RemoveAt(0)
                 End If
             Case ProcOp.ConsoleErr
@@ -266,9 +270,13 @@
                 If AppId = AppNames.NRS Then
                     Console(0).Add(data)
                     'here we can do error detection
-                    If data.StartsWith("Exception in") Then
-                        'we have an exeption error
+                    If My.Settings.WalletException And LastException.AddHours(1) < Now Then
+                        If data.StartsWith("Exception in") Then
+                            LastException = Now
+                            ProcHandler.ReStartProcess(AppNames.NRS)
+                        End If
                     End If
+
                     If Console(0).Count = 3001 Then Console(0).RemoveAt(0)
                 End If
             Case ProcOp.Err  'Error
@@ -399,6 +407,8 @@
             If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
     End Sub
+
+
 #End Region
 
 

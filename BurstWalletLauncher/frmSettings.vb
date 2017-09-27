@@ -21,6 +21,7 @@ Public Class frmSettings
 
         chkCheckForUpdates.Checked = My.Settings.CheckForUpdates
         chkAlwaysAdmin.Checked = My.Settings.AlwaysAdmin
+        chkWalletException.Checked = My.Settings.WalletException
 
         chkAutoIP.Checked = My.Settings.CheckForUpdates
         chkDynPlatform.Checked = My.Settings.DynPlatform
@@ -89,7 +90,7 @@ Public Class frmSettings
         'generic
         My.Settings.CheckForUpdates = chkCheckForUpdates.Checked
         My.Settings.AlwaysAdmin = chkAlwaysAdmin.Checked
-
+        My.Settings.WalletException = chkWalletException.Checked
         'nrs
 
         My.Settings.AutoIP = chkAutoIP.Checked
