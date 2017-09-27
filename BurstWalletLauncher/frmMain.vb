@@ -9,7 +9,7 @@ Public Class frmMain
     Private Delegate Sub DNewUpdatesAvilable()
 
 
-    Public Console(1) As String
+    Public Console(1) As List(Of String)
     Public Running As Boolean
     Public Updateinfo As String
     Public Repositories() As String
@@ -20,9 +20,15 @@ Public Class frmMain
         BaseDir = Application.StartupPath
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
         BWL.Generic.CheckCommandArgs()
+
         If BWL.Generic.DebugMe Then
             Me.Text = Me.Text & " (DebugMode)"
         End If
+        For i As Integer = 0 To UBound(Console)
+            Console(i) = New List(Of String)
+        Next
+
+
         If Not BWL.Generic.CheckWritePermission Then
             MsgBox("Burst Wallet launcher do not have writepermission to it's own folder. Please move to another location or change the permissions.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Permissions")
             End
@@ -239,17 +245,21 @@ Public Class frmMain
                 End If
             Case ProcOp.ConsoleOut
                 If AppId = AppNames.MariaPortable Then
-                    Console(1) &= data & vbCrLf
+                    Console(1).Add(data)
+                    If Console(1).Count = 3001 Then Console(1).RemoveAt(0)
                 End If
                 If AppId = AppNames.NRS Then
-                    Console(0) &= data & vbCrLf
+                    Console(0).Add(data)
+                    If Console(0).Count = 3001 Then Console(0).RemoveAt(0)
                 End If
             Case ProcOp.ConsoleErr
                 If AppId = AppNames.MariaPortable Then
-                    Console(1) &= data & vbCrLf
+                    Console(1).Add(data)
+                    If Console(1).Count = 3001 Then Console(1).RemoveAt(0)
                 End If
                 If AppId = AppNames.NRS Then
-                    Console(0) &= data & vbCrLf
+                    Console(0).Add(data)
+                    If Console(0).Count = 3001 Then Console(0).RemoveAt(0)
                 End If
             Case ProcOp.Err  'Error
                 MsgBox("A Unhandled error happend when services tried to start. Console view might give clue to what is wrong. Some services might still be running.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Error")

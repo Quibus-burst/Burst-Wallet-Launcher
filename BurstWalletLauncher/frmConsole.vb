@@ -3,7 +3,7 @@
     Private Sub frmConsole_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             cmbLog.SelectedIndex = 0
-            txtLog.Text = frmMain.Console(0)
+            txtLog.Text = String.Join(vbCrLf, frmMain.Console(0))
             AddHandler ProcHandler.Update, AddressOf ProcEvents
         Catch ex As Exception
             If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
@@ -18,7 +18,7 @@
     End Sub
     Private Sub cmbLog_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLog.SelectedIndexChanged
         Try
-            txtLog.Text = frmMain.Console(cmbLog.SelectedIndex)
+            txtLog.Text = String.Join(vbCrLf, frmMain.Console(cmbLog.SelectedIndex))
         Catch ex As Exception
             If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
