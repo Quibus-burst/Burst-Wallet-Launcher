@@ -408,6 +408,18 @@
         End Try
     End Sub
 
+    Private Sub ConfigureWindowsFirewallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfigureWindowsFirewallToolStripMenuItem.Click
+
+        Dim msg As String = "Would you like to autmatically configure windows firewall with your wallet connection settings?" & vbCrLf
+        msg &= "This will require Administrative priveleges."
+
+        If MsgBox(msg, MsgBoxStyle.Information Or MsgBoxStyle.YesNo, "Windows firewall") = MsgBoxResult.Yes Then
+
+            BWL.Generic.SetFirewallFromSettings()
+
+        End If
+    End Sub
+
 
 #End Region
 

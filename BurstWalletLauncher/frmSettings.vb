@@ -54,7 +54,7 @@ Public Class frmSettings
         'SetNRSnet
         SetIf()
         SetAllowedIP()
-        chkFirewall.Checked = My.Settings.SetFireWall
+
 
 
 
@@ -109,15 +109,11 @@ Public Class frmSettings
         Else
             My.Settings.ListenPeer = cmbPeerIP.Items.Item(cmbPeerIP.SelectedIndex) & ";" & CStr(nrPeerPort.Value)
         End If
-
-
-
         For x As Integer = 0 To lstConnectFrom.Items.Count - 1
             buffer &= lstConnectFrom.Items.Item(x) & ";"
         Next
-        My.Settings.ConnectFrom = buffer
-        My.Settings.SetFireWall = chkFirewall.Checked
 
+        My.Settings.ConnectFrom = buffer
         My.Settings.DbServer = txtDbServer.Text
         My.Settings.DbName = txtDbName.Text
         My.Settings.DbUser = txtDbUser.Text
@@ -127,47 +123,6 @@ Public Class frmSettings
         My.Settings.Save()
 
         'ok lets fix firewall if its intended to be like that
-
-        If chkFirewall.Checked Then
-            Dim s() As String = Nothing
-
-            If BWL.Generic.IsAdmin Then
-                Try
-                    s = Split(My.Settings.ListenPeer, ";")
-                    If s(0) = "0.0.0.0" Then s(0) = "*"
-                    BWL.Generic.SetFirewall("Burst Peers", s(1), s(0), "")
-                    s = Split(My.Settings.ListenIf, ";")
-                    If s(0) = "0.0.0.0" Then s(0) = "*"
-                    buffer = Trim(My.Settings.ConnectFrom)
-                    If buffer <> "" Then
-                        buffer = buffer.Replace(";", ",")
-                        buffer = buffer.Replace(" ", "")
-                        If buffer.EndsWith(",") Then buffer = buffer.Remove(buffer.Length - 1)
-                    End If
-                    BWL.Generic.SetFirewall("Burst Api", s(1), s(0), buffer)
-                    MsgBox("Windows firewall rules sucessfully applied.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
-                Catch ex As Exception
-                    MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
-                End Try
-            Else
-                'start process with admin
-                Try
-                    Dim p As Process = New Process
-                    p.StartInfo.WorkingDirectory = BaseDir
-                    p.StartInfo.Arguments = "ADDFW"
-                    p.StartInfo.UseShellExecute = True
-                    'p.StartInfo.CreateNoWindow = True 'we need window for messages(?)
-                    p.StartInfo.FileName = Application.ExecutablePath
-                    p.StartInfo.Verb = "runas"
-                    p.Start()
-                Catch ex As Exception
-                    MsgBox("Failed to apply firewall rules.", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
-                End Try
-            End If
-        End If
-
-
-
         Me.Close()
 
 

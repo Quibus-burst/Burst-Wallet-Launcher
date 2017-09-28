@@ -26,6 +26,7 @@ Partial Class frmSettings
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.chkWalletException = New System.Windows.Forms.CheckBox()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.Label26 = New System.Windows.Forms.Label()
         Me.nrPeerPort = New System.Windows.Forms.NumericUpDown()
@@ -39,7 +40,6 @@ Partial Class frmSettings
         Me.Label29 = New System.Windows.Forms.Label()
         Me.chkAutoIP = New System.Windows.Forms.CheckBox()
         Me.Label25 = New System.Windows.Forms.Label()
-        Me.chkFirewall = New System.Windows.Forms.CheckBox()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.lstConnectFrom = New System.Windows.Forms.ListBox()
@@ -93,7 +93,6 @@ Partial Class frmSettings
         Me.Label9 = New System.Windows.Forms.Label()
         Me.chkCheckForUpdates = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.chkWalletException = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -168,7 +167,6 @@ Partial Class frmSettings
         Me.Panel4.Controls.Add(Me.Label29)
         Me.Panel4.Controls.Add(Me.chkAutoIP)
         Me.Panel4.Controls.Add(Me.Label25)
-        Me.Panel4.Controls.Add(Me.chkFirewall)
         Me.Panel4.Controls.Add(Me.Button5)
         Me.Panel4.Controls.Add(Me.Button2)
         Me.Panel4.Controls.Add(Me.lstConnectFrom)
@@ -193,14 +191,26 @@ Partial Class frmSettings
         Me.Panel4.Size = New System.Drawing.Size(699, 286)
         Me.Panel4.TabIndex = 12
         '
+        'chkWalletException
+        '
+        Me.chkWalletException.AutoSize = True
+        Me.chkWalletException.Checked = True
+        Me.chkWalletException.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWalletException.Location = New System.Drawing.Point(12, 72)
+        Me.chkWalletException.Name = "chkWalletException"
+        Me.chkWalletException.Size = New System.Drawing.Size(295, 17)
+        Me.chkWalletException.TabIndex = 45
+        Me.chkWalletException.Text = "Restart wallet if exception occur (max once every 60min)."
+        Me.chkWalletException.UseVisualStyleBackColor = True
+        '
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(543, 213)
+        Me.Label34.Location = New System.Drawing.Point(543, 217)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(99, 13)
+        Me.Label34.Size = New System.Drawing.Size(88, 13)
         Me.Label34.TabIndex = 44
-        Me.Label34.Text = "0.0.0.0/0 = Anyone"
+        Me.Label34.Text = "0.0.0.0 = Anyone"
         '
         'Label26
         '
@@ -241,7 +251,7 @@ Partial Class frmSettings
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(541, 157)
+        Me.Label22.Location = New System.Drawing.Point(541, 161)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(50, 13)
         Me.Label22.TabIndex = 39
@@ -250,7 +260,7 @@ Partial Class frmSettings
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(543, 199)
+        Me.Label32.Location = New System.Drawing.Point(543, 203)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(114, 13)
         Me.Label32.TabIndex = 38
@@ -259,7 +269,7 @@ Partial Class frmSettings
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(540, 186)
+        Me.Label31.Location = New System.Drawing.Point(540, 190)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(81, 13)
         Me.Label31.TabIndex = 37
@@ -268,7 +278,7 @@ Partial Class frmSettings
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(540, 172)
+        Me.Label30.Location = New System.Drawing.Point(540, 176)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(64, 13)
         Me.Label30.TabIndex = 36
@@ -276,7 +286,7 @@ Partial Class frmSettings
         '
         'txtAddAllow
         '
-        Me.txtAddAllow.Location = New System.Drawing.Point(372, 134)
+        Me.txtAddAllow.Location = New System.Drawing.Point(372, 138)
         Me.txtAddAllow.Name = "txtAddAllow"
         Me.txtAddAllow.Size = New System.Drawing.Size(164, 20)
         Me.txtAddAllow.TabIndex = 35
@@ -284,7 +294,7 @@ Partial Class frmSettings
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(10, 163)
+        Me.Label29.Location = New System.Drawing.Point(10, 149)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(29, 13)
         Me.Label29.TabIndex = 34
@@ -312,21 +322,9 @@ Partial Class frmSettings
         Me.Label25.TabIndex = 32
         Me.Label25.Text = "Connection settings"
         '
-        'chkFirewall
-        '
-        Me.chkFirewall.AutoSize = True
-        Me.chkFirewall.Checked = True
-        Me.chkFirewall.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkFirewall.Location = New System.Drawing.Point(372, 254)
-        Me.chkFirewall.Name = "chkFirewall"
-        Me.chkFirewall.Size = New System.Drawing.Size(247, 17)
-        Me.chkFirewall.TabIndex = 31
-        Me.chkFirewall.Text = "Configure windows firewall with above settings."
-        Me.chkFirewall.UseVisualStyleBackColor = True
-        '
         'Button5
         '
-        Me.Button5.Location = New System.Drawing.Point(417, 224)
+        Me.Button5.Location = New System.Drawing.Point(417, 228)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(120, 22)
         Me.Button5.TabIndex = 30
@@ -335,7 +333,7 @@ Partial Class frmSettings
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(537, 133)
+        Me.Button2.Location = New System.Drawing.Point(537, 137)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(64, 22)
         Me.Button2.TabIndex = 29
@@ -345,7 +343,7 @@ Partial Class frmSettings
         'lstConnectFrom
         '
         Me.lstConnectFrom.FormattingEnabled = True
-        Me.lstConnectFrom.Location = New System.Drawing.Point(372, 155)
+        Me.lstConnectFrom.Location = New System.Drawing.Point(372, 159)
         Me.lstConnectFrom.Name = "lstConnectFrom"
         Me.lstConnectFrom.Size = New System.Drawing.Size(164, 69)
         Me.lstConnectFrom.TabIndex = 28
@@ -354,7 +352,7 @@ Partial Class frmSettings
         '
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(9, 121)
+        Me.Label28.Location = New System.Drawing.Point(9, 108)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(140, 16)
         Me.Label28.TabIndex = 27
@@ -363,7 +361,7 @@ Partial Class frmSettings
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(370, 118)
+        Me.Label27.Location = New System.Drawing.Point(370, 122)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(107, 13)
         Me.Label27.TabIndex = 22
@@ -420,7 +418,7 @@ Partial Class frmSettings
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(9, 229)
+        Me.Label20.Location = New System.Drawing.Point(9, 216)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(277, 39)
         Me.Label20.TabIndex = 15
@@ -430,7 +428,7 @@ Partial Class frmSettings
         'chkOpenCL
         '
         Me.chkOpenCL.AutoSize = True
-        Me.chkOpenCL.Location = New System.Drawing.Point(13, 185)
+        Me.chkOpenCL.Location = New System.Drawing.Point(13, 175)
         Me.chkOpenCL.Name = "chkOpenCL"
         Me.chkOpenCL.Size = New System.Drawing.Size(310, 17)
         Me.chkOpenCL.TabIndex = 14
@@ -440,7 +438,7 @@ Partial Class frmSettings
         'lblMaxCores
         '
         Me.lblMaxCores.AutoSize = True
-        Me.lblMaxCores.Location = New System.Drawing.Point(125, 163)
+        Me.lblMaxCores.Location = New System.Drawing.Point(125, 149)
         Me.lblMaxCores.Name = "lblMaxCores"
         Me.lblMaxCores.Size = New System.Drawing.Size(42, 13)
         Me.lblMaxCores.TabIndex = 13
@@ -449,7 +447,7 @@ Partial Class frmSettings
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(9, 143)
+        Me.Label18.Location = New System.Drawing.Point(9, 130)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(195, 13)
         Me.Label18.TabIndex = 12
@@ -468,7 +466,7 @@ Partial Class frmSettings
         'lblRecommendedCPU
         '
         Me.lblRecommendedCPU.AutoSize = True
-        Me.lblRecommendedCPU.Location = New System.Drawing.Point(201, 143)
+        Me.lblRecommendedCPU.Location = New System.Drawing.Point(201, 130)
         Me.lblRecommendedCPU.Name = "lblRecommendedCPU"
         Me.lblRecommendedCPU.Size = New System.Drawing.Size(42, 13)
         Me.lblRecommendedCPU.TabIndex = 6
@@ -477,7 +475,7 @@ Partial Class frmSettings
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(91, 163)
+        Me.Label17.Location = New System.Drawing.Point(91, 149)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(41, 13)
         Me.Label17.TabIndex = 11
@@ -485,7 +483,7 @@ Partial Class frmSettings
         '
         'nrCores
         '
-        Me.nrCores.Location = New System.Drawing.Point(46, 159)
+        Me.nrCores.Location = New System.Drawing.Point(46, 146)
         Me.nrCores.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
         Me.nrCores.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nrCores.Name = "nrCores"
@@ -496,7 +494,7 @@ Partial Class frmSettings
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(9, 214)
+        Me.Label14.Location = New System.Drawing.Point(9, 201)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(262, 13)
         Me.Label14.TabIndex = 8
@@ -550,9 +548,9 @@ Partial Class frmSettings
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(21, 61)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(375, 13)
+        Me.Label3.Size = New System.Drawing.Size(397, 13)
         Me.Label3.TabIndex = 12
-        Me.Label3.Text = "If you want to change database please use ""change database"" in tools menu."
+        Me.Label3.Text = "If you want to change database please use ""change database"" in database menu."
         '
         'Button3
         '
@@ -851,18 +849,6 @@ Partial Class frmSettings
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "General settings"
         '
-        'chkWalletException
-        '
-        Me.chkWalletException.AutoSize = True
-        Me.chkWalletException.Checked = True
-        Me.chkWalletException.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkWalletException.Location = New System.Drawing.Point(12, 72)
-        Me.chkWalletException.Name = "chkWalletException"
-        Me.chkWalletException.Size = New System.Drawing.Size(295, 17)
-        Me.chkWalletException.TabIndex = 45
-        Me.chkWalletException.Text = "Restart wallet if exception occur (max once every 60min)."
-        Me.chkWalletException.UseVisualStyleBackColor = True
-        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -955,7 +941,6 @@ Partial Class frmSettings
     Friend WithEvents Label23 As Label
     Friend WithEvents chkAutoIP As CheckBox
     Friend WithEvents Label25 As Label
-    Friend WithEvents chkFirewall As CheckBox
     Friend WithEvents Button5 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents lstConnectFrom As ListBox

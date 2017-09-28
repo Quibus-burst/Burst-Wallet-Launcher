@@ -149,7 +149,50 @@ Friend Class Generic
         End Try
         Return True
     End Function
-    Friend Shared Function SetFirewall(ByVal fwName As String, ByVal ports As String, LocalNet As String, RemoteNet As String) As Boolean
+    Friend Shared Sub SetFirewallFromSettings()
+
+        Dim s() As String
+        Dim buffer As String
+        If IsAdmin() Then
+            s = Split(My.Settings.ListenPeer, ";")
+            If s(0) = "0.0.0.0" Then s(0) = "*"
+            If Not SetFirewall("Burst Peers", s(1), s(0), "") Then
+                MsgBox("Failed to apply firewall rules.", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+                End
+            End If
+            s = Split(My.Settings.ListenIf, ";")
+            If s(0) = "0.0.0.0" Then s(0) = "*"
+            Buffer = Trim(My.Settings.ConnectFrom)
+            If Buffer <> "" Then
+                Buffer = Buffer.Replace(";", ",")
+                Buffer = Buffer.Replace(" ", "")
+                If Buffer.EndsWith(",") Then Buffer = Buffer.Remove(Buffer.Length - 1)
+            End If
+            If Not SetFirewall("Burst Api", s(1), s(0), Buffer) Then
+                MsgBox("Failed to apply firewall rules.", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+                End
+            End If
+            MsgBox("Windows firewall rules sucessfully applied.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
+        Else
+            'start it as admin
+            Try
+                Dim p As Process = New Process
+                p.StartInfo.WorkingDirectory = BaseDir
+                p.StartInfo.Arguments = "ADDFW"
+                p.StartInfo.UseShellExecute = True
+                'p.StartInfo.CreateNoWindow = True 'we need window for messages(?)
+                p.StartInfo.FileName = Application.ExecutablePath
+                p.StartInfo.Verb = "runas"
+                p.Start()
+            Catch ex As Exception
+                MsgBox("Failed to apply firewall rules.", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
+            End Try
+        End If
+
+
+    End Sub
+
+    Private Shared Function SetFirewall(ByVal fwName As String, ByVal ports As String, LocalNet As String, RemoteNet As String) As Boolean
         Try
             'first we try to remove old rule if any
             Const NET_FW_IP_PROTOCOL_TCP = 6
@@ -183,36 +226,13 @@ Friend Class Generic
     Friend Shared Sub CheckCommandArgs()
         '0 = appname
         '1 = Type to do
-        Dim s() As String
-        Dim buffer As String
+
         Dim clArgs() As String = Environment.GetCommandLineArgs()
         If UBound(clArgs) > 0 Then
             Select Case clArgs(1)
                 Case "ADDFW"
                     Try
-                        If IsAdmin() Then
-                            s = Split(My.Settings.ListenPeer, ";")
-                            If s(0) = "0.0.0.0" Then s(0) = "*"
-                            If Not SetFirewall("Burst Peers", s(1), s(0), "") Then
-                                MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
-                                End
-                            End If
-                            s = Split(My.Settings.ListenIf, ";")
-                            If s(0) = "0.0.0.0" Then s(0) = "*"
-                            buffer = Trim(My.Settings.ConnectFrom)
-                            If buffer <> "" Then
-                                buffer = buffer.Replace(";", ",")
-                                buffer = buffer.Replace(" ", "")
-                                If buffer.EndsWith(",") Then buffer = buffer.Remove(buffer.Length - 1)
-                            End If
-                            If Not SetFirewall("Burst Api", s(1), s(0), buffer) Then
-                                MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
-                                End
-                            End If
-                            MsgBox("Windows firewall rules sucessfully applied.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
-                        Else
-                            MsgBox("Unable to get sufficient Administrative rights to apply firewall rules.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Firewall")
-                        End If
+                        BWL.Generic.SetFirewallFromSettings()
                     Catch ex As Exception
                         MsgBox("Failed to apply firewall rules. Maybe you run another firewall on your computer?", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
                     End Try

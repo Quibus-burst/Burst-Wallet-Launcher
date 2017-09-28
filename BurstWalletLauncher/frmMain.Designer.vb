@@ -56,6 +56,9 @@ Partial Class frmMain
         Me.lblShowUpdateNotification = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lblWallet = New System.Windows.Forms.Label()
+        Me.ToolsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfigureWindowsFirewallToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -68,7 +71,7 @@ Partial Class frmMain
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.LblDbStatus)
         Me.GroupBox1.Controls.Add(Me.lblDbName)
-        Me.GroupBox1.Location = New System.Drawing.Point(297, 27)
+        Me.GroupBox1.Location = New System.Drawing.Point(305, 23)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(165, 91)
         Me.GroupBox1.TabIndex = 0
@@ -130,7 +133,7 @@ Partial Class frmMain
         '
         'btnStartStop
         '
-        Me.btnStartStop.Location = New System.Drawing.Point(25, 88)
+        Me.btnStartStop.Location = New System.Drawing.Point(29, 83)
         Me.btnStartStop.Name = "btnStartStop"
         Me.btnStartStop.Size = New System.Drawing.Size(123, 30)
         Me.btnStartStop.TabIndex = 2
@@ -139,7 +142,7 @@ Partial Class frmMain
         '
         'btnConsole
         '
-        Me.btnConsole.Location = New System.Drawing.Point(154, 88)
+        Me.btnConsole.Location = New System.Drawing.Point(158, 83)
         Me.btnConsole.Name = "btnConsole"
         Me.btnConsole.Size = New System.Drawing.Size(123, 30)
         Me.btnConsole.TabIndex = 3
@@ -149,10 +152,10 @@ Partial Class frmMain
         'MenuStrip1
         '
         Me.MenuStrip1.BackColor = System.Drawing.Color.White
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem1, Me.EditToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.AboutToolStripMenuItem2})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem1, Me.EditToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.ToolsToolStripMenuItem1, Me.AboutToolStripMenuItem2})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(489, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(503, 24)
         Me.MenuStrip1.TabIndex = 4
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -195,10 +198,10 @@ Partial Class frmMain
         '
         'ToolsToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExportDatabaseToolStripMenuItem, Me.ImportDatabaseToolStripMenuItem1, Me.ChangeDatabaseToolStripMenuItem})
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExportDatabaseToolStripMenuItem, Me.ImportDatabaseToolStripMenuItem1, Me.ToolStripMenuItem3, Me.ChangeDatabaseToolStripMenuItem})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(47, 20)
-        Me.ToolsToolStripMenuItem.Text = "Tools"
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.ToolsToolStripMenuItem.Text = "Database"
         '
         'ExportDatabaseToolStripMenuItem
         '
@@ -284,9 +287,9 @@ Partial Class frmMain
         '
         Me.StatusStrip1.BackColor = System.Drawing.Color.White
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.lblShowUpdateNotification})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 132)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 128)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(489, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(503, 22)
         Me.StatusStrip1.TabIndex = 5
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -307,18 +310,36 @@ Partial Class frmMain
         '
         Me.lblWallet.AutoSize = True
         Me.lblWallet.Font = New System.Drawing.Font("Rockwell", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWallet.Location = New System.Drawing.Point(21, 41)
+        Me.lblWallet.Location = New System.Drawing.Point(25, 37)
         Me.lblWallet.Name = "lblWallet"
         Me.lblWallet.Size = New System.Drawing.Size(206, 23)
         Me.lblWallet.TabIndex = 7
         Me.lblWallet.Text = "Burst wallet v1.3.6cg"
+        '
+        'ToolsToolStripMenuItem1
+        '
+        Me.ToolsToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigureWindowsFirewallToolStripMenuItem})
+        Me.ToolsToolStripMenuItem1.Name = "ToolsToolStripMenuItem1"
+        Me.ToolsToolStripMenuItem1.Size = New System.Drawing.Size(47, 20)
+        Me.ToolsToolStripMenuItem1.Text = "Tools"
+        '
+        'ConfigureWindowsFirewallToolStripMenuItem
+        '
+        Me.ConfigureWindowsFirewallToolStripMenuItem.Name = "ConfigureWindowsFirewallToolStripMenuItem"
+        Me.ConfigureWindowsFirewallToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
+        Me.ConfigureWindowsFirewallToolStripMenuItem.Text = "Configure Windows Firewall"
+        '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(163, 6)
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(489, 154)
+        Me.ClientSize = New System.Drawing.Size(503, 150)
         Me.Controls.Add(Me.lblWallet)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.btnConsole)
@@ -331,7 +352,7 @@ Partial Class frmMain
         Me.MaximizeBox = False
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Burstcoin wallet launcher v1.2 Beta4"
+        Me.Text = "Burstcoin wallet launcher v1.2 Beta6"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
@@ -376,4 +397,7 @@ Partial Class frmMain
     Friend WithEvents ExportDatabaseToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ImportDatabaseToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ChangeDatabaseToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem3 As ToolStripSeparator
+    Friend WithEvents ToolsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ConfigureWindowsFirewallToolStripMenuItem As ToolStripMenuItem
 End Class
