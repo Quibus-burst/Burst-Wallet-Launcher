@@ -407,7 +407,6 @@
             If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
         End Try
     End Sub
-
     Private Sub ConfigureWindowsFirewallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfigureWindowsFirewallToolStripMenuItem.Click
 
         Dim msg As String = "Would you like to autmatically configure windows firewall with your wallet connection settings?" & vbCrLf
@@ -419,8 +418,6 @@
 
         End If
     End Sub
-
-
 #End Region
 
 
