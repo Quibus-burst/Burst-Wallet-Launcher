@@ -361,7 +361,9 @@ Friend Class Generic
         Catch ex As Exception
             MsgBox("Failed to start burst wallet launcher as administrator.", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Admin")
         End Try
-
-
     End Sub
+    Public Function GetLatencyMs(ByRef hostNameOrAddress As String) As Long
+        Dim ping As New System.Net.NetworkInformation.Ping
+        Return ping.Send(hostNameOrAddress, 300).RoundtripTime
+    End Function
 End Class

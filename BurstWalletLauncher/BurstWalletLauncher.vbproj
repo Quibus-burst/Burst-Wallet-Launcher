@@ -220,7 +220,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="NewSettingsProvider.vb" />
-    <Compile Include="Settings.vb" />
+    <Compile Include="clsSettings.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmChangeDatabase.resx">
