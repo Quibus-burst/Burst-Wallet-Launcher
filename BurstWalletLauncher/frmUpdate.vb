@@ -31,7 +31,7 @@
         btnUpdate.Enabled = False
         If frmMain.Running Then
             lblStatus.Text = "Waiting for wallet to stop"
-            If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
+            If BWL.settings.DbType = DbType.pMariaDB Then 'send startsequence
                 Dim Pid(1) As Object
                 Pid(0) = AppNames.NRS
                 Pid(1) = AppNames.MariaPortable

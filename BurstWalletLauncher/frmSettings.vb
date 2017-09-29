@@ -10,35 +10,35 @@ Public Class frmSettings
 
         If Not App.isInstalled(AppNames.JavaInstalled) Then rJava0.Enabled = False
         If Not App.isInstalled(AppNames.JavaPortable) Then rJava1.Enabled = False
-        If My.Settings.DbType = DbType.MariaDB Then
+        If BWL.settings.DbType = DbType.MariaDB Then
             pnlMaria.Enabled = True
             pnlDbSettings.Enabled = True
         Else
             pnlMaria.Enabled = True
             pnlDbSettings.Enabled = False
         End If
-        lblDb.Text = App.GetDbNameFromType(My.Settings.DbType)
+        lblDb.Text = App.GetDbNameFromType(BWL.settings.DbType)
 
-        chkCheckForUpdates.Checked = My.Settings.CheckForUpdates
-        chkAlwaysAdmin.Checked = My.Settings.AlwaysAdmin
-        chkWalletException.Checked = My.Settings.WalletException
+        chkCheckForUpdates.Checked = BWL.settings.CheckForUpdates
+        chkAlwaysAdmin.Checked = BWL.settings.AlwaysAdmin
+        chkWalletException.Checked = BWL.settings.WalletException
 
-        chkAutoIP.Checked = My.Settings.CheckForUpdates
-        chkDynPlatform.Checked = My.Settings.DynPlatform
-        txtDbServer.Text = My.Settings.DbServer
-        txtDbName.Text = My.Settings.DbName
-        txtDbUser.Text = My.Settings.DbUser
-        txtDbPass.Text = My.Settings.DbPass
-        ChangeJavaType(My.Settings.JavaType)
+        chkAutoIP.Checked = BWL.settings.CheckForUpdates
+        chkDynPlatform.Checked = BWL.settings.DynPlatform
+        txtDbServer.Text = BWL.settings.DbServer
+        txtDbName.Text = BWL.settings.DbName
+        txtDbUser.Text = BWL.settings.DbUser
+        txtDbPass.Text = BWL.settings.DbPass
+        ChangeJavaType(BWL.settings.JavaType)
         If App.CheckOpenCL() Then
-            chkOpenCL.Checked = My.Settings.useOpenCL
+            chkOpenCL.Checked = BWL.settings.useOpenCL
         Else
             chkOpenCL.Enabled = False
             chkOpenCL.Checked = False
         End If
 
         nrCores.Maximum = Environment.ProcessorCount
-        nrCores.Value = My.Settings.Cpulimit
+        nrCores.Value = BWL.settings.Cpulimit
         lblMaxCores.Text = CStr(Environment.ProcessorCount) & " cores."
         Select Case Environment.ProcessorCount
             Case 1
@@ -88,39 +88,39 @@ Public Class frmSettings
         Dim buffer As String = ""
 
         'generic
-        My.Settings.CheckForUpdates = chkCheckForUpdates.Checked
-        My.Settings.AlwaysAdmin = chkAlwaysAdmin.Checked
-        My.Settings.WalletException = chkWalletException.Checked
+        BWL.settings.CheckForUpdates = chkCheckForUpdates.Checked
+        BWL.settings.AlwaysAdmin = chkAlwaysAdmin.Checked
+        BWL.settings.WalletException = chkWalletException.Checked
         'nrs
 
-        My.Settings.AutoIP = chkAutoIP.Checked
-        My.Settings.DynPlatform = chkDynPlatform.Checked
+        BWL.settings.AutoIp = chkAutoIP.Checked
+        BWL.settings.DynPlatform = chkDynPlatform.Checked
         'nrs advanced
-        My.Settings.Cpulimit = nrCores.Value
-        My.Settings.useOpenCL = chkOpenCL.Checked
+        BWL.settings.Cpulimit = nrCores.Value
+        BWL.settings.useOpenCL = chkOpenCL.Checked
         'nrs net
         If cmbListen.SelectedIndex = 0 Then
-            My.Settings.ListenIf = "0.0.0.0" & ";" & CStr(nrListenPort.Value)
+            BWL.settings.ListenIf = "0.0.0.0" & ";" & CStr(nrListenPort.Value)
         Else
-            My.Settings.ListenIf = cmbListen.Items.Item(cmbListen.SelectedIndex) & ";" & CStr(nrListenPort.Value)
+            BWL.settings.ListenIf = cmbListen.Items.Item(cmbListen.SelectedIndex) & ";" & CStr(nrListenPort.Value)
         End If
         If cmbPeerIP.SelectedIndex = 0 Then
-            My.Settings.ListenPeer = "0.0.0.0" & ";" & CStr(nrPeerPort.Value)
+            BWL.settings.ListenPeer = "0.0.0.0" & ";" & CStr(nrPeerPort.Value)
         Else
-            My.Settings.ListenPeer = cmbPeerIP.Items.Item(cmbPeerIP.SelectedIndex) & ";" & CStr(nrPeerPort.Value)
+            BWL.settings.ListenPeer = cmbPeerIP.Items.Item(cmbPeerIP.SelectedIndex) & ";" & CStr(nrPeerPort.Value)
         End If
         For x As Integer = 0 To lstConnectFrom.Items.Count - 1
             buffer &= lstConnectFrom.Items.Item(x) & ";"
         Next
 
-        My.Settings.ConnectFrom = buffer
-        My.Settings.DbServer = txtDbServer.Text
-        My.Settings.DbName = txtDbName.Text
-        My.Settings.DbUser = txtDbUser.Text
-        My.Settings.DbPass = txtDbPass.Text
+        BWL.settings.ConnectFrom = buffer
+        BWL.settings.DbServer = txtDbServer.Text
+        BWL.settings.DbName = txtDbName.Text
+        BWL.settings.DbUser = txtDbUser.Text
+        BWL.settings.DbPass = txtDbPass.Text
 
-        My.Settings.JavaType = JavaType
-        My.Settings.Save()
+        BWL.settings.JavaType = JavaType
+        BWL.settings.SaveSettings()
 
         'ok lets fix firewall if its intended to be like that
         Me.Close()
@@ -202,7 +202,7 @@ Public Class frmSettings
 
         Dim S() As String = Nothing
         Try
-            S = Split(My.Settings.ListenPeer, ";")
+            S = Split(BWL.settings.ListenPeer, ";")
             nrPeerPort.Value = Val(S(1))
             If S(0) = "0.0.0.0" Then
                 cmbPeerIP.SelectedIndex = 0
@@ -217,7 +217,7 @@ Public Class frmSettings
 
 
         Try
-            S = Split(My.Settings.ListenIf, ";")
+            S = Split(BWL.settings.ListenIf, ";")
             nrListenPort.Value = Val(S(1))
             If S(0) = "0.0.0.0" Then
                 cmbListen.SelectedIndex = 0
@@ -235,7 +235,7 @@ Public Class frmSettings
 
     Private Sub SetAllowedIP()
 
-        Dim s() As String = Split(My.Settings.ConnectFrom, ";")
+        Dim s() As String = Split(BWL.settings.ConnectFrom, ";")
         lstConnectFrom.Items.Clear()
         For Each netw As String In s
             If Trim(netw) <> "" Then

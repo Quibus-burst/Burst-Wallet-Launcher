@@ -201,7 +201,7 @@
 
         _JavaType = 1
 
-        _FirstRun = False
+        _FirstRun = True
         _CheckForUpdates = True
         _Upgradev = 12
         _AlwaysAdmin = False
@@ -209,8 +209,8 @@
     End Sub
     Friend Sub LoadSettings()
         Try
-            If IO.File.Exists(BaseDir & "\Settings.ini") Then
-                Dim lines() As String = IO.File.ReadAllLines(BaseDir & "\Settings.ini")
+            If IO.File.Exists(BaseDir & "\BWL.ini") Then
+                Dim lines() As String = IO.File.ReadAllLines(BaseDir & "\BWL.ini")
                 For Each line As String In lines 'lets populate
                     Try
                         Dim Cell() As String = Split(line, "=")
@@ -228,9 +228,9 @@
             Dim Sdata As String = ""
             Dim RP() As Reflection.PropertyInfo = Me.GetType().GetProperties()
             For Each prop In RP
-                Sdata &= prop.Name & "=" & prop.GetValue(Me)
+                Sdata &= prop.Name & "=" & prop.GetValue(Me) & vbCrLf
             Next
-            IO.File.WriteAllText(BaseDir & "\Settings.ini", Sdata)
+            IO.File.WriteAllText(BaseDir & "\BWL.ini", Sdata)
         Catch ex As Exception
 
         End Try

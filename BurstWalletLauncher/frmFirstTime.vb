@@ -245,22 +245,22 @@
 
     End Sub
     Private Sub btnDone_Click(sender As Object, e As EventArgs) Handles btnDone.Click
-        My.Settings.DbType = SelectedDBType
+        BWL.settings.DbType = SelectedDBType
         If App.isInstalled(AppNames.JavaInstalled) Then
-            My.Settings.JavaType = AppNames.JavaInstalled
+            BWL.settings.JavaType = AppNames.JavaInstalled
         Else
-            My.Settings.JavaType = AppNames.JavaPortable
+            BWL.settings.JavaType = AppNames.JavaPortable
         End If
-        My.Settings.CheckForUpdates = chkUpdates.Checked
-        My.Settings.DbName = txtDbName.Text
-        My.Settings.DbPass = txtDbPass.Text
-        My.Settings.DbUser = txtDbUser.Text
-        My.Settings.DbServer = txtDbAddress.Text
-        My.Settings.FirstRun = False
+        BWL.settings.CheckForUpdates = chkUpdates.Checked
+        BWL.settings.DbName = txtDbName.Text
+        BWL.settings.DbPass = txtDbPass.Text
+        BWL.settings.DbUser = txtDbUser.Text
+        BWL.settings.DbServer = txtDbAddress.Text
+        BWL.settings.FirstRun = False
 
         Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
         CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
-        My.Settings.Upgradev = CurVer
+        BWL.settings.Upgradev = CurVer
 
 
         PnlWiz2.Visible = False

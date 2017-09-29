@@ -25,7 +25,7 @@
     End Sub
     Private Sub frmChangeDatabase_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        SelDB = My.Settings.DbType
+        SelDB = BWL.settings.DbType
 
         'check if mariadbp is installed
         Select Case SelDB
@@ -47,8 +47,8 @@
             rDB3.Enabled = False
             rDB3.Text = rDB3.Text & " (Not installed)"
         End If
-        lblCurDB.Text = App.GetDbNameFromType(My.Settings.DbType)
-        If Not My.Settings.DbType = DbType.H2 Then
+        lblCurDB.Text = App.GetDbNameFromType(BWL.settings.DbType)
+        If Not BWL.settings.DbType = DbType.H2 Then
             setdb(DbType.H2)
         Else
             setdb(DbType.FireBird)
@@ -70,16 +70,16 @@
         Select Case SelDB
             Case DbType.H2
                 rDB1.Checked = True
-                lblFromTo.Text = App.GetDbNameFromType(My.Settings.DbType) & " to " & App.GetDbNameFromType(DbType.H2)
+                lblFromTo.Text = App.GetDbNameFromType(BWL.settings.DbType) & " to " & App.GetDbNameFromType(DbType.H2)
             Case DbType.FireBird
                 rDB2.Checked = True
-                lblFromTo.Text = App.GetDbNameFromType(My.Settings.DbType) & " to " & App.GetDbNameFromType(DbType.FireBird)
+                lblFromTo.Text = App.GetDbNameFromType(BWL.settings.DbType) & " to " & App.GetDbNameFromType(DbType.FireBird)
             Case DbType.pMariaDB
                 rDB3.Checked = True
-                lblFromTo.Text = App.GetDbNameFromType(My.Settings.DbType) & " to " & App.GetDbNameFromType(DbType.pMariaDB)
+                lblFromTo.Text = App.GetDbNameFromType(BWL.settings.DbType) & " to " & App.GetDbNameFromType(DbType.pMariaDB)
             Case DbType.MariaDB
                 rDB4.Checked = True
-                lblFromTo.Text = App.GetDbNameFromType(My.Settings.DbType) & " to " & App.GetDbNameFromType(DbType.MariaDB)
+                lblFromTo.Text = App.GetDbNameFromType(BWL.settings.DbType) & " to " & App.GetDbNameFromType(DbType.MariaDB)
                 pnlMariaSettings.Enabled = True
         End Select
     End Sub
@@ -122,7 +122,7 @@
         End If
         If OP = 0 Then
 
-            OldDB = My.Settings.DbType
+            OldDB = BWL.settings.DbType
             If frmMain.Running Then
                 If MsgBox("The wallet must be stopped to export the database." & vbCrLf & " Would you like to stop it now?", MsgBoxStyle.Exclamation Or MsgBoxStyle.YesNo, "Stop wallet?") Then
                     lblStatus.Text = "Waiting for wallet to stop."
@@ -144,12 +144,12 @@
                 StartExport()
             End If
         Else
-            My.Settings.DbType = SelDB
-            My.Settings.DbName = txtDbName.Text
-            My.Settings.DbPass = txtDbPass.Text
-            My.Settings.DbUser = txtDbUser.Text
-            My.Settings.DbServer = txtDbAddress.Text
-            My.Settings.Save()
+            BWL.settings.DbType = SelDB
+            BWL.settings.DbName = txtDbName.Text
+            BWL.settings.DbPass = txtDbPass.Text
+            BWL.settings.DbUser = txtDbUser.Text
+            BWL.settings.DbServer = txtDbAddress.Text
+            BWL.settings.SaveSettings()
             BWL.Generic.WriteNRSConfig()
             frmMain.SetDbInfo()
             Me.Close()
@@ -169,12 +169,12 @@
         StartTime = Now
         Dim Pset As New clsProcessHandler.pSettings
         Pset.AppId = AppNames.Export
-        If My.Settings.JavaType = AppNames.JavaInstalled Then
+        If BWL.settings.JavaType = AppNames.JavaInstalled Then
             Pset.AppPath = "java"
         Else
             Pset.AppPath = BaseDir & "Java\bin\java.exe"
         End If
-        Pset.Cores = My.Settings.Cpulimit
+        Pset.Cores = BWL.settings.Cpulimit
         Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.CreateBinDump " & BaseDir & "Convertion.bbd"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
@@ -226,12 +226,12 @@
             Return
         End If
         If AppId = AppNames.Export Then
-            My.Settings.DbType = SelDB
-            My.Settings.DbName = txtDbName.Text
-            My.Settings.DbPass = txtDbPass.Text
-            My.Settings.DbUser = txtDbUser.Text
-            My.Settings.DbServer = txtDbAddress.Text
-            My.Settings.Save()
+            BWL.settings.DbType = SelDB
+            BWL.settings.DbName = txtDbName.Text
+            BWL.settings.DbPass = txtDbPass.Text
+            BWL.settings.DbUser = txtDbUser.Text
+            BWL.settings.DbServer = txtDbAddress.Text
+            BWL.settings.SaveSettings()
             BWL.Generic.WriteNRSConfig()
             StartImport()
         End If
@@ -343,12 +343,12 @@
     Private Sub StartImport()
         Dim Pset As New clsProcessHandler.pSettings
         Pset.AppId = AppNames.Import
-        If My.Settings.JavaType = AppNames.JavaInstalled Then
+        If BWL.settings.JavaType = AppNames.JavaInstalled Then
             Pset.AppPath = "java"
         Else
             Pset.AppPath = BaseDir & "Java\bin\java.exe"
         End If
-        Pset.Cores = My.Settings.Cpulimit
+        Pset.Cores = BWL.settings.Cpulimit
         Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.LoadBinDump " & BaseDir & "Convertion.bbd -y"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1

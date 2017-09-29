@@ -53,5 +53,5 @@
     '############################
     Public WithEvents App As clsApp
     Public WithEvents ProcHandler As clsProcessHandler
-
+    Public settings As clsSettings
 End Module

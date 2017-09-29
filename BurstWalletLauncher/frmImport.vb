@@ -79,7 +79,7 @@
         AddHandler ProcHandler.Started, AddressOf Starting
         AddHandler ProcHandler.Stopped, AddressOf Stopped
         AddHandler ProcHandler.Update, AddressOf ProcEvents
-        If My.Settings.DbType = DbType.pMariaDB Then
+        If BWL.settings.DbType = DbType.pMariaDB Then
             StartMaria()
         Else
             StartImport()
@@ -103,12 +103,12 @@
 
         Dim Pset As New clsProcessHandler.pSettings
         Pset.AppId = AppNames.Import
-        If My.Settings.JavaType = AppNames.JavaInstalled Then
+        If BWL.settings.JavaType = AppNames.JavaInstalled Then
             Pset.AppPath = "java"
         Else
             Pset.AppPath = BaseDir & "Java\bin\java.exe"
         End If
-        Pset.Cores = My.Settings.Cpulimit
+        Pset.Cores = BWL.settings.Cpulimit
         Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.LoadBinDump " & FileName & " -y"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
@@ -205,7 +205,7 @@
         End If
 
         If AppId = AppNames.Import Then
-            If My.Settings.DbType = DbType.pMariaDB Then
+            If BWL.settings.DbType = DbType.pMariaDB Then
                 StopMaria()
             Else
                 Complete()
@@ -325,7 +325,7 @@
             AddHandler ProcHandler.Started, AddressOf Starting
             AddHandler ProcHandler.Stopped, AddressOf Stopped
             AddHandler ProcHandler.Update, AddressOf ProcEvents
-            If My.Settings.DbType = DbType.pMariaDB Then
+            If BWL.settings.DbType = DbType.pMariaDB Then
                 StartMaria()
             Else
                 StartImport()

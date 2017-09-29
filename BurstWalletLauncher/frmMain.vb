@@ -4,8 +4,6 @@
     Private Delegate Sub DStoped(ByVal [AppId] As Integer)
     Private Delegate Sub DAborted(ByVal [AppId] As Integer, ByVal [data] As String)
     Private Delegate Sub DNewUpdatesAvilable()
-
-
     Public Console(1) As List(Of String)
     Public Running As Boolean
     Public Updateinfo As String
@@ -16,19 +14,15 @@
 
         BaseDir = Application.StartupPath
         If Not BaseDir.EndsWith("\") Then BaseDir &= "\"
+        settings = New clsSettings
+        settings.LoadSettings()
         BWL.Generic.CheckCommandArgs()
-
-        If BWL.Generic.DebugMe Then
-            Me.Text = Me.Text & " (DebugMode)"
-        End If
-        For i As Integer = 0 To UBound(Console)
-            Console(i) = New List(Of String)
-        Next
-        If My.Settings.AlwaysAdmin And Not BWL.Generic.IsAdmin Then
+        If settings.AlwaysAdmin And Not BWL.Generic.IsAdmin Then
             'restartme as admin
             BWL.Generic.RestartAsAdmin()
             End
         End If
+        If BWL.Generic.DebugMe Then Me.Text = Me.Text & " (DebugMode)"
         LastException = Now
 
         If Not BWL.Generic.CheckWritePermission Then
@@ -40,36 +34,37 @@
         '################################
         App = New clsApp
         App.SetLocalInfo()
-
-        If My.Settings.FirstRun Then
+        For i As Integer = 0 To UBound(Console)
+            Console(i) = New List(Of String)
+        Next
+        If BWL.settings.FirstRun Then
             frmFirstTime.ShowDialog()
         End If
-        If My.Settings.FirstRun Then
+        If BWL.settings.FirstRun Then
             End
         End If
 
         BWL.Generic.CheckUpgrade() 'if there is any upgradescenarios
 
-        If My.Settings.CheckForUpdates Then
+        If BWL.settings.CheckForUpdates Then
             App.StartUpdateNotifications()
             AddHandler App.UpdateAvailable, AddressOf NewUpdatesAvilable
         End If
         SetDbInfo()
         lblWallet.Text = "Burst wallet v" & App.GetLocalVersion(AppNames.NRS)
 
-        If My.Settings.Cpulimit = 0 Or My.Settings.Cpulimit > Environment.ProcessorCount Then 'need to set correct cpu
+        If BWL.settings.Cpulimit = 0 Or BWL.settings.Cpulimit > Environment.ProcessorCount Then 'need to set correct cpu
             Select Case Environment.ProcessorCount
                 Case 1
-                    My.Settings.Cpulimit = 1
+                    BWL.settings.Cpulimit = 1
                 Case 2
-                    My.Settings.Cpulimit = 1
+                    BWL.settings.Cpulimit = 1
                 Case 4
-                    My.Settings.Cpulimit = 3
+                    BWL.settings.Cpulimit = 3
                 Case Else
-                    My.Settings.Cpulimit = Environment.ProcessorCount - 2
+                    BWL.settings.Cpulimit = Environment.ProcessorCount - 2
             End Select
         End If
-
 
         ProcHandler = New clsProcessHandler
         AddHandler ProcHandler.Started, AddressOf Starting
@@ -123,7 +118,7 @@
     'labels
     Private Sub lblGotoWallet_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblGotoWallet.LinkClicked
 
-        Dim s() As String = Split(My.Settings.ListenIf, ";")
+        Dim s() As String = Split(BWL.settings.ListenIf, ";")
         Dim url As String = Nothing
         If s(0) = "0.0.0.0" Then
             url = "http://127.0.0.1:" & s(1)
@@ -191,7 +186,7 @@
             lblNrsStatus.Text = "Stopped"
             lblNrsStatus.ForeColor = Color.Red
         End If
-        If My.Settings.DbType = DbType.pMariaDB Then
+        If BWL.settings.DbType = DbType.pMariaDB Then
             If AppId = AppNames.MariaPortable Then
                 LblDbStatus.Text = "Stopped"
                 LblDbStatus.ForeColor = Color.Red
@@ -253,7 +248,7 @@
                 If AppId = AppNames.NRS Then
                     Console(0).Add(data)
                     'here we can do error detection
-                    If My.Settings.WalletException And LastException.AddHours(1) < Now Then
+                    If BWL.settings.WalletException And LastException.AddHours(1) < Now Then
                         If data.StartsWith("Exception in") Then
                             LastException = Now
                             ProcHandler.ReStartProcess(AppNames.NRS)
@@ -270,7 +265,7 @@
                 If AppId = AppNames.NRS Then
                     Console(0).Add(data)
                     'here we can do error detection
-                    If My.Settings.WalletException And LastException.AddHours(1) < Now Then
+                    If BWL.settings.WalletException And LastException.AddHours(1) < Now Then
                         If data.StartsWith("Exception in") Then
                             LastException = Now
                             ProcHandler.ReStartProcess(AppNames.NRS)
@@ -296,7 +291,7 @@
             lblNrsStatus.Text = "Stopped"
             lblNrsStatus.ForeColor = Color.Red
         End If
-        If My.Settings.DbType = DbType.pMariaDB Then
+        If BWL.settings.DbType = DbType.pMariaDB Then
             If AppId = AppNames.MariaPortable Then
                 LblDbStatus.Text = "Stopped"
                 LblDbStatus.ForeColor = Color.Red
@@ -313,7 +308,7 @@
     End Sub
     Private Sub StartWallet()
 
-        If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
+        If BWL.settings.DbType = DbType.pMariaDB Then 'send startsequence
             Dim pset(1) As clsProcessHandler.pSettings
             pset(0) = New clsProcessHandler.pSettings
             'mariadb
@@ -327,12 +322,12 @@
 
             pset(1) = New clsProcessHandler.pSettings
             pset(1).AppId = AppNames.NRS
-            If My.Settings.JavaType = AppNames.JavaInstalled Then
+            If BWL.settings.JavaType = AppNames.JavaInstalled Then
                 pset(1).AppPath = "java"
             Else
                 pset(1).AppPath = BaseDir & "Java\bin\java.exe"
             End If
-            pset(1).Cores = My.Settings.Cpulimit
+            pset(1).Cores = BWL.settings.Cpulimit
             pset(1).Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
             pset(1).StartSignal = "Started API server at"
             pset(1).StartsignalMaxTime = 300
@@ -344,12 +339,12 @@
         Else 'normal start
             Dim Pset As New clsProcessHandler.pSettings
             Pset.AppId = AppNames.NRS
-            If My.Settings.JavaType = AppNames.JavaInstalled Then
+            If BWL.settings.JavaType = AppNames.JavaInstalled Then
                 Pset.AppPath = "java"
             Else
                 Pset.AppPath = BaseDir & "Java\bin\java.exe"
             End If
-            Pset.Cores = My.Settings.Cpulimit
+            Pset.Cores = BWL.settings.Cpulimit
             Pset.Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
             Pset.StartSignal = "Started API server at"
             Pset.StartsignalMaxTime = 300
@@ -360,7 +355,7 @@
         End If
     End Sub
     Public Sub StopWallet()
-        If My.Settings.DbType = DbType.pMariaDB Then 'send startsequence
+        If BWL.settings.DbType = DbType.pMariaDB Then 'send startsequence
             Dim Pid(1) As Object
             Pid(0) = AppNames.NRS
             Pid(1) = AppNames.MariaPortable
@@ -374,7 +369,7 @@
 #Region " Misc "
     Public Sub SetDbInfo()
 
-        Select Case My.Settings.DbType
+        Select Case BWL.settings.DbType
             Case DbType.FireBird
                 lblDbName.Text = App.GetDbNameFromType(DbType.FireBird)
                 LblDbStatus.Text = "Embeded"

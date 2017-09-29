@@ -7,7 +7,7 @@ Friend Class Generic
         Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
         CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
 
-        Dim OldVer As Integer = My.Settings.Upgradev
+        Dim OldVer As Integer = BWL.settings.Upgradev
         If CurVer <= OldVer Then Exit Sub
 
         Do
@@ -22,8 +22,8 @@ Friend Class Generic
             If CurVer = OldVer Then Exit Do
         Loop
 
-        My.Settings.Upgradev = CurVer
-        My.Settings.Save()
+        BWL.settings.Upgradev = CurVer
+        BWL.settings.SaveSettings()
 
     End Sub
     Friend Shared Sub WriteNRSConfig()
@@ -33,24 +33,24 @@ Friend Class Generic
 
         'Peer settings
         Data &= "#Peer network" & vbCrLf
-        Buffer = Split(My.Settings.ListenPeer, ";")
+        Buffer = Split(BWL.settings.ListenPeer, ";")
         Data &= "nxt.peerServerPort = " & Buffer(1) & vbCrLf
         Data &= "nxt.peerServerHost = " & Buffer(0) & vbCrLf & vbCrLf
 
         'API settings
         Data &= "#API network" & vbCrLf
-        Buffer = Split(My.Settings.ListenIf, ";")
+        Buffer = Split(BWL.settings.ListenIf, ";")
         Data &= "nxt.apiServerPort = " & Buffer(1) & vbCrLf
         Data &= "nxt.apiServerHost = " & Buffer(0) & vbCrLf
-        If My.Settings.ConnectFrom.Contains("0.0.0.0") Then
+        If BWL.settings.ConnectFrom.Contains("0.0.0.0") Then
             Data &= "nxt.allowedBotHosts = *" & vbCrLf & vbCrLf
         Else
-            Data &= "nxt.allowedBotHosts = " & My.Settings.ConnectFrom & vbCrLf & vbCrLf
+            Data &= "nxt.allowedBotHosts = " & BWL.settings.ConnectFrom & vbCrLf & vbCrLf
         End If
 
 
         'autoip
-        If My.Settings.AutoIP Then
+        If BWL.settings.AutoIp Then
             Dim ip As String = GetMyIp()
             If ip <> "" Then
                 Data &= "#Auto IP set" & vbCrLf
@@ -59,15 +59,15 @@ Friend Class Generic
         End If
 
         'Dyn platform
-        If My.Settings.AutoIP Then
+        If BWL.settings.AutoIp Then
             Dim ip As String = GetMyIp()
             If ip <> "" Then
                 Data &= "#Dynamic platform" & vbCrLf
-                Data &= "nxt.myPlatform = WCB-" & App.GetDbNameFromType(My.Settings.DbType) & vbCrLf & vbCrLf
+                Data &= "nxt.myPlatform = WCB-" & App.GetDbNameFromType(BWL.settings.DbType) & vbCrLf & vbCrLf
             End If
         End If
 
-        Select Case My.Settings.DbType
+        Select Case BWL.settings.DbType
             Case DbType.FireBird
                 Data &= "#Using Firebird" & vbCrLf
                 Data &= "nxt.dbUrl = jdbc:firebirdsql:embedded:./burst_db/burst.firebirxd.db" & vbCrLf
@@ -80,9 +80,9 @@ Friend Class Generic
                 Data &= "nxt.dbPassword = burstwallet" & vbCrLf & vbCrLf
             Case DbType.MariaDB
                 Data &= "#Using installed MariaDb" & vbCrLf
-                Data &= "nxt.dbUrl=jdbc:mariadb://" & My.Settings.DbServer & "/" & My.Settings.DbName & vbCrLf
-                Data &= "nxt.dbUsername = " & My.Settings.DbUser & vbCrLf
-                Data &= "nxt.dbPassword = " & My.Settings.DbPass & vbCrLf & vbCrLf
+                Data &= "nxt.dbUrl=jdbc:mariadb://" & BWL.settings.DbServer & "/" & BWL.settings.DbName & vbCrLf
+                Data &= "nxt.dbUsername = " & BWL.settings.DbUser & vbCrLf
+                Data &= "nxt.dbPassword = " & BWL.settings.DbPass & vbCrLf & vbCrLf
             Case DbType.H2
                 Data &= "#Using H2" & vbCrLf
                 Data &= "nxt.dbUrl=jdbc:h2:./burst_db/burst;DB_CLOSE_ON_EXIT=False" & vbCrLf
@@ -90,7 +90,7 @@ Friend Class Generic
                 Data &= "nxt.dbPassword = " & vbCrLf & vbCrLf
         End Select
 
-        If My.Settings.useOpenCL Then
+        If BWL.settings.useOpenCL Then
             Data &= "#CPU Offload" & vbCrLf
             Data &= "burst.oclAuto = true" & vbCrLf
             Data &= "burst.oclVerify = true" & vbCrLf & vbCrLf
@@ -154,15 +154,15 @@ Friend Class Generic
         Dim s() As String
         Dim buffer As String
         If IsAdmin() Then
-            s = Split(My.Settings.ListenPeer, ";")
+            s = Split(BWL.settings.ListenPeer, ";")
             If s(0) = "0.0.0.0" Then s(0) = "*"
             If Not SetFirewall("Burst Peers", s(1), s(0), "") Then
                 MsgBox("Failed to apply firewall rules.", MsgBoxStyle.Exclamation Or MsgBoxStyle.OkOnly, "Firewall")
                 End
             End If
-            s = Split(My.Settings.ListenIf, ";")
+            s = Split(BWL.settings.ListenIf, ";")
             If s(0) = "0.0.0.0" Then s(0) = "*"
-            Buffer = Trim(My.Settings.ConnectFrom)
+            buffer = Trim(BWL.settings.ConnectFrom)
             If Buffer <> "" Then
                 Buffer = Buffer.Replace(";", ",")
                 Buffer = Buffer.Replace(" ", "")
@@ -291,7 +291,7 @@ Friend Class Generic
             End If
         Next
 
-        If My.Settings.DbType = DbType.pMariaDB And Ok = True Then
+        If BWL.settings.DbType = DbType.pMariaDB And Ok = True Then
             cmdline = ""
             Msg = ""
             searcher = New ManagementObjectSearcher("root\CIMV2", "SELECT * FROM Win32_Process WHERE Name='mysqld.exe'")
