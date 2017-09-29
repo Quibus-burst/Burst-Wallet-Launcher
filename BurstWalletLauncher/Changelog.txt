@@ -2,10 +2,9 @@
 * Changed
 - Removed
 ~dev edition
+Debug=34
 
 Known problems:
-
-Beta 4
 
 To Be done:
 need to add settings upgrade handler

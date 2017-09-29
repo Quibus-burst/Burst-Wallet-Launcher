@@ -2,12 +2,138 @@
 Imports System.Net.NetworkInformation
 
 Public Class frmSettings
-
     Private JavaType As Integer
 
+#Region " Form events "
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadSettings()
+    End Sub
+    Private Sub TabControl1_DrawItem(ByVal sender As Object, ByVal e As DrawItemEventArgs) Handles TabControl1.DrawItem
+        Dim g As Graphics = e.Graphics
+        Dim _TB As Brush
+        Dim _TP As TabPage = TabControl1.TabPages(e.Index)
+        Dim _TA As Rectangle = TabControl1.GetTabRect(e.Index)
+        If (e.State = DrawItemState.Selected) Then
+            _TB = New SolidBrush(Color.Black)
+            g.FillRectangle(Brushes.SkyBlue, e.Bounds)
+        Else
+            _TB = New SolidBrush(e.ForeColor)
+            e.DrawBackground()
+        End If
+        Dim _TF As New Font("Arial", 12.0, FontStyle.Bold, GraphicsUnit.Pixel)
+        Dim _strFlags As New StringFormat()
+        _strFlags.Alignment = StringAlignment.Center
+        _strFlags.LineAlignment = StringAlignment.Center
+        g.DrawString(_TP.Text, _TF, _TB, _TA, New StringFormat(_strFlags))
+    End Sub
+#End Region
+
+#Region " Clickable objects "
+    Private Sub rJava0_Click(sender As Object, e As EventArgs) Handles rJava0.Click
+        ChangeJavaType(AppNames.JavaInstalled)
+    End Sub
+    Private Sub rJava1_Click(sender As Object, e As EventArgs) Handles rJava1.Click
+        ChangeJavaType(AppNames.JavaPortable)
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        SaveSettings()
+    End Sub
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        SaveSettings()
+    End Sub
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        SaveSettings()
+    End Sub
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Dim buffer() As String = Split(txtAddAllow.Text, "/")
+
+        Dim ip As IPAddress = Nothing
+
+        Select Case UBound(buffer)
+            Case 0
+                If Not IPAddress.TryParse(buffer(0), ip) Then
+                    MsgBox("You have not entered a valid IP.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
+                    Exit Sub
+                End If
+
+                lstConnectFrom.Items.Add(buffer(0))
+            Case 1
+                If Not IPAddress.TryParse(buffer(0), ip) Then
+                    MsgBox("You have not entered a valid cidr network.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
+                    Exit Sub
+                End If
+                If buffer(0).Contains(":") Then 'ipv6
+                    If Val(buffer(1)) > 128 Or Val(buffer(1)) < 0 Then
+                        MsgBox("You have not entered a valid ipv6 cidr network.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
+                        Exit Sub
+                    End If
+
+                Else 'ipv4
+                    If Val(buffer(1)) > 32 Or Val(buffer(1)) < 0 Then
+                        MsgBox("You have not entered a valid  ipv4 cidr network.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
+                        Exit Sub
+                    End If
+                End If
+                lstConnectFrom.Items.Add(buffer(0) & "/" & buffer(1))
+            Case Else
+                MsgBox("You have not entered a valid IP or network.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
+        End Select
+    End Sub
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        If lstConnectFrom.SelectedIndex = -1 Then Exit Sub
+        lstConnectFrom.Items.RemoveAt(lstConnectFrom.SelectedIndex)
+    End Sub
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        SaveSettings()
+    End Sub
+#End Region
+
+    Private Sub SaveSettings()
+
+        Dim buffer As String = ""
+
+        'generic
+        BWL.settings.CheckForUpdates = chkCheckForUpdates.Checked
+        BWL.settings.AlwaysAdmin = chkAlwaysAdmin.Checked
+        BWL.settings.WalletException = chkWalletException.Checked
+        'nrs
+
+        BWL.settings.AutoIp = chkAutoIP.Checked
+        BWL.settings.DynPlatform = chkDynPlatform.Checked
+        'nrs advanced
+        BWL.settings.Cpulimit = nrCores.Value
+        BWL.settings.useOpenCL = chkOpenCL.Checked
+        'nrs net
+        If cmbListen.SelectedIndex = 0 Then
+            BWL.settings.ListenIf = "0.0.0.0" & ";" & CStr(nrListenPort.Value)
+        Else
+            BWL.settings.ListenIf = cmbListen.Items.Item(cmbListen.SelectedIndex) & ";" & CStr(nrListenPort.Value)
+        End If
+        If cmbPeerIP.SelectedIndex = 0 Then
+            BWL.settings.ListenPeer = "0.0.0.0" & ";" & CStr(nrPeerPort.Value)
+        Else
+            BWL.settings.ListenPeer = cmbPeerIP.Items.Item(cmbPeerIP.SelectedIndex) & ";" & CStr(nrPeerPort.Value)
+        End If
+        For x As Integer = 0 To lstConnectFrom.Items.Count - 1
+            buffer &= lstConnectFrom.Items.Item(x) & ";"
+        Next
+
+        BWL.settings.ConnectFrom = buffer
+        BWL.settings.DbServer = txtDbServer.Text
+        BWL.settings.DbName = txtDbName.Text
+        BWL.settings.DbUser = txtDbUser.Text
+        BWL.settings.DbPass = txtDbPass.Text
+
+        BWL.settings.JavaType = JavaType
+        BWL.settings.SaveSettings()
+
+        'ok lets fix firewall if its intended to be like that
+        Me.Close()
 
 
+    End Sub
+    Private Sub LoadSettings()
         If Not App.isInstalled(AppNames.JavaInstalled) Then rJava0.Enabled = False
         If Not App.isInstalled(AppNames.JavaPortable) Then rJava1.Enabled = False
         If BWL.settings.DbType = DbType.MariaDB Then
@@ -54,12 +180,13 @@ Public Class frmSettings
         'SetNRSnet
         SetIf()
         SetAllowedIP()
-
-
-
-
     End Sub
 
+    Private Sub nrCores_ValueChanged(sender As Object, e As EventArgs)
+        If nrCores.Value > Environment.ProcessorCount Then nrCores.Value = Environment.ProcessorCount
+        If nrCores.Value < 1 Then nrCores.Value = 1
+
+    End Sub
     Private Sub ChangeJavaType(ByVal id As Integer)
         rJava0.Checked = False
         rJava1.Checked = False
@@ -74,101 +201,6 @@ Public Class frmSettings
         End Select
         JavaType = id
     End Sub
-
-    Private Sub rJava0_Click(sender As Object, e As EventArgs) Handles rJava0.Click
-        ChangeJavaType(AppNames.JavaInstalled)
-    End Sub
-    Private Sub rJava1_Click(sender As Object, e As EventArgs) Handles rJava1.Click
-        ChangeJavaType(AppNames.JavaPortable)
-    End Sub
-
-
-    Public Sub SaveSettings()
-
-        Dim buffer As String = ""
-
-        'generic
-        BWL.settings.CheckForUpdates = chkCheckForUpdates.Checked
-        BWL.settings.AlwaysAdmin = chkAlwaysAdmin.Checked
-        BWL.settings.WalletException = chkWalletException.Checked
-        'nrs
-
-        BWL.settings.AutoIp = chkAutoIP.Checked
-        BWL.settings.DynPlatform = chkDynPlatform.Checked
-        'nrs advanced
-        BWL.settings.Cpulimit = nrCores.Value
-        BWL.settings.useOpenCL = chkOpenCL.Checked
-        'nrs net
-        If cmbListen.SelectedIndex = 0 Then
-            BWL.settings.ListenIf = "0.0.0.0" & ";" & CStr(nrListenPort.Value)
-        Else
-            BWL.settings.ListenIf = cmbListen.Items.Item(cmbListen.SelectedIndex) & ";" & CStr(nrListenPort.Value)
-        End If
-        If cmbPeerIP.SelectedIndex = 0 Then
-            BWL.settings.ListenPeer = "0.0.0.0" & ";" & CStr(nrPeerPort.Value)
-        Else
-            BWL.settings.ListenPeer = cmbPeerIP.Items.Item(cmbPeerIP.SelectedIndex) & ";" & CStr(nrPeerPort.Value)
-        End If
-        For x As Integer = 0 To lstConnectFrom.Items.Count - 1
-            buffer &= lstConnectFrom.Items.Item(x) & ";"
-        Next
-
-        BWL.settings.ConnectFrom = buffer
-        BWL.settings.DbServer = txtDbServer.Text
-        BWL.settings.DbName = txtDbName.Text
-        BWL.settings.DbUser = txtDbUser.Text
-        BWL.settings.DbPass = txtDbPass.Text
-
-        BWL.settings.JavaType = JavaType
-        BWL.settings.SaveSettings()
-
-        'ok lets fix firewall if its intended to be like that
-        Me.Close()
-
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        SaveSettings()
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        SaveSettings()
-    End Sub
-
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        SaveSettings()
-    End Sub
-
-    Private Sub TabControl1_DrawItem(ByVal sender As Object, ByVal e As DrawItemEventArgs) Handles TabControl1.DrawItem
-        Dim g As Graphics = e.Graphics
-        Dim _TB As Brush
-        Dim _TP As TabPage = TabControl1.TabPages(e.Index)
-        Dim _TA As Rectangle = TabControl1.GetTabRect(e.Index)
-        If (e.State = DrawItemState.Selected) Then
-            _TB = New SolidBrush(Color.Black)
-            g.FillRectangle(Brushes.SkyBlue, e.Bounds)
-        Else
-            _TB = New SolidBrush(e.ForeColor)
-            e.DrawBackground()
-        End If
-        Dim _TF As New Font("Arial", 12.0, FontStyle.Bold, GraphicsUnit.Pixel)
-        Dim _strFlags As New StringFormat()
-        _strFlags.Alignment = StringAlignment.Center
-        _strFlags.LineAlignment = StringAlignment.Center
-        g.DrawString(_TP.Text, _TF, _TB, _TA, New StringFormat(_strFlags))
-    End Sub
-
-    Private Sub nrCores_ValueChanged(sender As Object, e As EventArgs)
-        If nrCores.Value > Environment.ProcessorCount Then nrCores.Value = Environment.ProcessorCount
-        If nrCores.Value < 1 Then nrCores.Value = 1
-
-    End Sub
-
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        SaveSettings()
-    End Sub
-
     Private Sub SetIf()
         Dim adapters As NetworkInterface() = NetworkInterface.GetAllNetworkInterfaces()
         Dim adapter As NetworkInterface
@@ -212,7 +244,7 @@ Public Class frmSettings
                 Next
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(31, ex.Message)
         End Try
 
 
@@ -227,12 +259,11 @@ Public Class frmSettings
                 Next
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(32, ex.Message)
         End Try
 
 
     End Sub
-
     Private Sub SetAllowedIP()
 
         Dim s() As String = Split(BWL.settings.ConnectFrom, ";")
@@ -245,45 +276,6 @@ Public Class frmSettings
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        Dim buffer() As String = Split(txtAddAllow.Text, "/")
 
-        Dim ip As IPAddress = Nothing
-
-        Select Case UBound(buffer)
-            Case 0
-                If Not IPAddress.TryParse(buffer(0), ip) Then
-                    MsgBox("You have not entered a valid IP.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
-                    Exit Sub
-                End If
-
-                lstConnectFrom.Items.Add(buffer(0))
-            Case 1
-                If Not IPAddress.TryParse(buffer(0), ip) Then
-                    MsgBox("You have not entered a valid cidr network.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
-                    Exit Sub
-                End If
-                If buffer(0).Contains(":") Then 'ipv6
-                    If Val(buffer(1)) > 128 Or Val(buffer(1)) < 0 Then
-                        MsgBox("You have not entered a valid ipv6 cidr network.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
-                        Exit Sub
-                    End If
-
-                Else 'ipv4
-                    If Val(buffer(1)) > 32 Or Val(buffer(1)) < 0 Then
-                        MsgBox("You have not entered a valid  ipv4 cidr network.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
-                        Exit Sub
-                    End If
-                End If
-                lstConnectFrom.Items.Add(buffer(0) & "/" & buffer(1))
-            Case Else
-                MsgBox("You have not entered a valid IP or network.", MsgBoxStyle.Information Or MsgBoxStyle.OkOnly, "Wrong format")
-        End Select
-    End Sub
-
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        If lstConnectFrom.SelectedIndex = -1 Then Exit Sub
-        lstConnectFrom.Items.RemoveAt(lstConnectFrom.SelectedIndex)
-    End Sub
 
 End Class

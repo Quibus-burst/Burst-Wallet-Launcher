@@ -219,7 +219,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="NewSettingsProvider.vb" />
     <Compile Include="clsSettings.vb" />
   </ItemGroup>
   <ItemGroup>

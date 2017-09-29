@@ -81,7 +81,7 @@
                 Exit Sub
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(29, ex.Message)
         End Try
 
     End Sub
@@ -110,7 +110,6 @@
         End If
 
     End Sub
-
     Private Sub btnConsole_Click(sender As Object, e As EventArgs) Handles btnConsole.Click
         frmConsole.Show()
     End Sub
@@ -399,7 +398,7 @@
 
             lblShowUpdateNotification.Visible = True
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(30, ex.Message)
         End Try
     End Sub
     Private Sub ConfigureWindowsFirewallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfigureWindowsFirewallToolStripMenuItem.Click

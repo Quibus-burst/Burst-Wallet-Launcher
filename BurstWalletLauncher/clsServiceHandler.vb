@@ -27,7 +27,7 @@ Public Class clsServiceHandler
                 Return True
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(11, ex.Message)
         End Try
         Return False
 
@@ -51,7 +51,7 @@ Public Class clsServiceHandler
                 Return True
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(12, ex.Message)
         End Try
         Return False
     End Function

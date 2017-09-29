@@ -19,7 +19,7 @@
                 Exit Sub
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(13, ex.Message)
         End Try
 
     End Sub

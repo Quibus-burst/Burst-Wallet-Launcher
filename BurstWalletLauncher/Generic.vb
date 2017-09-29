@@ -101,7 +101,7 @@ Friend Class Generic
 
             IO.File.WriteAllText(BaseDir & "conf\nxt.properties", Data)
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(33, ex.Message)
         End Try
 
 
@@ -324,7 +324,7 @@ Friend Class Generic
             Dim WC As Net.WebClient = New Net.WebClient()
             Return WC.DownloadString("http://files.getburst.net/ip.php")
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(34, ex.Message)
         End Try
         Return ""
     End Function
@@ -337,10 +337,10 @@ Friend Class Generic
             Return False
         End Try
     End Function
-    Friend Shared Sub WriteDebug(ByVal msg As String)
+    Friend Shared Sub WriteDebug(ByVal id As Integer, ByVal msg As String)
 
         Try
-            IO.File.AppendAllText(BaseDir & "\bwl_debug.txt", msg & vbCrLf)
+            IO.File.AppendAllText(BaseDir & "\bwl_debug.txt", Now.ToString & " - " & CStr(id) & " - " & msg & vbCrLf)
 
         Catch ex As Exception
             MsgBox(msg)
