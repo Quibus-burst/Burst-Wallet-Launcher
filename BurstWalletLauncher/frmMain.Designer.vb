@@ -41,7 +41,10 @@ Partial Class frmMain
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExportDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ImportDatabaseToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ChangeDatabaseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConfigureWindowsFirewallToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AboutToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContributorsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -56,9 +59,7 @@ Partial Class frmMain
         Me.lblShowUpdateNotification = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.lblWallet = New System.Windows.Forms.Label()
-        Me.ToolsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConfigureWindowsFirewallToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.DeveloperToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -215,15 +216,33 @@ Partial Class frmMain
         Me.ImportDatabaseToolStripMenuItem1.Size = New System.Drawing.Size(166, 22)
         Me.ImportDatabaseToolStripMenuItem1.Text = "Import Database"
         '
+        'ToolStripMenuItem3
+        '
+        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(163, 6)
+        '
         'ChangeDatabaseToolStripMenuItem
         '
         Me.ChangeDatabaseToolStripMenuItem.Name = "ChangeDatabaseToolStripMenuItem"
         Me.ChangeDatabaseToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.ChangeDatabaseToolStripMenuItem.Text = "Change Database"
         '
+        'ToolsToolStripMenuItem1
+        '
+        Me.ToolsToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigureWindowsFirewallToolStripMenuItem})
+        Me.ToolsToolStripMenuItem1.Name = "ToolsToolStripMenuItem1"
+        Me.ToolsToolStripMenuItem1.Size = New System.Drawing.Size(47, 20)
+        Me.ToolsToolStripMenuItem1.Text = "Tools"
+        '
+        'ConfigureWindowsFirewallToolStripMenuItem
+        '
+        Me.ConfigureWindowsFirewallToolStripMenuItem.Name = "ConfigureWindowsFirewallToolStripMenuItem"
+        Me.ConfigureWindowsFirewallToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
+        Me.ConfigureWindowsFirewallToolStripMenuItem.Text = "Configure Windows Firewall"
+        '
         'AboutToolStripMenuItem2
         '
-        Me.AboutToolStripMenuItem2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContributorsToolStripMenuItem})
+        Me.AboutToolStripMenuItem2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContributorsToolStripMenuItem, Me.DeveloperToolStripMenuItem})
         Me.AboutToolStripMenuItem2.Name = "AboutToolStripMenuItem2"
         Me.AboutToolStripMenuItem2.Size = New System.Drawing.Size(52, 20)
         Me.AboutToolStripMenuItem2.Text = "About"
@@ -231,7 +250,7 @@ Partial Class frmMain
         'ContributorsToolStripMenuItem
         '
         Me.ContributorsToolStripMenuItem.Name = "ContributorsToolStripMenuItem"
-        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(141, 22)
+        Me.ContributorsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ContributorsToolStripMenuItem.Text = "Contributors"
         '
         'FileToolStripMenuItem
@@ -316,23 +335,11 @@ Partial Class frmMain
         Me.lblWallet.TabIndex = 7
         Me.lblWallet.Text = "Burst wallet v1.3.6cg"
         '
-        'ToolsToolStripMenuItem1
+        'DeveloperToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfigureWindowsFirewallToolStripMenuItem})
-        Me.ToolsToolStripMenuItem1.Name = "ToolsToolStripMenuItem1"
-        Me.ToolsToolStripMenuItem1.Size = New System.Drawing.Size(47, 20)
-        Me.ToolsToolStripMenuItem1.Text = "Tools"
-        '
-        'ConfigureWindowsFirewallToolStripMenuItem
-        '
-        Me.ConfigureWindowsFirewallToolStripMenuItem.Name = "ConfigureWindowsFirewallToolStripMenuItem"
-        Me.ConfigureWindowsFirewallToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
-        Me.ConfigureWindowsFirewallToolStripMenuItem.Text = "Configure Windows Firewall"
-        '
-        'ToolStripMenuItem3
-        '
-        Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(163, 6)
+        Me.DeveloperToolStripMenuItem.Name = "DeveloperToolStripMenuItem"
+        Me.DeveloperToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.DeveloperToolStripMenuItem.Text = "Developer"
         '
         'frmMain
         '
@@ -400,4 +407,5 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem3 As ToolStripSeparator
     Friend WithEvents ToolsToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ConfigureWindowsFirewallToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DeveloperToolStripMenuItem As ToolStripMenuItem
 End Class

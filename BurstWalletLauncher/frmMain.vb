@@ -153,6 +153,9 @@
     Private Sub ImportDatabaseToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ImportDatabaseToolStripMenuItem1.Click
         frmImport.Show()
     End Sub
+    Private Sub DeveloperToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeveloperToolStripMenuItem.Click
+        frmDeveloper.Show()
+    End Sub
 #End Region
 
 #Region " Wallet Events "
@@ -412,6 +415,8 @@
 
         End If
     End Sub
+
+
 #End Region
 
 

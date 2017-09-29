@@ -159,6 +159,12 @@
     <Compile Include="frmContributors.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmDeveloper.Designer.vb">
+      <DependentUpon>frmDeveloper.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDeveloper.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmDownloadExtract.Designer.vb">
       <DependentUpon>frmDownloadExtract.vb</DependentUpon>
     </Compile>
@@ -230,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmContributors.resx">
       <DependentUpon>frmContributors.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDeveloper.resx">
+      <DependentUpon>frmDeveloper.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDownloadExtract.resx">
       <DependentUpon>frmDownloadExtract.vb</DependentUpon>
