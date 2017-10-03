@@ -8,6 +8,7 @@ Known problems:
 
 To Be done:
 need to add settings upgrade handler
+fix for import db to not be able to close
 Add support to install as a service. (Partially done! PipeServer+Pipeclient but complete needs implementation in wrapper and bwl?)
 Add a components download window where you can select to download a component.
 'hand in hand

@@ -236,6 +236,7 @@ Partial Class frmContributors
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.P1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmContributors"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Contributors"

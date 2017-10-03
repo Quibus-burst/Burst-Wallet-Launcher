@@ -276,6 +276,7 @@
 
                     If Console(0).Count = 3001 Then Console(0).RemoveAt(0)
                 End If
+
             Case ProcOp.Err  'Error
                 MsgBox("A Unhandled error happend when services tried to start. Console view might give clue to what is wrong. Some services might still be running.", MsgBoxStyle.Critical Or MsgBoxStyle.OkOnly, "Error")
                 Running = False

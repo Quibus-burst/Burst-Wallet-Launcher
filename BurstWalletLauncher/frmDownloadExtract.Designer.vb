@@ -22,7 +22,10 @@ Partial Class frmDownloadExtract
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDownloadExtract))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblTime = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblProgress = New System.Windows.Forms.Label()
         Me.lblRead = New System.Windows.Forms.Label()
@@ -34,8 +37,6 @@ Partial Class frmDownloadExtract
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Pb1 = New System.Windows.Forms.ProgressBar()
         Me.btnAbort = New System.Windows.Forms.Button()
-        Me.lblTime = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -60,6 +61,24 @@ Partial Class frmDownloadExtract
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Information"
+        '
+        'lblTime
+        '
+        Me.lblTime.AutoSize = True
+        Me.lblTime.Location = New System.Drawing.Point(205, 85)
+        Me.lblTime.Name = "lblTime"
+        Me.lblTime.Size = New System.Drawing.Size(31, 13)
+        Me.lblTime.TabIndex = 14
+        Me.lblTime.Text = "0:0:0"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(117, 85)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(50, 13)
+        Me.Label6.TabIndex = 13
+        Me.Label6.Text = "Time left:"
         '
         'PictureBox1
         '
@@ -159,24 +178,6 @@ Partial Class frmDownloadExtract
         Me.btnAbort.Text = "Cancel"
         Me.btnAbort.UseVisualStyleBackColor = True
         '
-        'lblTime
-        '
-        Me.lblTime.AutoSize = True
-        Me.lblTime.Location = New System.Drawing.Point(205, 85)
-        Me.lblTime.Name = "lblTime"
-        Me.lblTime.Size = New System.Drawing.Size(31, 13)
-        Me.lblTime.TabIndex = 14
-        Me.lblTime.Text = "0:0:0"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(117, 85)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(50, 13)
-        Me.Label6.TabIndex = 13
-        Me.Label6.Text = "Time left:"
-        '
         'frmDownloadExtract
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -186,6 +187,7 @@ Partial Class frmDownloadExtract
         Me.Controls.Add(Me.btnAbort)
         Me.Controls.Add(Me.GroupBox1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmDownloadExtract"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Download manager"

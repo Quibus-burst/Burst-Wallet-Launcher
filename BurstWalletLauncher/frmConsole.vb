@@ -34,13 +34,17 @@
         Try
             Select Case Operation
                 Case ProcOp.ConsoleOut And ProcOp.ConsoleErr
-                    If AppId = AppNames.MariaPortable And cmbLog.SelectedIndex = 1 Then
+                    If Generic.DebugMe = True Then
                         txtLog.AppendText(data & vbCrLf)
+                    Else
+                        If AppId = AppNames.MariaPortable And cmbLog.SelectedIndex = 1 Then
+                            txtLog.AppendText(data & vbCrLf)
+                        End If
+                        If AppId = AppNames.NRS And cmbLog.SelectedIndex = 0 Then
+                            txtLog.AppendText(data & vbCrLf)
+                        End If
                     End If
-                    If AppId = AppNames.NRS And cmbLog.SelectedIndex = 0 Then
-                        txtLog.AppendText(data & vbCrLf)
-                    End If
-                Case ProcOp.ConsoleErr
+
             End Select
         Catch ex As Exception
             If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(26, ex.Message)
