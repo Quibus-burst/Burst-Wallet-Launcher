@@ -13,7 +13,41 @@ Friend Class Generic
         Do
             Select Case OldVer
                 Case 11 'upgrade from 11 to 12
-                    'write a config file if missing
+                    'check for old settings file. if there is one make the settings.
+                    'if there is we use maria and local java
+                    Try
+                        'only execute this if there is a settings.ini.
+                        If IO.File.Exists(BaseDir & "\Settings.ini") Then
+                            Dim lines() As String = IO.File.ReadAllLines(BaseDir & "\Settings.ini")
+                            BWL.settings.FirstRun = False
+                            'CheckForUpdates, True, 3
+                            Dim cell() As String
+                            For Each line As String In lines
+                                If line <> "" Then
+                                    cell = Split(line, ",")
+                                    Select Case cell(0)
+                                        Case "CheckForUpdates"
+                                            If cell(1) = "True" Then
+                                                BWL.settings.CheckForUpdates = True
+                                            Else
+                                                BWL.settings.CheckForUpdates = False
+                                            End If
+                                    End Select
+                                    BWL.settings.DbName = "burstwallet"
+                                    BWL.settings.DbUser = "burstwallet"
+                                    BWL.settings.DbPass = "burstwallet"
+                                    BWL.settings.DbServer = "localhost:3306"
+                                    BWL.settings.DbType = DbType.pMariaDB
+                                    BWL.settings.JavaType = AppNames.JavaPortable
+                                End If
+                            Next
+                            IO.File.Delete(BaseDir & "\Settings.ini")
+                            BWL.settings.SaveSettings()
+                        End If
+                    Catch ex As Exception
+                        If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
+                    End Try
+
 
 
 

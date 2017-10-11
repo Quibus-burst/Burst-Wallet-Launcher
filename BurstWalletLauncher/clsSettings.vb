@@ -199,11 +199,11 @@
         _DbUser = ""
         _DbPass = ""
 
-        _JavaType = 1
+        _JavaType = AppNames.JavaInstalled
 
         _FirstRun = True
         _CheckForUpdates = True
-        _Upgradev = 12
+        _Upgradev = 11
         _AlwaysAdmin = False
         _Repo = "http://files.getburst.net;http://files2.getburst.net"
     End Sub

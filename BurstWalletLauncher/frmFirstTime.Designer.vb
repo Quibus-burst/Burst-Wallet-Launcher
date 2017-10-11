@@ -71,13 +71,13 @@ Partial Class frmFirstTime
         Me.btnDone = New System.Windows.Forms.Button()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PnlWiz3 = New System.Windows.Forms.Panel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.rYes = New System.Windows.Forms.RadioButton()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
         Me.rNo = New System.Windows.Forms.RadioButton()
+        Me.rYes = New System.Windows.Forms.RadioButton()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.pnlWiz1.SuspendLayout()
         Me.P1.SuspendLayout()
         Me.P3.SuspendLayout()
@@ -569,9 +569,9 @@ Partial Class frmFirstTime
         '
         Me.PictureBox2.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.PictureBox2.Image = Global.BWL.My.Resources.Resources.gb
-        Me.PictureBox2.Location = New System.Drawing.Point(34, 73)
+        Me.PictureBox2.Location = New System.Drawing.Point(30, 73)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(161, 166)
+        Me.PictureBox2.Size = New System.Drawing.Size(166, 166)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 13
         Me.PictureBox2.TabStop = False
@@ -587,6 +587,24 @@ Partial Class frmFirstTime
         Me.PnlWiz3.Size = New System.Drawing.Size(420, 380)
         Me.PnlWiz3.TabIndex = 14
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(244, 340)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(81, 31)
+        Me.Button2.TabIndex = 18
+        Me.Button2.Text = "<< Back"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(331, 340)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(81, 31)
+        Me.Button1.TabIndex = 17
+        Me.Button1.Text = "Done"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -600,42 +618,15 @@ Partial Class frmFirstTime
         Me.Panel2.Size = New System.Drawing.Size(403, 272)
         Me.Panel2.TabIndex = 16
         '
-        'Label1
+        'rNo
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Rockwell", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(4, 11)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(252, 27)
-        Me.Label1.TabIndex = 15
-        Me.Label1.Text = "Getting quickstarted?"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(15, 13)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(361, 143)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = resources.GetString("Label2.Text")
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(331, 340)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(81, 31)
-        Me.Button1.TabIndex = 17
-        Me.Button1.Text = "Done"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(244, 340)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(81, 31)
-        Me.Button2.TabIndex = 18
-        Me.Button2.Text = "<< Back"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.rNo.AutoSize = True
+        Me.rNo.Location = New System.Drawing.Point(18, 212)
+        Me.rNo.Name = "rNo"
+        Me.rNo.Size = New System.Drawing.Size(175, 17)
+        Me.rNo.TabIndex = 2
+        Me.rNo.Text = "No, I want to sync from scratch."
+        Me.rNo.UseVisualStyleBackColor = True
         '
         'rYes
         '
@@ -649,15 +640,24 @@ Partial Class frmFirstTime
         Me.rYes.Text = "Yes, Take me to import where i can download and sync my chain quick."
         Me.rYes.UseVisualStyleBackColor = True
         '
-        'rNo
+        'Label2
         '
-        Me.rNo.AutoSize = True
-        Me.rNo.Location = New System.Drawing.Point(18, 212)
-        Me.rNo.Name = "rNo"
-        Me.rNo.Size = New System.Drawing.Size(175, 17)
-        Me.rNo.TabIndex = 2
-        Me.rNo.Text = "No, I want to sync from scratch."
-        Me.rNo.UseVisualStyleBackColor = True
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(15, 13)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(361, 143)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = resources.GetString("Label2.Text")
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Rockwell", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(4, 11)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(252, 27)
+        Me.Label1.TabIndex = 15
+        Me.Label1.Text = "Getting quickstarted?"
         '
         'frmFirstTime
         '

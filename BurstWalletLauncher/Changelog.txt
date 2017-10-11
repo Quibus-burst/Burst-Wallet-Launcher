@@ -2,12 +2,11 @@
 * Changed
 - Removed
 ~dev edition
-Debug=34
 
 Known problems:
+urgent: fix download of NRS if not there on startup.
 
 To Be done:
-need to add settings upgrade handler
 fix for import db to not be able to close
 Add support to install as a service. (Partially done! PipeServer+Pipeclient but complete needs implementation in wrapper and bwl?)
 Add a components download window where you can select to download a component.
@@ -16,24 +15,28 @@ More visuals when wallet is running. Like Mining info Network diff
 Stuck detection. try to restart NRS (if no new block in 60min then try restart NRS)
 
 ~V1.2
-+ Gui for first time setup
-+ Support for multiple database types
++ Getting started Wizard.
++ Support for multiple database types.
 + Individual components download at start.
-+ Contributors window
-+ NRS network config 
-+ Export / Import / Convert database
-+ Autodetect and setup PeerIp
-+ Limit CPU cores feature
-+ Option to use GPU acceleration
-+ Sanitycheck
++ Contributors Window.
++ NRS network configuration.
++ Export / Import / Convert database.
++ Autodetect and setup Peer IP
++ Limit CPU cores feature.
++ Option to use automatic GPU acceleration.
++ Sanity check
 + Upgrade Scenarios Handler
-+ Automatic firewall rules for NRS network config
-+ Option to always run under Administrative privieleges.
-+ Wallet Excetion monitoring.
++ Option to Automatically configure windows firewall rules for NRS network config.
++ Option to always start with administrative privileges.
++ Wallet Exception monitoring with automatic restart.
++ Debug option with stack trace log
+* Internal settings handler changed.
 * Corrected spelling errors.
-* Internal codestructure changed to be more modular
-* Download system changed
-* Console log is now realtime and limited to 3000 lines
+* Update system changed to handle more components.
+* Internal code structure changed to be more modular
+* Download system changed to be consistent and show more info.
+* Console log is now Realtime and limited to 3000 lines
+
 
 V1.1
 + Update Functions

@@ -37,6 +37,7 @@
         For i As Integer = 0 To UBound(Console)
             Console(i) = New List(Of String)
         Next
+        BWL.Generic.CheckUpgrade() 'if there is any upgradescenarios
         If BWL.settings.FirstRun Then
             frmFirstTime.ShowDialog()
         End If
@@ -44,14 +45,14 @@
             End
         End If
 
-        BWL.Generic.CheckUpgrade() 'if there is any upgradescenarios
+
 
         If BWL.settings.CheckForUpdates Then
             App.StartUpdateNotifications()
             AddHandler App.UpdateAvailable, AddressOf NewUpdatesAvilable
         End If
         SetDbInfo()
-        lblWallet.Text = "Burst wallet v" & App.GetLocalVersion(AppNames.NRS)
+        lblWallet.Text = "Burst wallet v" & App.GetLocalVersion(AppNames.NRS, False)
 
         If BWL.settings.Cpulimit = 0 Or BWL.settings.Cpulimit > Environment.ProcessorCount Then 'need to set correct cpu
             Select Case Environment.ProcessorCount
