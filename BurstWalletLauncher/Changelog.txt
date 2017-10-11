@@ -20,13 +20,14 @@ Stuck detection. try to restart NRS (if no new block in 60min then try restart N
 + Individual components download at start.
 + Contributors Window.
 + NRS network configuration.
-+ Export / Import / Convert database.
++ Export, Import and Convert database using (binary burst database format).
++ Builtin repositories for quickdownload of databases.
 + Autodetect and setup Peer IP
-+ Limit CPU cores feature.
++ Limit logical CPU cores feature.
 + Option to use automatic GPU acceleration.
 + Sanity check
-+ Upgrade Scenarios Handler
-+ Option to Automatically configure windows firewall rules for NRS network config.
++ Internal Upgrade Scenarios Handler
++ Windows firewall rules can be automatically configured.
 + Option to always start with administrative privileges.
 + Wallet Exception monitoring with automatic restart.
 + Debug option with stack trace log
