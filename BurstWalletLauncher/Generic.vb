@@ -86,8 +86,8 @@ Friend Class Generic
             Case DbType.H2
                 Data &= "#Using H2" & vbCrLf
                 Data &= "nxt.dbUrl=jdbc:h2:./burst_db/burst;DB_CLOSE_ON_EXIT=False" & vbCrLf
-                Data &= "nxt.dbUsername = " & vbCrLf
-                Data &= "nxt.dbPassword = " & vbCrLf & vbCrLf
+                Data &= "nxt.dbUsername = sa" & vbCrLf
+                Data &= "nxt.dbPassword = sa" & vbCrLf & vbCrLf
         End Select
 
         If BWL.settings.useOpenCL Then
@@ -101,7 +101,7 @@ Friend Class Generic
 
             IO.File.WriteAllText(BaseDir & "conf\nxt.properties", Data)
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(33, ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
 
 
@@ -324,7 +324,7 @@ Friend Class Generic
             Dim WC As Net.WebClient = New Net.WebClient()
             Return WC.DownloadString("http://files.getburst.net/ip.php")
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(34, ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
         Return ""
     End Function
@@ -337,11 +337,13 @@ Friend Class Generic
             Return False
         End Try
     End Function
-    Friend Shared Sub WriteDebug(ByVal id As Integer, ByVal msg As String)
+    Friend Shared Sub WriteDebug(ByVal strace As String, ByVal msg As String)
 
         Try
-            IO.File.AppendAllText(BaseDir & "\bwl_debug.txt", Now.ToString & " - " & CStr(id) & " - " & msg & vbCrLf)
-
+            Dim strErr As String = "------------------------- " & Now.ToString & " --------------------------" & vbCrLf
+            strErr &= "Message: " & msg & vbCrLf
+            strErr &= "StackTrace:" & strace & vbCrLf
+            IO.File.AppendAllText(BaseDir & "\bwl_debug.txt", strErr)
         Catch ex As Exception
             MsgBox(msg)
         End Try

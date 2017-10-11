@@ -101,7 +101,7 @@ Public Class clsProcessHandler
                 P(Appid).StopProc()
             End If
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(7, ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
     End Sub
     Public Sub StopProcessSquence(ByVal Appid() As Object)
@@ -197,7 +197,7 @@ Public Class clsProcessHandler
                 End If
                 FreeConsole()
             Catch ex As Exception
-                If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(8, ex.Message)
+                If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
             End Try
         End Sub
         Private Function OnExit(CtrlType As CtrlTypes)
@@ -263,7 +263,7 @@ Public Class clsProcessHandler
                     Return False
                 End If
             Catch ex As Exception
-                If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(9, ex.Message)
+                If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
             End Try
             If FoundStartSignal Then Return True
             Return False
@@ -281,7 +281,7 @@ Public Class clsProcessHandler
                 p.Kill()
                 Return True
             Catch ex As Exception
-                If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(10, ex.Message)
+                If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
             End Try
             Return False
         End Function

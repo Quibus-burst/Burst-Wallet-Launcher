@@ -48,7 +48,7 @@
             RemoveHandler App.DownloadDone, AddressOf Done
             RemoveHandler App.Aborted, AddressOf Aborting
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(27, ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
 
         'we are done so close

@@ -6,21 +6,21 @@
             txtLog.Text = String.Join(vbCrLf, frmMain.Console(0))
             AddHandler ProcHandler.Update, AddressOf ProcEvents
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(14, ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
     End Sub
     Private Sub frmMain_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Try
             RemoveHandler ProcHandler.Update, AddressOf ProcEvents
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(15, ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
     End Sub
     Private Sub cmbLog_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbLog.SelectedIndexChanged
         Try
             txtLog.Text = String.Join(vbCrLf, frmMain.Console(cmbLog.SelectedIndex))
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(16, ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
 
     End Sub
@@ -47,7 +47,7 @@
 
             End Select
         Catch ex As Exception
-            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(26, ex.Message)
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
 
     End Sub
