@@ -103,8 +103,15 @@ Friend Class Generic
 
         Select Case BWL.settings.DbType
             Case DbType.FireBird
+                Try
+                    If Not IO.Directory.Exists(BaseDir & "burst_db") Then
+                        IO.Directory.CreateDirectory(BaseDir & "burst_db")
+                    End If
+                Catch ex As Exception
+
+                End Try
                 Data &= "#Using Firebird" & vbCrLf
-                Data &= "nxt.dbUrl = jdbc:firebirdsql:embedded:./burst_db/burst.firebirxd.db" & vbCrLf
+                Data &= "nxt.dbUrl = jdbc:firebirdsql:embedded:./burst_db/burst.firebird.db" & vbCrLf
                 Data &= "nxt.dbUsername = " & vbCrLf
                 Data &= "nxt.dbPassword = " & vbCrLf & vbCrLf
             Case DbType.pMariaDB

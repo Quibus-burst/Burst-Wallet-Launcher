@@ -349,7 +349,7 @@
                 Pset.AppPath = BaseDir & "Java\bin\java.exe"
             End If
             Pset.Cores = BWL.settings.Cpulimit
-            Pset.Params = "-cp burst.jar;lib\*;conf nxt.Nxt"
+            Pset.Params = "-cp burst.jar;lib\*;lib\FirebirdSQL;conf nxt.Nxt"
             Pset.StartSignal = "Started API server at"
             Pset.StartsignalMaxTime = 300
             Pset.WorkingDirectory = BaseDir
