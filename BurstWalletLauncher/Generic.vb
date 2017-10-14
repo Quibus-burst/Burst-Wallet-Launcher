@@ -108,7 +108,7 @@ Friend Class Generic
                         IO.Directory.CreateDirectory(BaseDir & "burst_db")
                     End If
                 Catch ex As Exception
-
+                    If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
                 End Try
                 Data &= "#Using Firebird" & vbCrLf
                 Data &= "nxt.dbUrl = jdbc:firebirdsql:embedded:./burst_db/burst.firebird.db" & vbCrLf

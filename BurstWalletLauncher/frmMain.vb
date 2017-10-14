@@ -3,12 +3,15 @@
     Private Delegate Sub DStarting(ByVal [AppId] As Integer)
     Private Delegate Sub DStoped(ByVal [AppId] As Integer)
     Private Delegate Sub DAborted(ByVal [AppId] As Integer, ByVal [data] As String)
+    Private Delegate Sub DAPIResult(ByVal [data] As String)
     Private Delegate Sub DNewUpdatesAvilable()
     Public Console(1) As List(Of String)
     Public Running As Boolean
     Public Updateinfo As String
     Public Repositories() As String
     Private LastException As Date
+    Private WithEvents APITimer As Timer
+
 #Region " Form Events "
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -66,7 +69,7 @@
                     BWL.settings.Cpulimit = Environment.ProcessorCount - 2
             End Select
         End If
-
+        APITimer = New Timer
         ProcHandler = New clsProcessHandler
         AddHandler ProcHandler.Started, AddressOf Starting
         AddHandler ProcHandler.Stopped, AddressOf Stopped
@@ -96,6 +99,8 @@
             lblGotoWallet.Visible = False
             btnStartStop.Text = "Stopping"
             btnStartStop.Enabled = False
+            APITimer.Enabled = False
+            APITimer.Stop()
             StopWallet()
             'stopsequence
             '0 NRS
@@ -111,9 +116,6 @@
         End If
 
     End Sub
-    Private Sub btnConsole_Click(sender As Object, e As EventArgs) Handles btnConsole.Click
-        frmConsole.Show()
-    End Sub
 
     'labels
     Private Sub lblGotoWallet_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblGotoWallet.LinkClicked
@@ -127,7 +129,7 @@
         End If
         Process.Start(url)
     End Sub
-    Private Sub lblShowUpdateNotification_Click_1(sender As Object, e As EventArgs) Handles lblShowUpdateNotification.Click
+    Private Sub lblUpdates_Click(sender As Object, e As EventArgs) Handles lblUpdates.Click
         frmUpdate.Show()
     End Sub
 
@@ -156,6 +158,20 @@
     End Sub
     Private Sub DeveloperToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeveloperToolStripMenuItem.Click
         frmDeveloper.Show()
+    End Sub
+    Private Sub ConfigureWindowsFirewallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfigureWindowsFirewallToolStripMenuItem.Click
+
+        Dim msg As String = "Would you like to autmatically configure windows firewall with your wallet connection settings?" & vbCrLf
+        msg &= "This will require Administrative priveleges."
+
+        If MsgBox(msg, MsgBoxStyle.Information Or MsgBoxStyle.YesNo, "Windows firewall") = MsgBoxResult.Yes Then
+
+            BWL.Generic.SetFirewallFromSettings()
+
+        End If
+    End Sub
+    Private Sub ViewConsolesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewConsolesToolStripMenuItem.Click
+        frmConsole.Show()
     End Sub
 #End Region
 
@@ -186,6 +202,8 @@
         End If
 
         If AppId = AppNames.NRS Then
+            APITimer.Enabled = False
+            APITimer.Stop()
             lblNrsStatus.Text = "Stopped"
             lblNrsStatus.ForeColor = Color.Red
         End If
@@ -216,6 +234,8 @@
                 If AppId = AppNames.NRS Then
                     LblDbStatus.Text = "Stopped"
                     LblDbStatus.ForeColor = Color.Red
+                    APITimer.Enabled = False
+                    APITimer.Stop()
                 End If
                 If AppId = AppNames.MariaPortable Then
                     lblNrsStatus.Text = "Stopped"
@@ -225,6 +245,7 @@
                 If AppId = AppNames.MariaPortable Then
                     LblDbStatus.Text = "Running"
                     LblDbStatus.ForeColor = Color.DarkGreen
+
                 End If
                 If AppId = AppNames.NRS Then
                     lblNrsStatus.Text = "Running"
@@ -233,6 +254,9 @@
                     Running = True
                     btnStartStop.Enabled = True
                     lblGotoWallet.Visible = True
+                    APITimer.Interval = "1000"
+                    APITimer.Enabled = True
+                    APITimer.Start()
                 End If
             Case ProcOp.Stopping
                 If AppId = AppNames.MariaPortable Then
@@ -242,6 +266,8 @@
                 If AppId = AppNames.NRS Then
                     lblNrsStatus.Text = "Stopping"
                     lblNrsStatus.ForeColor = Color.DarkOrange
+                    APITimer.Enabled = False
+                    APITimer.Stop()
                 End If
             Case ProcOp.ConsoleOut
                 If AppId = AppNames.MariaPortable Then
@@ -401,27 +427,67 @@
         End If
         Try
 
-            lblShowUpdateNotification.Visible = True
+            lblUpdates.Visible = True
         Catch ex As Exception
             If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
         End Try
     End Sub
-    Private Sub ConfigureWindowsFirewallToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConfigureWindowsFirewallToolStripMenuItem.Click
+#End Region
 
-        Dim msg As String = "Would you like to autmatically configure windows firewall with your wallet connection settings?" & vbCrLf
-        msg &= "This will require Administrative priveleges."
+#Region " Get Block Info "
 
-        If MsgBox(msg, MsgBoxStyle.Information Or MsgBoxStyle.YesNo, "Windows firewall") = MsgBoxResult.Yes Then
+    Private Sub APITimer_tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles APITimer.Tick
+        Dim trda As System.Threading.Thread
+        trda = New System.Threading.Thread(AddressOf GetApiData)
+        trda.IsBackground = True
+        trda.Start()
+        trda = Nothing
+    End Sub
 
-            BWL.Generic.SetFirewallFromSettings()
+    Private Sub GetApiData()
+        Try
+            Dim http As New clsHttp
+            Dim s() As String = Split(BWL.settings.ListenIf, ";")
+            Dim url As String = Nothing
+            If s(0) = "0.0.0.0" Then
+                url = "http://127.0.0.1:" & s(1)
+            Else
+                url = "http://" & s(0) & ":" & s(1)
+            End If
+            Dim Result() As String = Split(http.GetUrl(url & "/burst?requestType=getBlocks&lastIndex=1"), ",")
+            Dim msg As String = ""
 
-        End If
+            For Each Line As String In Result
+                If Line.StartsWith(Chr(34) & "height" & Chr(34)) Then
+                    '"height":414439
+                    msg = Line.Substring(9)
+                    Exit For
+                End If
+            Next
+
+            APIResult(msg)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub APIResult(ByVal Data As String)
+        Try
+            If Me.InvokeRequired Then
+                Dim d As New DAPIResult(AddressOf APIResult)
+                Me.Invoke(d, New Object() {Data})
+                Return
+            End If
+            lblBlockInfo.Text = Data
+        Catch ex As Exception
+
+        End Try
+
+
     End Sub
 
 
 #End Region
-
-
 
 
 

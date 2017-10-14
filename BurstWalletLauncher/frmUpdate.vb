@@ -125,7 +125,7 @@
                 End
             End If
         End If
-        frmMain.lblShowUpdateNotification.Visible = False
+        frmMain.lblUpdates.Visible = False
         pb1.Visible = False
         lblStatus.Text = "Update complete."
     End Sub
