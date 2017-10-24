@@ -1,14 +1,14 @@
 ﻿Public Class frmFirstTime
     Private SelectedDBType As Integer = 0
     Private DbVerified As Boolean = False
-
+    Private Chosen As Boolean = False
 
 #Region " DB Selection "
 
 
 
     Private Sub ChangeButton(ByVal Dbver As Integer)
-
+        If Chosen Then Exit Sub 
         'disable all
         r0.Checked = False
         r1.Checked = False
@@ -47,7 +47,6 @@
         ChangeButton(DbType.H2)
     End Sub
     Private Sub P0_Click(sender As Object, e As EventArgs) Handles P0.Click
-
         ChangeButton(DbType.H2)
     End Sub
 
@@ -104,7 +103,7 @@
     End Sub
 
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
-
+        Chosen = True
         Dim Ok As Boolean = True
 
         'Set Default settings
@@ -171,6 +170,7 @@
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         PnlWiz2.Visible = False
         pnlWiz1.Visible = True
+        Chosen = False
     End Sub
 
     Private Sub btnDownload_Click(sender As Object, e As EventArgs) Handles btnDownload.Click
@@ -258,6 +258,7 @@
         BWL.settings.DbServer = txtDbAddress.Text
         BWL.settings.FirstRun = False
 
+
         Dim CurVer As Integer = Reflection.Assembly.GetExecutingAssembly.GetName.Version.Major * 10
         CurVer += Reflection.Assembly.GetExecutingAssembly.GetName.Version.Minor
         BWL.settings.Upgradev = CurVer
@@ -316,13 +317,14 @@
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        BWL.settings.SaveSettings()
+        'writing nxt.properties since we need it for tools.
+        BWL.Generic.WriteNRSConfig()
         If rYes.Checked Then
             frmImport.Show()
 
         End If
-        My.Settings.Save()
-        'writing nxt.properties since we need it for tools.
-        BWL.Generic.WriteNRSConfig()
+
         Me.Close()
     End Sub
 End Class
