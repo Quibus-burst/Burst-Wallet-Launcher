@@ -97,10 +97,9 @@ Partial Class frmImport
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(29, 64)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(435, 13)
+        Me.Label2.Size = New System.Drawing.Size(285, 13)
         Me.Label2.TabIndex = 3
-        Me.Label2.Text = "1. Download and import from one of the built in repositories. (None available at " &
-    "the moment)"
+        Me.Label2.Text = "1. Download and import from one of the built in repositories."
         '
         'Label1
         '

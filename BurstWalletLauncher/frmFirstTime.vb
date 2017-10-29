@@ -265,9 +265,9 @@
 
 
         'temp untill repo in place
-        BWL.settings.SaveSettings()
-        BWL.Generic.WriteNRSConfig()
-        Me.Close()
+        '  BWL.settings.SaveSettings()
+        '  BWL.Generic.WriteNRSConfig()
+        '  Me.Close()
 
         'Temp unavail untill repo in place
         PnlWiz2.Visible = False
