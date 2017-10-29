@@ -20,6 +20,18 @@
         cmbRepo.Items.Add("Getburst.net repository (mini.bbd)")
         cmbRepo.SelectedIndex = 0
     End Sub
+    Private Sub frmImport_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        Try
+            If Running Then
+                MsgBox("You cannot close the import form while importing.", MsgBoxStyle.OkOnly, "Exit")
+                e.Cancel = True
+                Exit Sub
+            End If
+        Catch ex As Exception
+            If BWL.Generic.DebugMe Then BWL.Generic.WriteDebug(ex.StackTrace, ex.Message)
+        End Try
+
+    End Sub
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
         If btnStart.Text = "Close" Then
             Me.Close()
@@ -30,9 +42,9 @@
             Exit Sub
         End If
 
-        r1.Checked = False
-        r2.Checked = False
-        r3.Checked = False
+        r1.Enabled = False
+        r2.Enabled = False
+        r3.Enabled = False
         cmbRepo.Enabled = False
         txtUrl.Enabled = False
         txtFile.Enabled = False
@@ -109,7 +121,7 @@
             Pset.AppPath = BaseDir & "Java\bin\java.exe"
         End If
         Pset.Cores = BWL.settings.Cpulimit
-        Pset.Params = "-cp burst.jar;lib\*;conf nxt.db.quicksync.LoadBinDump " & FileName & " -y"
+        Pset.Params = "-cp burst.jar;conf nxt.db.quicksync.LoadBinDump " & FileName & " -y"
         Pset.StartSignal = ""
         Pset.StartsignalMaxTime = 1
         Pset.WorkingDirectory = BaseDir
@@ -130,9 +142,9 @@
         If DbType.pMariaDB Then StopMaria()
 
         Running = False
-        r1.Checked = True
-        r2.Checked = True
-        r3.Checked = True
+        r1.Enabled = True
+        r2.Enabled = True
+        r3.Enabled = True
         cmbRepo.Enabled = True
         txtUrl.Enabled = True
         txtFile.Enabled = True

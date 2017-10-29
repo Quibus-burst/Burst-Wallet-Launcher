@@ -171,9 +171,9 @@ Partial Class frmChangeDatabase
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(99, 90)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(193, 13)
+        Me.Label5.Size = New System.Drawing.Size(132, 13)
         Me.Label5.TabIndex = 8
-        Me.Label5.Text = "note: Database and schema must exist."
+        Me.Label5.Text = "note: Database must exist."
         '
         'txtDbPass
         '
@@ -380,11 +380,11 @@ Partial Class frmChangeDatabase
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(47, 77)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(413, 26)
+        Me.Label3.Size = New System.Drawing.Size(387, 26)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "This option will export all data from the old database and import it to the new o" &
-    "ne." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This process will probably take several hours but will be mutch faster then" &
-    " to start fresh"
+    "ne." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "This process can take a long time but will be much faster than to start fre" &
+    "sh."
         '
         'rOP2
         '

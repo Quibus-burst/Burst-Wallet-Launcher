@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmExportDb
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmExportDb
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmExportDb))
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -36,7 +36,6 @@ Partial Class frmExportDb
         Me.Label3 = New System.Windows.Forms.Label()
         Me.pb1 = New System.Windows.Forms.ProgressBar()
         Me.lblStatus = New System.Windows.Forms.Label()
-        Me.txtDebug = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -58,9 +57,9 @@ Partial Class frmExportDb
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(29, 70)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(205, 13)
+        Me.Label1.Size = New System.Drawing.Size(218, 13)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "Exporting the database will take long time."
+        Me.Label1.Text = "Exporting the database can take a long time."
         '
         'Label14
         '
@@ -164,23 +163,12 @@ Partial Class frmExportDb
         Me.lblStatus.TabIndex = 14
         Me.lblStatus.Text = "Idle"
         '
-        'txtDebug
-        '
-        Me.txtDebug.Location = New System.Drawing.Point(12, 292)
-        Me.txtDebug.Multiline = True
-        Me.txtDebug.Name = "txtDebug"
-        Me.txtDebug.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtDebug.Size = New System.Drawing.Size(462, 254)
-        Me.txtDebug.TabIndex = 15
-        Me.txtDebug.WordWrap = False
-        '
         'frmExportDb
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(489, 355)
-        Me.Controls.Add(Me.txtDebug)
+        Me.ClientSize = New System.Drawing.Size(489, 322)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.pb1)
         Me.Controls.Add(Me.Label3)
@@ -214,5 +202,4 @@ Partial Class frmExportDb
     Friend WithEvents Label3 As Label
     Friend WithEvents pb1 As ProgressBar
     Friend WithEvents lblStatus As Label
-    Friend WithEvents txtDebug As TextBox
 End Class

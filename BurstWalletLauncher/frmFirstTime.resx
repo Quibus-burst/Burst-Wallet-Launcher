@@ -128,7 +128,7 @@ take as long as several days.
 
 To speed things up you can download a database export of the chain from 
 one of our repositories. This will most likely still take several hours but will 
-be mutch faster.</value>
+be much faster.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

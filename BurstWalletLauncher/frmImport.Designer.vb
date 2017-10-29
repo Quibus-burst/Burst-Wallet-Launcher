@@ -70,9 +70,9 @@ Partial Class frmImport
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(218, 119)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(240, 13)
+        Me.Label5.Size = New System.Drawing.Size(238, 13)
         Me.Label5.TabIndex = 6
-        Me.Label5.Text = "Note: This process can take many hours."
+        Me.Label5.Text = "Note: This process can take a long time."
         '
         'Label4
         '
