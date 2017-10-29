@@ -16,9 +16,16 @@
         Running = False
         cmbRepo.Items.Clear()
         ReDim RepoDBUrls(0)
-        RepoDBUrls(0) = "http://files.getburst.net/mini.bbd"
-        cmbRepo.Items.Add("Getburst.net repository (mini.bbd)")
-        cmbRepo.SelectedIndex = 0
+        '  RepoDBUrls(0) = "http://files.getburst.net/mini.bbd"
+        '  cmbRepo.Items.Add("Getburst.net repository (mini.bbd)")
+        ' cmbRepo.SelectedIndex = 0
+        r1.Checked = False
+        r2.Checked = True
+
+        r1.Enabled = False
+
+        cmbRepo.Enabled = False
+
     End Sub
     Private Sub frmImport_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Try

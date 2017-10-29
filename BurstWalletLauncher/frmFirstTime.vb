@@ -264,6 +264,12 @@
         BWL.settings.Upgradev = CurVer
 
 
+        'temp untill repo in place
+        BWL.settings.SaveSettings()
+        BWL.Generic.WriteNRSConfig()
+        Me.Close()
+
+        'Temp unavail untill repo in place
         PnlWiz2.Visible = False
         PnlWiz3.Top = pnlWiz1.Top
         PnlWiz3.Left = pnlWiz1.Left
