@@ -1,1 +1,0 @@
-# Burst Wallet Launcher
